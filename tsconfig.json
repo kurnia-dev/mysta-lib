@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "composite": true,
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "lib/*": ["library/*"],
+      "packages/*": ["packages/*"]
+    },
+    "types": ["vite/client", "node"]
+  },
+  "include": [
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.js",
+    "**/*.json",
+    "./library/colors.config.json",
+    "**/*.tsx"
+  ],
+  "exclude": ["dist/*.js", "node_modules"]
+}
