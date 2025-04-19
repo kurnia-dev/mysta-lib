@@ -1,0 +1,13 @@
+{
+  "name": "@mystaline/react-presets",
+  "version": "1.0.0-alpha.0",
+  "author": "Mystaline",
+  "description": "ReactJS Component Library Presets",
+  "main": "index.js",
+  "repository": "https://github.com/mysta-lib",
+  "scripts": {
+    "dev": "sh dev.sh",
+    "build": "sh build.sh",
+    "release": "sh release.sh"
+  }
+}
