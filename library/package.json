@@ -1,0 +1,13 @@
+{
+  "name": "@mystaline/mysta-lib",
+  "version": "1.0.0",
+  "author": "FE Developer",
+  "description": "ReactJS Component Library",
+  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && vite build --config ./vite.config.ts && sh ./scripts/postbuild.sh",
+    "release": "pnpm build && changelogen --release --major && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh",
+    "release:minor": "pnpm build && changelogen --release --minor && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh",
+    "release:patch": "pnpm build && changelogen --release --patch --push && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh"
+  }
+}
