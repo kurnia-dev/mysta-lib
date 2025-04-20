@@ -1,8 +1,14 @@
 // FieldWrapper.d.ts
 
 import { ReactNode, FC } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
-export interface FieldWrapperProps {
+export interface FieldWrapperProps extends FieldWrapperEvent {
+  errors: FieldErrors<any>;
+
+  /** The name of the field used for form submission */
+  fieldName?: string;
+
   /**
    * FieldWrapper children
    */
@@ -10,7 +16,33 @@ export interface FieldWrapperProps {
 
   className?: string;
 
-  context?: Record<'invalid' | 'disabled' | 'containerless', boolean>;
+  context?: Partial<Record<'invalid' | 'disabled' | 'containerless', boolean>>;
+
+  /** The label text to display above the input */
+  label?: string;
+
+  /** Additional information to display beside the input, typically as a tooltip */
+  info?: string;
+
+  /** Whether the input is required */
+  required?: boolean;
+
+  /**
+   * To hide mark asterisk to required field
+   *
+   * @default false
+   */
+  hideRequiredMark?: boolean;
+}
+
+/**
+ * Event handlers for the FieldWrapper component.
+ *
+ * @description Defines event handler functions related to DOM interaction in the FieldWrapper component.
+ */
+export interface FieldWrapperEvent {
+  /** Called when the input value changes */
+  onClick?: () => void;
 }
 
 /**
