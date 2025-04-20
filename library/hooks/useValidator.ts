@@ -1,11 +1,25 @@
 import { InputTextProps } from 'lib/components/inputtext/InputText.d';
+import { useForm } from 'lib/context';
 import { useMemo } from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+import {
+  RegisterOptions,
+  useController,
+  UseControllerReturn,
+  useFormContext,
+} from 'react-hook-form';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
 
-type ValidatorConfig = {
-  type: InputTextProps['type'];
+export type FieldType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'number'
+  | 'checkbox'
+  | 'radio';
+
+export type ValidatorRules = {
+  type: FieldType;
   required?: boolean;
   min?: number;
   max?: number;
@@ -19,8 +33,13 @@ type ValidatorConfig = {
   passwordRequirements?: InputTextProps['passwordRequirements'];
 };
 
-export const useValidator = (
-  config: ValidatorConfig,
+export type ControllerConfig = {
+  rules: Omit<ValidatorRules, 'type'>;
+  defaultValue?: any;
+};
+
+export const useRegisterValidator = (
+  config: ValidatorRules,
   fieldName: string,
 ): any => {
   const { register } = useFormContext();
@@ -113,4 +132,21 @@ export const useValidator = (
   }, [config]);
 
   return register(fieldName, validators);
+};
+
+export const useControllerValidator = (
+  config: ControllerConfig,
+  fieldName: string,
+): UseControllerReturn => {
+  const { methods } = useForm();
+  const { control } = methods;
+
+  const controller: UseControllerReturn = useController({
+    name: fieldName,
+    control,
+    defaultValue: config.defaultValue,
+    rules: config.rules,
+  });
+
+  return controller;
 };
