@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { RegisterOptions } from 'react-hook-form';
 
 /**
  * Props for the Checkbox component.
@@ -16,17 +15,20 @@ export interface CheckboxProps extends CheckboxEvent, FieldValidation {
   /** Whether the input is disabled */
   disabled?: boolean;
 
-  /** Whether the checkbox has binary value (`true or false`) */
-  binary?: boolean;
+  /** The value for this checkbox, switch mode to value to use this props */
+  optionValue?: string | number | Record<string, unknown>;
 
-  /** Whether the checkbox has tri-state value */
-  tristate?: boolean;
-
-  /** The current value of the input */
-  value?: string;
+  mode?: 'value' | 'binary' | 'tristate';
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
+
+  /**
+   * To hide mark asterisk to required field
+   *
+   * @default false
+   */
+  hideRequiredMark?: boolean;
 }
 
 /**
@@ -39,7 +41,11 @@ export interface FieldValidation {
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (e?: string) => boolean;
+  customValidation?: (
+    e: (string | number | Record<string, unknown>)[] | boolean | null,
+  ) => boolean;
+
+  customMessage?: string;
 }
 
 /**
@@ -49,7 +55,9 @@ export interface FieldValidation {
  */
 export interface CheckboxEvent {
   /** Called when the input value changes */
-  onChange?: (value: string) => void;
+  onChange?: (
+    value: (string | number | Record<string, unknown>)[] | boolean | null,
+  ) => void;
 }
 
 /**

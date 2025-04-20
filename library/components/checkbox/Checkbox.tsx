@@ -1,9 +1,9 @@
-import { useComponentPreset, useValidator } from 'lib/hooks';
+import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
 import { CheckboxProps } from './Checkbox.d';
-import { useCallback, useEffect } from 'react';
-import { useForm } from 'lib/context';
+import { useCallback } from 'react';
+import { isEqual } from 'lodash';
 
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
   const {
@@ -11,118 +11,120 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
 
     label,
     disabled,
-    tristate,
-    binary,
+    mode = 'binary',
+    optionValue,
     info,
-    value,
     fieldName = 'checkbox',
+    hideRequiredMark = false,
 
     required,
     customValidation,
   } = props;
 
-  const { methods } = useForm();
+  const isValueMode = !!optionValue && mode === 'value';
 
   const {
-    setValue,
-    getValues,
-    watch,
-    formState: { errors = {} },
-  } = methods;
+    field: { value: fieldValue, onChange: formOnChange, ref },
+    fieldState: { error },
+  } = useControllerValidator(
+    {
+      defaultValue: (() => {
+        if (isValueMode) return [];
+        return mode === 'tristate' ? null : false;
+      })(),
+      rules: {
+        validate: (val: CheckboxProps['optionValue'][] | boolean | null) => {
+          if (
+            required &&
+            ((isValueMode && (!Array.isArray(val) || val.length === 0)) ||
+              (mode === 'binary' && val !== true) ||
+              (mode === 'tristate' && val === null))
+          ) {
+            return 'This field is required';
+          }
+          return customValidation?.(val) ?? true;
+        },
+      },
+    },
+    fieldName,
+  );
+
+  const isChecked = isValueMode
+    ? Array.isArray(fieldValue) &&
+      fieldValue.some((each) => isEqual(each, optionValue))
+    : fieldValue;
 
   const preset =
     useComponentPreset('checkbox', {
       props: { label },
       context: {
-        checked: watch(fieldName),
-        partialChecked: watch(fieldName) === false && tristate,
+        checked: isChecked,
+        partialChecked: fieldValue === false && mode === 'tristate',
+        disabled,
       },
     }) ?? {};
 
-  const { ref, ...validator } = useValidator(
-    {
-      type: 'checkbox',
-      required,
-      validate: customValidation,
-    },
-    fieldName,
-  );
+  const handleChange = useCallback(() => {
+    let newValue: CheckboxProps['optionValue'][] | boolean | null = fieldValue;
 
-  useEffect(() => {
-    // const current = getValues()[fieldName];
-    // console.log('🚀 ~ useEffect ~ current:', current);
-    // if (value && value !== current) {
-    //   setValue(fieldName, value);
-    // } else if (!value) {
-    //   setValue(fieldName, '');
-    // }
-
-    console.log('🚀 ~ useEffect ~ watch(fieldName):', watch(fieldName));
-  }, [value, fieldName, setValue, watch]);
-
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const current = getValues()[fieldName];
-      console.log('🚀 ~ current:', current);
-
-      let newValue: string | boolean | '' = current;
-
-      if (tristate) {
-        if (current === '') {
-          newValue = true;
-        } else if (current === true) {
-          newValue = false;
-        } else if (current === false) {
-          newValue = '';
-        }
-      } else if (binary) {
-        newValue = e.target.checked;
+    if (isValueMode) {
+      if (!Array.isArray(fieldValue)) {
+        newValue = [optionValue];
+      } else if (
+        Array.isArray(fieldValue) &&
+        fieldValue.some((each) => isEqual(each, optionValue))
+      ) {
+        newValue = fieldValue.filter((each) => !isEqual(each, optionValue));
+      } else if (fieldValue) {
+        newValue = [...fieldValue, optionValue];
       }
+    } else if (mode === 'tristate') {
+      if (fieldValue === null) {
+        newValue = true;
+      } else if (fieldValue === true) {
+        newValue = false;
+      } else if (fieldValue === false) {
+        newValue = null;
+      }
+    } else if (mode === 'binary') {
+      newValue = !fieldValue;
+    }
 
-      setValue(fieldName, newValue);
-      console.log('🚀 ~ watch(fieldName):', fieldName, watch(fieldName));
-      console.log('🚀 ~ watch():', watch());
-    },
-    [getValues, setValue, fieldName, onChange, tristate, binary, watch],
-  );
+    formOnChange(newValue);
+    onChange(newValue);
+  }, [formOnChange, onChange, fieldValue, mode, isValueMode, optionValue]);
+
+  const createIconBox = () => {
+    if (isChecked === true) {
+      return <Icon {...preset.icon} name="check-4" />;
+    } else if (isChecked === false && mode === 'tristate') {
+      return <Icon {...preset.icon} name="minus-4" />;
+    }
+
+    return null;
+  };
   return (
-    <div {...preset.root}>
-      <FieldWrapper
-        className="flex items-center gap-1"
-        context={{
-          invalid: !!errors[fieldName],
-          disabled,
-          containerless: true,
-        }}
-      >
-        <div {...preset.box}>
-          {watch(fieldName) === true ? (
-            <Icon name="check-4" className="!w-4 !h-4 text-white" />
-          ) : watch(fieldName) === false ? (
-            <Icon name="minus-4" className="!w-4 !h-4 text-white" />
-          ) : (
-            ''
-          )}
-        </div>
-        <input
-          ref={ref}
-          {...validator}
-          {...preset.input}
-          onChange={handleChange}
-          name={fieldName}
-          disabled={disabled}
-          type="checkbox"
-        />
-        <label {...preset.labelContainer} htmlFor={fieldName}>
-          {JSON.stringify(watch(fieldName))}
-          <span {...preset.label}>{label}</span>
-          {required && <i {...preset.required}>*</i>}
-          {info && <Icon {...preset.info} name="info" tooltip={info} />}
-        </label>
-      </FieldWrapper>
-      {typeof errors[fieldName]?.message === 'string' && (
-        <small {...preset.errorMessage}>{errors[fieldName]?.message}</small>
-      )}
-    </div>
+    <FieldWrapper
+      {...{ fieldName, required, label, info, hideRequiredMark }}
+      onClick={handleChange}
+      className="flex items-center gap-1"
+      errors={error ? { [fieldName]: error } : {}}
+      context={{
+        invalid: !!error,
+        disabled,
+        containerless: true,
+      }}
+    >
+      <div {...preset.box}>{createIconBox()}</div>
+      <input
+        ref={ref}
+        {...preset.input}
+        checked={isChecked}
+        name={fieldName}
+        value={mode === 'tristate' ? null : String(optionValue)}
+        disabled={disabled}
+        type="checkbox"
+      />
+    </FieldWrapper>
   );
 };

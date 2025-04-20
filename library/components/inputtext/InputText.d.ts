@@ -32,7 +32,14 @@ export interface InputTextProps extends InputTextEvent, FieldValidation {
    *
    * @default 'text'
    */
-  type?: 'text' | 'password' | 'email' | 'number' | 'checkbox';
+  type?: 'text' | 'password' | 'email' | 'number';
+
+  /**
+   * To hide mark asterisk to required field
+   *
+   * @default false
+   */
+  hideRequiredMark?: boolean;
 }
 
 /**

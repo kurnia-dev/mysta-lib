@@ -1,5 +1,5 @@
 import { useForm } from 'lib/context';
-import { useComponentPreset, useValidator } from 'lib/hooks';
+import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
 import { Icon } from '../icon/Icon';
 import { useCallback, useEffect, useState } from 'react';
 import { InputTextProps } from './InputText.d';
@@ -16,9 +16,9 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     label,
     disabled,
     info,
-    value,
     fieldName = 'inputtext',
     type = 'text',
+    hideRequiredMark = false,
 
     required,
     customMessage,
@@ -47,7 +47,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
       props: { label, type },
     }) ?? {};
 
-  const { ref, ...validator } = useValidator(
+  const { ref, ...validator } = useRegisterValidator(
     {
       type,
       required,
@@ -62,15 +62,6 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     },
     fieldName,
   );
-
-  useEffect(() => {
-    const current = getValues()[fieldName];
-    if (value && value !== current) {
-      setValue(fieldName, value);
-    } else if (!value) {
-      setValue(fieldName, undefined);
-    }
-  }, [value]);
 
   const placeholderText =
     placeholder ?? (label ? `Input ${label.toLowerCase()}` : '');
@@ -113,44 +104,34 @@ export const InputText: React.FC<InputTextProps> = (props) => {
   );
 
   return (
-    <div {...preset.root}>
-      <label {...preset.labelContainer} htmlFor={fieldName}>
-        <span {...preset.label}>{label}</span>
-        {required && <i {...preset.required}>*</i>}
-        {info && <Icon {...preset.info} name="info" tooltip={info} />}
-      </label>
-      <FieldWrapper
-        context={{
-          invalid: !!errors[fieldName],
-          disabled,
-          containerless: type === 'checkbox',
-        }}
-      >
-        <input
-          ref={ref}
-          {...validator}
-          {...preset.input}
-          autoComplete="off"
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onInput={onInput}
-          onKeyDown={handleKeydown}
-          name={fieldName}
-          placeholder={placeholderText}
-          disabled={disabled}
-          type={passwordVisibility && type === 'password' ? 'text' : type}
+    <FieldWrapper
+      {...{ required, fieldName, info, label, errors, hideRequiredMark }}
+      context={{
+        invalid: !!errors[fieldName],
+        disabled,
+      }}
+    >
+      <input
+        ref={ref}
+        {...validator}
+        {...preset.input}
+        autoComplete="off"
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onInput={onInput}
+        onKeyDown={handleKeydown}
+        name={fieldName}
+        placeholder={placeholderText}
+        disabled={disabled}
+        type={passwordVisibility && type === 'password' ? 'text' : type}
+      />
+      {type === 'password' && (
+        <Icon
+          {...preset.eyetoggle}
+          name={passwordVisibility ? 'eye-off' : 'eye-on'}
+          onClick={() => setPasswordVisibility(!passwordVisibility)}
         />
-        {type === 'password' && (
-          <Icon
-            {...preset.eyetoggle}
-            name={passwordVisibility ? 'eye-off' : 'eye-on'}
-            onClick={() => setPasswordVisibility(!passwordVisibility)}
-          />
-        )}
-      </FieldWrapper>
-      {typeof errors[fieldName]?.message === 'string' && (
-        <small {...preset.errorMessage}>{errors[fieldName]?.message}</small>
       )}
-    </div>
+    </FieldWrapper>
   );
 };

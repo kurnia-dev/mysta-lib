@@ -18,9 +18,6 @@ export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
   /** The value for this checkbox, switch mode to value to use this props */
   optionValue?: string | boolean;
 
-  /** The default value for this checkbox */
-  value?: string | boolean;
-
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
 
