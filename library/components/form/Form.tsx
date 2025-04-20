@@ -1,8 +1,20 @@
-import { useForm } from 'lib/context';
+import { useForm, FormProvider } from 'lib/context';
 import { FormProps } from './Form.d';
 import { Button } from '../button/Button';
 
 export const Form = <T extends Record<string, any>>({
+  children,
+  onSubmit,
+  defaultValues,
+}: FormProps<T>) => {
+  return (
+    <FormProvider defaultValues={defaultValues}>
+      <FormWrapper onSubmit={onSubmit}>{children}</FormWrapper>
+    </FormProvider>
+  );
+};
+
+const FormWrapper = <T extends Record<string, any>>({
   children,
   onSubmit,
 }: FormProps<T>) => {

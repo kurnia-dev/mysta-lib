@@ -10,6 +10,13 @@ export interface FormProps<T> {
   children?: ReactNode;
 
   /**
+   * To gives default value to form
+   *
+   * @default {}
+   */
+  defaultValues?: Record<string, any>;
+
+  /**
    * Submit emit
    */
   onSubmit?: (values?: UseFormGetValues<T>) => any;
