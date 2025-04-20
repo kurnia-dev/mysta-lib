@@ -120,7 +120,6 @@ const FormDocs: React.FC = () => {
             fieldName="type"
             required
             optionValue="Member"
-            value="Member"
             label="Member"
             hideRequiredMark
           />
