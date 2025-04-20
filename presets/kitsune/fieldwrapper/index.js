@@ -1,6 +1,32 @@
 export default {
   root: ({ context }) => ({
     className: [
+      'flex flex-col gap-1 max-w-full items-start text-left',
+
+      {
+        '!cursor-default !pointer-events-none':
+          !context?.clickable || context?.disabled,
+      },
+      { '!cursor-pointer': context?.clickable && !context?.disabled },
+    ],
+  }),
+  labelContainer: {
+    className: 'text-sm flex gap-1 cursor-[inherit] items-center',
+  },
+  label: {
+    className: 'text-secondary-500 cursor-[inherit]',
+  },
+  required: {
+    className: 'text-danger-500',
+  },
+  info: {
+    className: 'text-xs',
+  },
+  errorMessage: {
+    className: 'text-danger-500 text-xs font-light w-full',
+  },
+  field: ({ context }) => ({
+    className: [
       // Position
       'relative',
 
@@ -9,7 +35,10 @@ export default {
       { 'border-secondary-500': !context?.invalid },
       { 'border-danger-500': context?.invalid },
 
-      { 'text-secondary-300 bg-secondary-100': context.disabled },
+      {
+        'text-secondary-300 bg-secondary-100':
+          context?.disabled && !context?.containerless,
+      },
     ],
   }),
 };

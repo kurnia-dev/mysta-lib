@@ -1,7 +1,4 @@
 export default {
-  root: {
-    className: 'flex flex-col gap-1 max-w-full items-start',
-  },
   labelContainer: {
     className: 'text-sm flex gap-1 items-center',
   },
@@ -14,6 +11,13 @@ export default {
   info: {
     className: 'text-xs',
   },
+  icon: ({ context }) => ({
+    className: [
+      '!w-4 !h-4',
+      { '!text-secondary-300': context?.disabled },
+      { 'text-white': !context?.disabled },
+    ],
+  }),
   input: ({ props }) => ({
     className: [
       'absolute',
@@ -26,14 +30,15 @@ export default {
   }),
   box: ({ props, context }) => ({
     className: [
-      '!w-4 !h-4 flex items-center justify-center bg-black',
+      '!w-4 !h-4 flex items-center justify-center bg-primary-500',
       'border-2 rounded-[4px]',
       'border-secondary-500 ',
 
       { 'bg-white': !context.checked && !context.partialChecked },
+
+      {
+        '!bg-secondary-100': context?.disabled,
+      },
     ],
   }),
-  errorMessage: {
-    className: 'text-danger-500 text-xs font-light w-full',
-  },
 };
