@@ -72,7 +72,7 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
         checked={isChecked}
         onChange={handleChange}
         name={fieldName}
-        value={String(optionValue)}
+        value={JSON.stringify(optionValue)}
         disabled={disabled}
         type="radio"
       />
