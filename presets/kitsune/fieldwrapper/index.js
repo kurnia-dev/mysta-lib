@@ -3,11 +3,9 @@ export default {
     className: [
       'flex flex-col gap-1 max-w-full items-start text-left',
 
-      {
-        '!cursor-default !pointer-events-none':
-          !context?.clickable || context?.disabled,
-      },
+      { '!cursor-default': !context?.clickable || context?.disabled },
       { '!cursor-pointer': context?.clickable && !context?.disabled },
+      { '!pointer-events-none': context?.disabled },
     ],
   }),
   labelContainer: {
