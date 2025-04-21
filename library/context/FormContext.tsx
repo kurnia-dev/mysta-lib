@@ -7,15 +7,15 @@ import {
 } from 'react-hook-form';
 
 interface FormContextType<T extends Record<string, any>> {
-  methods: UseFormReturn<T>; // you can type this better depending on your form schema
+  methods: UseFormReturn<T>;
 }
-
-const FormContext = createContext<FormContextType<any> | null>(null);
 
 interface FormProviderProps<T extends Record<string, any>> {
   children: ReactNode;
   defaultValues?: DefaultValues<T>;
 }
+
+const FormContext = createContext<FormContextType<any> | null>(null);
 
 export const FormProvider = <T extends Record<string, any>>({
   children,
