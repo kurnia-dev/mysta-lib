@@ -16,7 +16,9 @@ export interface FieldWrapperProps extends FieldWrapperEvent {
 
   className?: string;
 
-  context?: Partial<Record<'invalid' | 'disabled' | 'containerless', boolean>>;
+  context?: Partial<
+    Record<'invalid' | 'disabled' | 'containerless' | 'borderless', boolean>
+  >;
 
   /** The label text to display above the input */
   label?: string;
