@@ -2,15 +2,12 @@ export default {
   root: ({ context }) => ({
     className: [
       'flex flex-col gap-1 max-w-full items-start text-left',
-
-      { '!cursor-default': !context?.clickable || context?.disabled },
-      { '!cursor-pointer': context?.clickable && !context?.disabled },
-      { '!pointer-events-none': context?.disabled },
+      'pointer-events-none',
     ],
   }),
-  labelContainer: {
-    className: 'text-sm flex gap-1 cursor-[inherit] items-center',
-  },
+  labelContainer: ({ context }) => ({
+    className: ['text-sm flex gap-1 cursor-[inherit] items-center'],
+  }),
   label: {
     className: 'text-secondary-500 cursor-[inherit]',
   },
@@ -28,15 +25,20 @@ export default {
       // Position
       'relative',
 
-      { 'min-w-full border': !context?.containerless },
+      { 'min-w-full border': !context?.containerless && !context?.borderless },
 
       { 'border-secondary-500': !context?.invalid },
       { 'border-danger-500': context?.invalid },
 
       {
         'text-secondary-300 bg-secondary-100':
-          context?.disabled && !context?.containerless,
+          context?.disabled && !context?.containerless && !context?.borderless,
       },
+
+      { '!cursor-default': !context?.clickable || context?.disabled },
+      { '!cursor-pointer': context?.clickable && !context?.disabled },
+      { '!pointer-events-none': context?.disabled },
+      { '!pointer-events-auto': !context?.disabled },
     ],
   }),
 };
