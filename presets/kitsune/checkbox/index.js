@@ -18,14 +18,16 @@ export default {
       { 'text-white': !context?.disabled },
     ],
   }),
-  input: ({ props }) => ({
+  input: ({ context }) => ({
     className: [
       'absolute',
-      `appearance-none`,
+      `hidden`,
 
       'focus:!outline-primary-500',
 
       '!w-4 !h-4',
+
+      { '!cursor-pointer': !context?.disabled },
     ],
   }),
   box: ({ props, context }) => ({
