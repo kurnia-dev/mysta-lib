@@ -1,8 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import DocTitle from '../DocTitle';
 import { Checkbox, Form, InputText, RadioButton } from 'lib/components';
+import { FormHandle } from 'lib/components/form/Form.d';
+
+type FormValues = {
+  firstName: string;
+  lastName?: string;
+  nickName: string;
+  employeeType: string;
+  age?: number;
+  siblings?: string;
+  email: string;
+  password: string;
+  permanentEmployee: boolean;
+  isIntern: boolean;
+  termsAndConditions: boolean;
+  collaboration: boolean | null; // tristate
+  presets: string[]; // depends on how your value-mode checkbox is implemented
+  type: 'Admin' | 'Member';
+  workType: 'On-Site';
+};
 
 const FormDocs: React.FC = () => {
+  const formRef = useRef<FormHandle<FormValues>>(null);
+
   useEffect(() => {
     console.log('FormDocs mounted!');
   }, []);
@@ -19,7 +40,11 @@ const FormDocs: React.FC = () => {
     <div className="p-16 bg-white rounded-[40px] flex-col justify-start items-start gap-4 inline-flex">
       <DocTitle name="Form" />
 
-      <Form onSubmit={(e) => console.log(e)} defaultValues={initialValue}>
+      <Form<FormValues>
+        ref={formRef}
+        onSubmit={(e) => console.log(e)}
+        defaultValues={initialValue}
+      >
         <InputText label="First Name" fieldName="firstName" required />
         <InputText label="Last Name" fieldName="lastName" />
         <InputText

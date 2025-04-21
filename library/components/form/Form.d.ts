@@ -1,13 +1,28 @@
 // Form.d.ts
 
-import { ReactNode, FC } from 'react';
-import { UseFormGetValues } from 'react-hook-form';
+import { ReactNode, Ref } from 'react';
+import {
+  SubmitErrorHandler,
+  SubmitHandler,
+  UseFormGetValues,
+  UseFormReset,
+  UseFormResetField,
+} from 'react-hook-form';
 
-export interface FormProps<T> {
+export interface FormProps<T extends Record<string, any>> {
+  ref?: Ref<FormHandle<T>>;
+
   /**
    * Form children
    */
   children?: ReactNode;
+
+  /**
+   * Determine whether form should be reset to default on submit or not
+   *
+   * @default true
+   */
+  resetOnSubmit?: boolean;
 
   /**
    * To gives default value to form
@@ -19,10 +34,20 @@ export interface FormProps<T> {
   /**
    * Submit emit
    */
-  onSubmit?: (values?: UseFormGetValues<T>) => any;
+  onSubmit?: SubmitHandler<T>;
+
+  /**
+   * Error emit
+   */
+  onError?: SubmitErrorHandler<T>;
 }
 
-/**
- * Form component.
- */
-export const Form: FC<FormProps<any>>;
+export interface FormHandle<T extends Record<string, any>> {
+  resetField: UseFormResetField<T>;
+  reset: UseFormReset<T>;
+  getValues: UseFormGetValues<T>;
+}
+
+export declare const Form: <T extends Record<string, any> = any>(
+  props: FormProps<T> & { ref?: React.Ref<FormHandle<T>> },
+) => JSX.Element;
