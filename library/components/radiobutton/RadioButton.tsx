@@ -1,7 +1,7 @@
 import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { RadioButtonProps } from './RadioButton.d';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const RadioButton: React.FC<RadioButtonProps> = (props) => {
   const {
@@ -25,7 +25,6 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
     {
       rules: {
         validate: (val: RadioButtonProps['optionValue']) => {
-          console.log('🚀 ~ val:', val);
           if (required && val === null) {
             return 'This field is required';
           }
@@ -37,11 +36,6 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
   );
 
   const isChecked = fieldValue === optionValue;
-
-  useEffect(() => {
-    console.log('🚀 ~ useEffect ~ fieldName:', fieldName);
-    console.log('🚀 ~ useEffect ~ fieldValue:', fieldValue);
-  }, [fieldValue]);
 
   const preset =
     useComponentPreset('radiobutton', {
