@@ -29,6 +29,13 @@ export interface CheckboxProps extends CheckboxEvent, FieldValidation {
    * @default false
    */
   hideRequiredMark?: boolean;
+
+  /**
+   * Input role
+   *
+   * @default checkbox
+   */
+  role?: 'toggleswitch' | 'checkbox';
 }
 
 /**

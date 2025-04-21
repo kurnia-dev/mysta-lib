@@ -16,6 +16,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     info,
     fieldName = 'checkbox',
     hideRequiredMark = false,
+    role = 'checkbox',
 
     required,
     customValidation,
@@ -55,11 +56,12 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     : fieldValue;
 
   const preset =
-    useComponentPreset('checkbox', {
+    useComponentPreset(role, {
       props: { label },
       context: {
         checked: isChecked,
         partialChecked: fieldValue === false && mode === 'tristate',
+        tristate: mode === 'tristate',
         disabled,
       },
     }) ?? {};
@@ -94,6 +96,14 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     onChange(newValue);
   }, [formOnChange, onChange, fieldValue, mode, isValueMode, optionValue]);
 
+  const createToggleSwitch = () => {
+    return (
+      <div {...preset.iconContainer}>
+        <Icon name="circle-fill" {...preset.icon} />
+      </div>
+    );
+  };
+
   const createIconBox = () => {
     if (isChecked === true) {
       return <Icon {...preset.icon} name="check-4" />;
@@ -112,16 +122,19 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
       context={{
         invalid: !!error,
         disabled,
-        containerless: true,
+        containerless: role === 'checkbox',
+        borderless: true,
       }}
     >
-      <div {...preset.box}>{createIconBox()}</div>
+      <div {...preset.box}>
+        {role === 'checkbox' ? createIconBox() : createToggleSwitch()}
+      </div>
       <input
         ref={ref}
         {...preset.input}
         checked={isChecked}
         name={fieldName}
-        value={mode === 'tristate' ? null : String(optionValue)}
+        value={mode === 'tristate' ? null : JSON.stringify(optionValue)}
         disabled={disabled}
         type="checkbox"
       />
