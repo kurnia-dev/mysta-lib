@@ -11,6 +11,8 @@ const icons = [
   'eye-off',
   'check',
   'x',
+  'circle',
+  'circle-fill',
 ] as IconProps['name'][];
 
 const IconDocs: React.FC = () => {

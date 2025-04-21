@@ -11,7 +11,9 @@ export type Icons =
   | 'eye-off'
   | 'check'
   | 'check-4'
-  | 'x';
+  | 'x'
+  | 'circle'
+  | 'circle-fill';
 
 export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
