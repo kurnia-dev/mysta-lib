@@ -1,7 +1,7 @@
 import { useForm } from 'lib/context';
 import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
 import { Icon } from '../icon/Icon';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { InputTextProps } from './InputText.d';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 
