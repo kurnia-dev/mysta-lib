@@ -4,3 +4,4 @@ export { Form } from './form/Form';
 export { Icon } from './icon/Icon';
 export { InputText } from './inputtext/InputText';
 export { RadioButton } from './radiobutton/RadioButton';
+export { ToggleSwitch } from './toggleswitch/ToggleSwitch';

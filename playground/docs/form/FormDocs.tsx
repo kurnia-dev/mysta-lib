@@ -1,6 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import DocTitle from '../DocTitle';
-import { Checkbox, Form, InputText, RadioButton } from 'lib/components';
+import {
+  Checkbox,
+  Form,
+  InputText,
+  RadioButton,
+  ToggleSwitch,
+} from 'lib/components';
 import { FormHandle } from 'lib/components/form/Form.d';
 
 type FormValues = {
@@ -15,10 +21,12 @@ type FormValues = {
   permanentEmployee: boolean;
   isIntern: boolean;
   termsAndConditions: boolean;
-  collaboration: boolean | null; // tristate
-  presets: string[]; // depends on how your value-mode checkbox is implemented
+  collaboration: boolean | null;
+  presets: string[];
   type: 'Admin' | 'Member';
   workType: 'On-Site';
+  isApproved: boolean | null;
+  isActive: boolean;
 };
 
 const FormDocs: React.FC = () => {
@@ -32,8 +40,11 @@ const FormDocs: React.FC = () => {
     employeeType: 'Intern',
     permanentEmployee: false,
     isIntern: true,
+    isActive: true,
     type: 'Member',
     workType: 'On-Site',
+    presets: [{ a: 'a', aa: 'aa' }],
+    isApproved: false,
   };
 
   return (
@@ -160,6 +171,13 @@ const FormDocs: React.FC = () => {
             hideRequiredMark
           />
         </div>
+        <ToggleSwitch fieldName="isActive" required label="Active" disabled />
+        <ToggleSwitch
+          fieldName="isApproved"
+          required
+          mode="tristate"
+          label="Approve"
+        />
       </Form>
     </div>
   );
