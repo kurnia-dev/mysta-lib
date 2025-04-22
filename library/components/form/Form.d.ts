@@ -1,5 +1,3 @@
-// Form.d.ts
-
 import { ReactNode, Ref } from 'react';
 import {
   SubmitErrorHandler,
@@ -10,8 +8,6 @@ import {
 } from 'react-hook-form';
 
 export interface FormProps<T extends Record<string, any>> {
-  ref?: Ref<FormHandle<T>>;
-
   /**
    * Form children
    */
@@ -49,5 +45,5 @@ export interface FormHandle<T extends Record<string, any>> {
 }
 
 export declare const Form: <T extends Record<string, any> = any>(
-  props: FormProps<T> & { ref?: React.Ref<FormHandle<T>> },
+  props: FormProps<T> & { ref?: Ref<FormHandle<T>> },
 ) => JSX.Element;

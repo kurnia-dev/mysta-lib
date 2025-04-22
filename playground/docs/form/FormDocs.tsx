@@ -34,7 +34,11 @@ const FormDocs: React.FC = () => {
 
   useEffect(() => {
     console.log('FormDocs mounted!');
-  }, []);
+    console.log(
+      '🚀 ~ useEffect ~ formRef.current?.getValues():',
+      formRef.current?.getValues(),
+    );
+  }, [formRef]);
 
   const initialValue = {
     employeeType: 'Intern',
@@ -51,7 +55,7 @@ const FormDocs: React.FC = () => {
     <div className="p-16 bg-white rounded-[40px] flex-col justify-start items-start gap-4 inline-flex">
       <DocTitle name="Form" />
 
-      <Form<FormValues>
+      <Form
         ref={formRef}
         onSubmit={(e) => console.log(e)}
         defaultValues={initialValue}
