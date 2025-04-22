@@ -28,11 +28,10 @@ export default {
     className: [
       'scale-150',
       { 'text-white': !context?.disabled },
-      { 'text-secondary-50': context?.disabled },
-      { '!pointer-events-none': context.disabled },
+      { 'text-secondary-50 !pointer-events-none': context?.disabled },
     ],
   }),
-  input: ({ props }) => ({
+  input: ({ context }) => ({
     className: [
       'absolute',
       'appearance-none',
@@ -40,6 +39,7 @@ export default {
       'focus:!outline-primary-500',
 
       '!w-4 !h-4',
+      { '!cursor-pointer': !context.disabled },
     ],
   }),
   box: ({ props, context }) => ({
@@ -78,6 +78,7 @@ export default {
         'bg-primary-200':
           context.disabled && context.checked && !context.tristate,
       },
+
       { '!pointer-events-none': context.disabled },
     ],
   }),
