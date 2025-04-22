@@ -18,7 +18,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
 }) => {
   const preset =
     useComponentPreset('fieldwrapper', {
-      context: { ...context, clickable: !!onClick },
+      context,
       className,
     }) ?? {};
 
@@ -34,23 +34,19 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
     );
   };
 
-  const WrapperComponent = onClick ? 'button' : 'div';
+  const handleKeydown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
-  const attributes = onClick
-    ? { onClick, type: 'button' as 'button' | 'submit' | 'reset' }
+  const interactiveProps = onClick
+    ? { onClick, onKeyDown: handleKeydown, role: 'button' }
     : {};
 
   return (
-    <WrapperComponent
-      {...preset.root}
-      {...attributes}
-      onKeyDown={(e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-    >
+    <div {...preset.root} {...interactiveProps}>
       {!context?.containerless && createLabel()}
       <div
         {...preset.field}
@@ -62,6 +58,6 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       {typeof errors[fieldName]?.message === 'string' && (
         <small {...preset.errorMessage}>{errors[fieldName]?.message}</small>
       )}
-    </WrapperComponent>
+    </div>
   );
 };

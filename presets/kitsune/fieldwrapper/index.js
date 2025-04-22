@@ -35,8 +35,8 @@ export default {
           context?.disabled && !context?.containerless && !context?.borderless,
       },
 
-      { '!cursor-default': !context?.clickable || context?.disabled },
-      { '!cursor-pointer': context?.clickable && !context?.disabled },
+      { '!cursor-default': context?.disabled },
+      { '!cursor-pointer': !context?.disabled },
       { '!pointer-events-none': context?.disabled },
       { '!pointer-events-auto': !context?.disabled },
     ],
