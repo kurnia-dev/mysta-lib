@@ -132,11 +132,11 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
       <input
         ref={ref}
         {...preset.input}
-        checked={isChecked}
+        checked={isChecked !== null}
         name={fieldName}
-        value={mode === 'tristate' ? null : JSON.stringify(optionValue)}
         disabled={disabled}
         type="checkbox"
+        onChange={() => {}}
       />
     </FieldWrapper>
   );
