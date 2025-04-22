@@ -52,16 +52,16 @@ export default {
       // Active
       {
         'bg-secondary-50':
-          context.disabled && !context.checked && !context.partialChecked,
+          !context.disabled && !context.checked && !context.partialChecked,
       },
-      { 'bg-danger-500': context.disabled && context.partialChecked },
+      { 'bg-danger-500': !context.disabled && context.partialChecked },
       {
         'bg-success-500':
-          context.disabled && context.checked && context.tristate,
+          !context.disabled && context.checked && context.tristate,
       },
       {
         'bg-primary-500':
-          context.disabled && context.checked && !context.tristate,
+          !context.disabled && context.checked && !context.tristate,
       },
 
       // Disabled
