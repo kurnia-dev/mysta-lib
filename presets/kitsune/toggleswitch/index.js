@@ -35,7 +35,7 @@ export default {
   input: ({ props }) => ({
     className: [
       'absolute',
-      `hidden`,
+      'appearance-none',
 
       'focus:!outline-primary-500',
 
@@ -50,10 +50,19 @@ export default {
       'border-secondary-500',
 
       // Active
-      { 'bg-secondary-50': !context.checked && !context.partialChecked },
-      { 'bg-danger-500': context.partialChecked },
-      { 'bg-success-500': context.checked && context.tristate },
-      { 'bg-primary-500': context.checked && !context.tristate },
+      {
+        'bg-secondary-50':
+          !context.disabled && !context.checked && !context.partialChecked,
+      },
+      { 'bg-danger-500': !context.disabled && context.partialChecked },
+      {
+        'bg-success-500':
+          !context.disabled && context.checked && context.tristate,
+      },
+      {
+        'bg-primary-500':
+          !context.disabled && context.checked && !context.tristate,
+      },
 
       // Disabled
       {

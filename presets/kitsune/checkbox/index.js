@@ -21,7 +21,7 @@ export default {
   input: ({ context }) => ({
     className: [
       'absolute',
-      `hidden`,
+      'appearance-none',
 
       'focus:!outline-primary-500',
 
