@@ -56,6 +56,7 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
   return (
     <FieldWrapper
       {...{ fieldName, required, label, info, hideRequiredMark }}
+      onClick={handleChange}
       className="flex items-center gap-1"
       errors={error ? { [fieldName]: error } : {}}
       context={{
@@ -70,9 +71,8 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
         ref={ref}
         {...preset.input}
         checked={isChecked}
-        onChange={handleChange}
+        onChange={() => {}}
         name={fieldName}
-        value={JSON.stringify(optionValue)}
         disabled={disabled}
         type="radio"
       />
