@@ -5,7 +5,7 @@ import { forwardRef, Ref, useImperativeHandle } from 'react';
 
 const FormContent = <T extends Record<string, any>>(
   { children, resetOnSubmit, onSubmit, onError }: FormProps<T>,
-  ref: React.Ref<FormHandle<T>>,
+  ref: Ref<FormHandle<T>>,
 ) => {
   const { methods } = useForm<T>();
   const { handleSubmit, reset, resetField, getValues } = methods;
@@ -41,7 +41,7 @@ const FormContent = <T extends Record<string, any>>(
 export const FormRefWrapper = forwardRef(FormContent) as <
   T extends Record<string, any> = any,
 >(
-  props: FormProps<T> & { ref?: Ref<FormHandle<T>> },
+  props: FormProps<T>,
 ) => JSX.Element;
 
 const FormContainer = <T extends Record<string, any>>(
@@ -71,5 +71,5 @@ const FormContainer = <T extends Record<string, any>>(
 export const Form = forwardRef(FormContainer) as <
   T extends Record<string, any> = any,
 >(
-  props: FormProps<T> & { ref?: Ref<FormHandle<T>> },
+  props: FormProps<T>,
 ) => JSX.Element;
