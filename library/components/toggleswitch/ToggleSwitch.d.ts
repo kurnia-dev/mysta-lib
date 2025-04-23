@@ -7,7 +7,7 @@ import { FC } from 'react';
  */
 export interface ToggleSwitchProps extends ToggleSwitchEvent, FieldValidation {
   /** The name of the field used for form submission */
-  fieldName: string;
+  fieldName?: string;
 
   /** The label text to display above the input */
   label?: string;
@@ -16,6 +16,8 @@ export interface ToggleSwitchProps extends ToggleSwitchEvent, FieldValidation {
   disabled?: boolean;
 
   mode?: 'binary' | 'tristate';
+
+  value?: boolean | null;
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
@@ -38,9 +40,7 @@ export interface FieldValidation {
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (
-    e: (string | number | Record<string, unknown>)[] | boolean | null,
-  ) => boolean;
+  customValidation?: (e: boolean | null) => boolean;
 
   customMessage?: string;
 }
@@ -52,9 +52,7 @@ export interface FieldValidation {
  */
 export interface ToggleSwitchEvent {
   /** Called when the input value changes */
-  onChange?: (
-    value: (string | number | Record<string, unknown>)[] | boolean | null,
-  ) => void;
+  onChange?: (value: boolean | null) => void;
 }
 
 /**
