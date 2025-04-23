@@ -1,5 +1,4 @@
 import { InputTextProps } from 'lib/components/inputtext/InputText.d';
-import { useForm } from 'lib/context';
 import { useMemo } from 'react';
 import {
   RegisterOptions,
@@ -7,6 +6,7 @@ import {
   UseControllerReturn,
   useFormContext,
 } from 'react-hook-form';
+import { useEffectiveControl } from 'lib/hooks';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
 
@@ -138,15 +138,12 @@ export const useControllerValidator = (
   config: ControllerConfig,
   fieldName: string,
 ): UseControllerReturn => {
-  const { methods } = useForm();
-  const { control } = methods;
+  const control = useEffectiveControl();
 
-  const controller: UseControllerReturn = useController({
+  return useController({
     name: fieldName,
     control,
     defaultValue: config.defaultValue,
     rules: config.rules,
   });
-
-  return controller;
 };
