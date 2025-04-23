@@ -7,7 +7,7 @@ import { FC } from 'react';
  */
 export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
   /** The name of the field used for form submission */
-  fieldName: string;
+  fieldName?: string;
 
   /** The label text to display above the input */
   label?: string;

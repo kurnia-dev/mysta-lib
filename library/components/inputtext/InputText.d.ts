@@ -8,7 +8,7 @@ import { RegisterOptions } from 'react-hook-form';
  */
 export interface InputTextProps extends InputTextEvent, FieldValidation {
   /** The name of the field used for form submission */
-  fieldName: string;
+  fieldName?: string;
 
   /** The label text to display above the input */
   label?: string;
