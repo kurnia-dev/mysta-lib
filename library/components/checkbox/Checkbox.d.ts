@@ -1,5 +1,10 @@
 import { FC } from 'react';
 
+export type CheckboxValue =
+  | (string | number | Record<string, unknown>)[]
+  | boolean
+  | null;
+
 /**
  * Props for the Checkbox component.
  *
@@ -19,6 +24,8 @@ export interface CheckboxProps extends CheckboxEvent, FieldValidation {
   optionValue?: string | number | Record<string, unknown>;
 
   mode?: 'value' | 'binary' | 'tristate';
+
+  value?: CheckboxValue;
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
@@ -62,9 +69,7 @@ export interface FieldValidation {
  */
 export interface CheckboxEvent {
   /** Called when the input value changes */
-  onChange?: (
-    value: (string | number | Record<string, unknown>)[] | boolean | null,
-  ) => void;
+  onChange?: (value: CheckboxValue) => void;
 }
 
 /**
