@@ -1,7 +1,7 @@
 import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { RadioButtonProps } from './RadioButton.d';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export const RadioButton: React.FC<RadioButtonProps> = (props) => {
   const {
@@ -13,6 +13,7 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
     info,
     fieldName = 'radio',
     hideRequiredMark = false,
+    value,
 
     required,
     customValidation,
@@ -45,6 +46,12 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
         disabled,
       },
     }) ?? {};
+
+  useEffect(() => {
+    if (value !== null) {
+      formOnChange(value);
+    }
+  }, [value]);
 
   const handleChange = useCallback(() => {
     const newValue: RadioButtonProps['optionValue'] = optionValue;

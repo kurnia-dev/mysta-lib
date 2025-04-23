@@ -12,7 +12,7 @@ export type CheckboxValue =
  */
 export interface CheckboxProps extends CheckboxEvent, FieldValidation {
   /** The name of the field used for form submission */
-  fieldName: string;
+  fieldName?: string;
 
   /** The label text to display above the input */
   label?: string;

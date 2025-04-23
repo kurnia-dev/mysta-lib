@@ -15,6 +15,8 @@ export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
   /** Whether the input is disabled */
   disabled?: boolean;
 
+  value?: string | boolean;
+
   /** The value for this checkbox, switch mode to value to use this props */
   optionValue?: string | boolean;
 
@@ -39,7 +41,7 @@ export interface FieldValidation {
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (e: string | boolean | null) => boolean;
+  customValidation?: (e: string | boolean) => boolean;
 
   customMessage?: string;
 }
@@ -51,7 +53,7 @@ export interface FieldValidation {
  */
 export interface RadioButtonEvent {
   /** Called when the input value changes */
-  onChange?: (value: string | boolean | null) => void;
+  onChange?: (value: string | boolean) => void;
 }
 
 /**

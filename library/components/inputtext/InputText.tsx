@@ -1,7 +1,7 @@
 import { useForm } from 'lib/context';
 import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
 import { Icon } from '../icon/Icon';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { InputTextProps } from './InputText.d';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 
@@ -19,6 +19,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     fieldName = 'inputtext',
     type = 'text',
     hideRequiredMark = false,
+    value,
 
     required,
     customMessage,
@@ -65,6 +66,12 @@ export const InputText: React.FC<InputTextProps> = (props) => {
 
   const placeholderText =
     placeholder ?? (label ? `Input ${label.toLowerCase()}` : '');
+
+  useEffect(() => {
+    if (value !== null) {
+      setValue(fieldName, value);
+    }
+  }, [value]);
 
   const handleChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {

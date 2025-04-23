@@ -2,7 +2,7 @@ import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
 import { CheckboxProps } from './Checkbox.d';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { isEqual } from 'lodash';
 
 export const Checkbox: React.FC<CheckboxProps> = (props) => {
@@ -17,6 +17,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     fieldName = 'checkbox',
     hideRequiredMark = false,
     role = 'checkbox',
+    value,
 
     required,
     customValidation,
@@ -65,6 +66,12 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
         disabled,
       },
     }) ?? {};
+
+  useEffect(() => {
+    if (value !== null) {
+      formOnChange(value);
+    }
+  }, [value]);
 
   const handleChange = useCallback(() => {
     let newValue: CheckboxProps['optionValue'][] | boolean | null = fieldValue;
