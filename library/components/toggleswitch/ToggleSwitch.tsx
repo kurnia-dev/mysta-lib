@@ -56,7 +56,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = (props) => {
     }) ?? {};
 
   useEffect(() => {
-    if (value !== null) {
+    if (value !== undefined) {
       formOnChange(value);
     }
   }, [value]);

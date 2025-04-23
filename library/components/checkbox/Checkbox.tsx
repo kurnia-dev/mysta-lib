@@ -68,7 +68,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     }) ?? {};
 
   useEffect(() => {
-    if (value !== null) {
+    if (value !== undefined) {
       formOnChange(value);
     }
   }, [value]);
