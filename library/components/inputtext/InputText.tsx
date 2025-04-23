@@ -16,7 +16,7 @@ export const InputText: React.FC<InputTextProps> = (props) => {
     label,
     disabled,
     info,
-    fieldName = 'inputtext',
+    fieldName = label ?? 'inputtext',
     type = 'text',
     hideRequiredMark = false,
     value,

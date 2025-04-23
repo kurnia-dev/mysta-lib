@@ -14,7 +14,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     mode = 'binary',
     optionValue,
     info,
-    fieldName = 'checkbox',
+    fieldName = label ?? 'checkbox',
     hideRequiredMark = false,
     role = 'checkbox',
     value,

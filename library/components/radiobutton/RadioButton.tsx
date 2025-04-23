@@ -11,7 +11,7 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
     disabled,
     optionValue,
     info,
-    fieldName = 'radio',
+    fieldName = label ?? 'radio',
     hideRequiredMark = false,
     value,
 
