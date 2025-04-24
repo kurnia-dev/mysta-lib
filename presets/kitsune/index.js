@@ -1,6 +1,7 @@
 import badge from './badge/index.js';
 import button from './button/index.js';
 import checkbox from './checkbox/index.js';
+import dialog from './dialog/index.js';
 import fieldwrapper from './fieldwrapper/index.js';
 import global from './global.js';
 import radiobutton from './radiobutton/index.js';
@@ -29,6 +30,7 @@ const kitsune = {
   // Data
 
   // Panels
+  dialog,
 
   // Menu
 
