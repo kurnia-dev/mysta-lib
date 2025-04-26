@@ -1,10 +1,16 @@
 import { ReactNode, Ref } from 'react';
 import {
+  DeepMap,
+  DeepPartial,
+  FieldErrors,
   SubmitErrorHandler,
   SubmitHandler,
   UseFormGetValues,
   UseFormReset,
   UseFormResetField,
+  UseFormSetError,
+  UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 
 export interface FormProps<T extends Record<string, any>> {
@@ -44,6 +50,12 @@ export interface FormHandle<T extends Record<string, any>> {
   resetField: UseFormResetField<T>;
   reset: UseFormReset<T>;
   getValues: UseFormGetValues<T>;
+  errors: FieldErrors<T>;
+  watch: UseFormWatch<T>;
+  setValue: UseFormSetValue<T>;
+  setError: UseFormSetError<T>;
+  isDirty: boolean;
+  dirtyFields: Partial<Readonly<DeepMap<DeepPartial<T>, boolean>>>;
 }
 
 export declare const Form: <T extends Record<string, any> = any>(
