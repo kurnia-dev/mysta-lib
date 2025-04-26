@@ -5,7 +5,7 @@ import dialog from './dialog/index.js';
 import fieldwrapper from './fieldwrapper/index.js';
 import global from './global.js';
 import radiobutton from './radiobutton/index.js';
-import inputtext from './inputtext/index.js';
+import baseinput from './baseinput/index.js';
 import toggleswitch from './toggleswitch/index.js';
 import tooltip from './tooltip/index.js';
 
@@ -19,7 +19,7 @@ const kitsune = {
 
   // Forms
   checkbox,
-  inputtext,
+  baseinput,
   fieldwrapper,
 
   // Buttons
