@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 
@@ -8,7 +8,7 @@ export default defineConfig({
     'process.env.NODE_ENV': JSON.stringify('production'),
   },
   plugins: [
-    vue(),
+    react(),
     dts({
       insertTypesEntry: true,
     }),
