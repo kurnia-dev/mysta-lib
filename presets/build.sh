@@ -13,6 +13,7 @@ presetNames=(
 
 # Loop through the array and run Tailwind CSS for each preset
 for preset in "${presetNames[@]}"; do
+  echo $preset
   inputDir="./${preset}"
   outputDir="./dist/${preset}"
 
