@@ -12,4 +12,4 @@ VERSION=$(pnpm --filter $WORKSPACE exec npm pkg get version | tr -d '"')
 git commit -m "chore($WORKSPACE): bump version to $VERSION prerelease"
 
 # Run release for the filtered workspace
-pnpm --filter $WORKSPACE release
+pnpm --filter $WORKSPACE release "alpha"
