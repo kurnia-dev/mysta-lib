@@ -4,6 +4,9 @@ import {
   Checkbox,
   Form,
   InputText,
+  InputNumber,
+  InputPassword,
+  InputEmail,
   RadioButton,
   ToggleSwitch,
 } from 'lib/components';
@@ -35,10 +38,10 @@ const FormDocs: React.FC = () => {
   useEffect(() => {
     console.log('FormDocs mounted!');
     console.log(
-      '🚀 ~ useEffect ~ formRef.current?.getValues():',
-      formRef.current?.getValues(),
+      '🚀 ~ useEffect ~ formRef.current?.errors:',
+      formRef.current?.errors,
     );
-  }, [formRef]);
+  }, [formRef.current?.errors]);
 
   const initialValue = {
     employeeType: 'Intern',
@@ -58,6 +61,7 @@ const FormDocs: React.FC = () => {
       <Form
         ref={formRef}
         onSubmit={(e) => console.log(e)}
+        onError={(e) => console.log(e)}
         defaultValues={initialValue}
       >
         <InputText label="First Name" fieldName="firstName" required />
@@ -75,10 +79,9 @@ const FormDocs: React.FC = () => {
           disabled
           info="Form pendaftaran intern"
         />
-        <InputText
+        <InputNumber
           label="Age"
           fieldName="age"
-          type="number"
           max={30}
           min={24}
           info="Age range 24 to 30"
@@ -89,9 +92,8 @@ const FormDocs: React.FC = () => {
           pattern={/^\d+$/}
           preventInputOnError
         />
-        <InputText type="email" fieldName="email" label="Email" required />
-        <InputText
-          type="password"
+        <InputEmail fieldName="email" label="Email" required />
+        <InputPassword
           fieldName="password"
           label="Password"
           required
