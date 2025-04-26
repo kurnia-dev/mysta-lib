@@ -34,7 +34,7 @@ export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
 /**
  * Validation rules for an input field.
  *
- * @description Defines various validation rules for the input text field, including required fields, min/max length, and custom validation.
+ * @description Defines various validation rules for the  field, including required fields, min/max length, and custom validation.
  */
 export interface FieldValidation {
   /** Whether the input is required */
