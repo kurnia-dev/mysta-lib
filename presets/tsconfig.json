@@ -10,15 +10,9 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "lib/*": [
-        "../library/*"
-      ]
-    },
+      "lib/*": ["../library/*"]
+    }
   },
-  "include": [
-    "**/*.d.ts",
-    "**/*.ts",
-    "**/*.json",
-    "**/preset/**/*.{js|ts}"
-  ]
+  "include": ["**/*.d.ts", "**/*.ts", "**/*.json", "**/preset/**/*.{js|ts}"],
+  "exclude": ["dist"]
 }
