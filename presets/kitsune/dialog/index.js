@@ -1,20 +1,15 @@
 export default {
   overlay: ({ context }) => ({
-    className: [
-      'fixed inset-0 bg-black/50 backdrop-blur-sm z-40',
-      //   'data-[state="open"]:!opacity-50 data-[state="open"]:!scale-100 data-[state="close"]:!opacity-0 data-[state="close"]:!scale-10',
-      //   { '!opacity-100 !scale-100': context.open },
-      //   { '!opacity-0 !scale-50': !context.open },
-    ],
+    className: ['fixed inset-0 bg-black/50 backdrop-blur-sm z-40'],
+  }),
+  iconContainer: ({ context }) => ({
+    className: ['hover:bg-secondary-100 rounded-full p-1'],
   }),
   container: ({ props, context }) => ({
     className: [
       'fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-xl w-full',
       'flex flex-col gap-3',
       'animate-dialog',
-      //   'data-[state="open"]:!opacity-50 data-[state="open"]:!scale-100 data-[state="close"]:!opacity-0 data-[state="close"]:!scale-10',
-      //   { '!opacity-100 !scale-100': context.open },
-      //   { '!opacity-0 !scale-50': !context.open },
 
       {
         'max-w-xs': props.size === 'xs',
