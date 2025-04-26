@@ -1,4 +1,4 @@
-import { Control, useForm } from 'react-hook-form';
+import { type Control, useForm } from 'react-hook-form';
 import { useForm as useCustomForm } from 'lib/context';
 
 export const useEffectiveControl = (): Control => {
