@@ -1,12 +1,11 @@
-import { InputTextProps } from 'lib/components/inputtext/InputText.d';
+import { BaseInputProps } from 'lib/components/private/BaseInput.d';
 import { useMemo } from 'react';
 import {
   RegisterOptions,
   useController,
   UseControllerReturn,
-  useFormContext,
 } from 'react-hook-form';
-import { useEffectiveControl } from 'lib/hooks';
+import { useEffectiveControl, useEffectiveRegister } from 'lib/hooks';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
 
@@ -30,7 +29,7 @@ export type ValidatorRules = {
     | ((value: any) => boolean | string)
     | Record<string, (value: any) => boolean | string>;
   customMessage?: Record<keyof RegisterOptions, string>;
-  passwordRequirements?: InputTextProps['passwordRequirements'];
+  passwordRequirements?: BaseInputProps['passwordRequirements'];
 };
 
 export type ControllerConfig = {
@@ -42,7 +41,7 @@ export const useRegisterValidator = (
   config: ValidatorRules,
   fieldName: string,
 ): any => {
-  const { register } = useFormContext();
+  const { register } = useEffectiveRegister() ?? {};
 
   const passwordValidations = {
     'uppercase': (val: string) => {
@@ -68,6 +67,8 @@ export const useRegisterValidator = (
   };
 
   const validators = useMemo(() => {
+    if (!register) return;
+
     const baseValidators: RegisterOptions = {
       ...(hasValidator('required') && {
         required: config.customMessage?.required ?? 'This field is required',
@@ -129,8 +130,9 @@ export const useRegisterValidator = (
       ...(config.validate ? { validate: config.validate } : {}),
     };
     return baseValidators;
-  }, [config]);
+  }, [config, register]);
 
+  if (!validators) return;
   return register(fieldName, validators);
 };
 
