@@ -1,18 +1,50 @@
 import { useForm, FormProvider } from 'lib/context';
 import { FormHandle, FormProps } from './Form.d';
 import { Button } from '../button/Button';
-import { forwardRef, Ref, useImperativeHandle } from 'react';
+import {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  Ref,
+  useImperativeHandle,
+} from 'react';
 
 const FormContent = <T extends Record<string, any>>(
   { children, resetOnSubmit, onSubmit, onError }: FormProps<T>,
   ref: Ref<FormHandle<T>>,
 ) => {
   const { methods } = useForm<T>();
-  const { handleSubmit, reset, resetField, getValues } = methods;
+  const {
+    handleSubmit,
+    reset,
+    resetField,
+    getValues,
+    setValue,
+    setError,
+    watch,
+    formState: { errors, isDirty, dirtyFields },
+  } = methods;
 
   const handleFormSubmit = (values: T) => {
     onSubmit(values);
     if (resetOnSubmit) reset();
+  };
+
+  const createChildren = () => {
+    if (Array.isArray(children)) {
+      return children.map((child, index) => {
+        return isValidElement(child)
+          ? cloneElement(child as React.ReactElement<any>, {
+              key: child.key ?? index,
+              methods,
+            })
+          : child;
+      });
+    } else if (isValidElement(children)) {
+      return cloneElement(children as React.ReactElement<any>, { methods });
+    }
+
+    return children;
   };
 
   useImperativeHandle(
@@ -21,6 +53,12 @@ const FormContent = <T extends Record<string, any>>(
       resetField,
       reset,
       getValues,
+      setValue,
+      setError,
+      errors,
+      watch,
+      isDirty,
+      dirtyFields,
     }),
     [resetField, reset, getValues],
   );
@@ -28,9 +66,10 @@ const FormContent = <T extends Record<string, any>>(
   return (
     <form onSubmit={handleSubmit(handleFormSubmit, onError)}>
       <div className="grid grid-cols-2 gap-x-2 gap-y-2">
-        {children}
+        {createChildren()}
 
         <div className="col-span-2 flex justify-end w-max">
+          <Button onClick={() => reset()} label="Clear" type="button" />
           <Button label="Submit" type="submit" />
         </div>
       </div>
