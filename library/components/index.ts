@@ -1,7 +1,13 @@
 export { Button } from './button/Button';
 export { Checkbox } from './checkbox/Checkbox';
+export { Dialog } from './dialog/Dialog';
+export { DialogForm } from './dialogform/DialogForm';
 export { Form } from './form/Form';
 export { Icon } from './icon/Icon';
-export { InputText } from './inputtext/InputText';
 export { RadioButton } from './radiobutton/RadioButton';
+export { Slot } from './slot/Slot';
 export { ToggleSwitch } from './toggleswitch/ToggleSwitch';
+export { InputEmail } from './inputemail/InputEmail';
+export { InputNumber } from './inputnumber/InputNumber';
+export { InputPassword } from './inputpassword/InputPassword';
+export { InputText } from './inputtext/InputText';
