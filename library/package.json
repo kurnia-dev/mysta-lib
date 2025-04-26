@@ -1,7 +1,7 @@
 {
-  "name": "@mystaline/mysta-lib",
+  "name": "@mystaline/mysta-commons",
   "version": "1.0.0",
-  "author": "FE Developer",
+  "author": "Mystaline",
   "description": "ReactJS Component Library",
   "type": "module",
   "scripts": {
