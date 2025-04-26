@@ -1,5 +1,5 @@
 #!/bin/bash
-cp -r ./components/menuitem dist/types/components
+cp -r dist/types/components
 
 # Navigate to the directory containing .d.ts files
 cd ./components
