@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       lib: resolve(__dirname, 'library'),
+      packages: resolve(__dirname, 'packages'),
     },
   },
   server: {
