@@ -57,11 +57,13 @@ export const Dialog = memo((props: DialogProps) => {
               <Slot name="header" slots={slots}>
                 <span>{header}</span>
                 {useCloseIcon && (
-                  <Icon
-                    name="x"
-                    className="cursor-pointer"
-                    onClick={() => onVisibleChange(false)}
-                  />
+                  <div {...preset.iconContainer}>
+                    <Icon
+                      name="x"
+                      className="cursor-pointer"
+                      onClick={() => onVisibleChange(false)}
+                    />
+                  </div>
                 )}
               </Slot>
             </div>
