@@ -13,12 +13,50 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-/* Tooltip container */
-.p-tooltip {
-  @apply bg-secondary-500 text-white text-xs rounded-md max-w-xs;
+@keyframes dialog-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Tooltip inner text */
-.p-tooltip-text {
-  @apply bg-secondary-500 px-2 py-1;
+@keyframes dialog-fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-scaleIn {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-scaleOut {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.animate-dialog[data-state='open'] {
+  animation:
+    dialog-fadeIn 150ms ease-out,
+    dialog-scaleIn 200ms ease-out;
+}
+
+.animate-dialog[data-state='closed'] {
+  animation:
+    dialog-fadeOut 300ms ease-in,
+    dialog-scaleOut 200ms ease-out;
 }
