@@ -1,6 +1,5 @@
 import { BiLoaderAlt } from 'react-icons/bi';
 import { useComponentPreset } from 'lib/hooks';
-import { getSeverity } from 'lib/utils';
 import { ButtonProps } from './Button.d';
 import clsx from 'clsx';
 import { Icon } from '../icon/Icon';
@@ -8,7 +7,7 @@ import { Icon } from '../icon/Icon';
 export const Button: React.FC<ButtonProps> = ({
   icon,
   label,
-  severity,
+  severity = 'primary',
   onClick = () => {},
   disabled = false,
   height = 26,
@@ -27,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
         label,
         outlined,
         text,
-        severityClass: getSeverity(severity, { outlined, text }),
+        severity,
       },
     }) ?? {};
 
