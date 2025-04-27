@@ -1,3 +1,4 @@
+import { Severities } from 'lib/utils';
 import { ReactNode, Ref } from 'react';
 import {
   DeepMap,
@@ -5,6 +6,7 @@ import {
   FieldErrors,
   SubmitErrorHandler,
   SubmitHandler,
+  UseFormClearErrors,
   UseFormGetValues,
   UseFormReset,
   UseFormResetField,
@@ -13,13 +15,41 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 
+export type ButtonConfig = {
+  type: 'back' | 'reset' | 'submit-raw' | 'submit';
+  label?: string;
+  severity?: Severities;
+  style?: 'outlined' | 'text' | 'fill';
+};
+
 export interface FormProps<T extends Record<string, any>> {
   ref?: Ref<FormHandle<T>>;
+
+  /**
+   * Array of buttons configuration to tell form what button that should be rendered on form footer
+   * Order of array's value take effect to the rendered button order
+   *
+   * No need to write all configurations for each type, each type has its default value that will be used unless you give your custom value
+   * @default - type submit = {type: 'submit', label: 'Submit', severity: 'success', style: 'fill'}
+   * @default - type submit-raw = {type: 'submit-raw', label: 'Save', severity: 'success', style: 'outlined'}
+   * @default - type reset = {type: 'reset', label: 'Clear', severity: 'primary', style: 'text'}
+   * @default - type back = {type: 'back', label: 'Cancel', severity: 'secondary', style: 'text'}
+   *
+   * Only types that exist in the given array that will be rendered
+   * @example - render only button submit and back will need this array
+   *    [
+   *      { type: 'back', label: 'a' },
+   *      { type: 'submit', label: 'b' },
+   *    ]
+   */
+  buttonsConfig: ButtonConfig[];
 
   /**
    * Form children
    */
   children?: ReactNode;
+
+  slots?: Record<keyof FormSlots, JSX.Element>;
 
   /**
    * Determine whether form should be reset to default on submit or not
@@ -46,6 +76,10 @@ export interface FormProps<T extends Record<string, any>> {
   onError?: SubmitErrorHandler<T>;
 }
 
+export interface FormSlots {
+  footer?: JSX.Element;
+}
+
 export interface FormHandle<T extends Record<string, any>> {
   resetField: UseFormResetField<T>;
   reset: UseFormReset<T>;
@@ -54,6 +88,7 @@ export interface FormHandle<T extends Record<string, any>> {
   watch: UseFormWatch<T>;
   setValue: UseFormSetValue<T>;
   setError: UseFormSetError<T>;
+  clearErrors: UseFormClearErrors<T>;
   isDirty: boolean;
   dirtyFields: Partial<Readonly<DeepMap<DeepPartial<T>, boolean>>>;
 }

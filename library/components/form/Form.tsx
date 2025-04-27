@@ -1,16 +1,25 @@
 import { useForm, FormProvider } from 'lib/context';
-import { FormHandle, FormProps } from './Form.d';
+import { ButtonConfig, FormHandle, FormProps } from './Form.d';
 import { Button } from '../button/Button';
 import {
   cloneElement,
   forwardRef,
   isValidElement,
   Ref,
+  useEffect,
   useImperativeHandle,
 } from 'react';
+import { Slot } from '../slot/Slot';
 
 const FormContent = <T extends Record<string, any>>(
-  { children, resetOnSubmit, onSubmit, onError }: FormProps<T>,
+  {
+    children,
+    resetOnSubmit,
+    onSubmit,
+    onError,
+    buttonsConfig,
+    slots,
+  }: FormProps<T>,
   ref: Ref<FormHandle<T>>,
 ) => {
   const { methods } = useForm<T>();
@@ -21,6 +30,7 @@ const FormContent = <T extends Record<string, any>>(
     getValues,
     setValue,
     setError,
+    clearErrors,
     watch,
     formState: { errors, isDirty, dirtyFields },
   } = methods;
@@ -29,6 +39,10 @@ const FormContent = <T extends Record<string, any>>(
     onSubmit(values);
     if (resetOnSubmit) reset();
   };
+
+  useEffect(() => {
+    console.log('buttonsConfig', buttonsConfig);
+  }, [buttonsConfig]);
 
   const createChildren = () => {
     if (Array.isArray(children)) {
@@ -55,6 +69,7 @@ const FormContent = <T extends Record<string, any>>(
       getValues,
       setValue,
       setError,
+      clearErrors,
       errors,
       watch,
       isDirty,
@@ -68,10 +83,23 @@ const FormContent = <T extends Record<string, any>>(
       <div className="grid grid-cols-2 gap-x-2 gap-y-2">
         {createChildren()}
 
-        <div className="col-span-2 flex justify-end w-max">
-          <Button onClick={() => reset()} label="Clear" type="button" />
-          <Button label="Submit" type="submit" />
-        </div>
+        <Slot name="footer" slots={slots}>
+          <div className="col-span-2 gap-1 flex justify-end w-full">
+            {buttonsConfig.map(({ type, label, severity, style }) => {
+              return (
+                <Button
+                  key={type}
+                  onClick={type === 'reset' ? reset : undefined}
+                  label={label}
+                  severity={severity}
+                  outlined={style === 'outlined'}
+                  text={style === 'text'}
+                  type={type === 'submit' ? 'submit' : 'button'}
+                />
+              );
+            })}
+          </div>
+        </Slot>
       </div>
     </form>
   );
@@ -90,9 +118,56 @@ const FormContainer = <T extends Record<string, any>>(
     resetOnSubmit = true,
     onSubmit,
     onError,
+
+    buttonsConfig = [],
+    slots,
   }: FormProps<T>,
   ref: Ref<FormHandle<T>>,
 ) => {
+  const getButtonsTemplate = (): ButtonConfig[] => {
+    const defaultConfig: Record<ButtonConfig['type'], ButtonConfig> = {
+      'back': {
+        type: 'back',
+        label: 'Cancel',
+        severity: 'secondary',
+        style: 'text',
+      },
+      'reset': {
+        type: 'reset',
+        label: 'Clear',
+        severity: 'primary',
+        style: 'text',
+      },
+      'submit-raw': {
+        type: 'submit-raw',
+        label: 'Save',
+        severity: 'success',
+        style: 'outlined',
+      },
+      'submit': {
+        type: 'submit',
+        label: 'Submit',
+        severity: 'success',
+        style: 'fill',
+      },
+    };
+
+    return buttonsConfig.map(({ type, label, severity, style }) => {
+      const {
+        label: defaultLabel,
+        severity: defaultSeverity,
+        style: defaultStyle,
+      } = defaultConfig[type];
+
+      return {
+        type,
+        label: label ?? defaultLabel,
+        severity: severity ?? defaultSeverity,
+        style: style ?? defaultStyle,
+      };
+    }) as ButtonConfig[];
+  };
+
   return (
     <FormProvider defaultValues={defaultValues}>
       <FormRefWrapper
@@ -100,6 +175,8 @@ const FormContainer = <T extends Record<string, any>>(
         resetOnSubmit={resetOnSubmit}
         onSubmit={onSubmit}
         onError={onError}
+        slots={slots}
+        buttonsConfig={getButtonsTemplate()}
       >
         {children}
       </FormRefWrapper>

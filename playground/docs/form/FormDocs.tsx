@@ -63,6 +63,10 @@ const FormDocs: React.FC = () => {
         onSubmit={(e) => console.log(e)}
         onError={(e) => console.log(e)}
         defaultValues={initialValue}
+        buttonsConfig={[
+          { type: 'back', label: 'a' },
+          { type: 'submit', label: 'b' },
+        ]}
       >
         <InputText label="First Name" fieldName="firstName" required />
         <InputText label="Last Name" fieldName="lastName" />
