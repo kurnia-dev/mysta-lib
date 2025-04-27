@@ -84,7 +84,7 @@ const FormContent = <T extends Record<string, any>>(
               return (
                 <Button
                   key={type}
-                  onClick={type === 'reset' ? reset : undefined}
+                  onClick={() => (type === 'reset' ? reset() : undefined)}
                   label={label}
                   severity={severity}
                   outlined={style === 'outlined'}
