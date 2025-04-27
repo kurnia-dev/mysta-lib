@@ -1,6 +1,7 @@
 import { IconProps } from './Icon.d';
-import React from 'react';
+import React, { useRef } from 'react';
 import clsx from 'clsx';
+import { Tooltip } from '../tooltip/Tooltip';
 
 export const Icon: React.FC<IconProps> = ({
   name,
@@ -9,18 +10,20 @@ export const Icon: React.FC<IconProps> = ({
   tooltipPos,
   ...rest
 }) => {
+  const ref = useRef<HTMLElement | null>(null);
   return (
-    <>
-      {tooltip && (
-        <Tooltip target={`.ic-${name}`} position={tooltipPos ?? 'right'} />
-      )}
-
+    <Tooltip
+      className={className}
+      hide={!tooltip}
+      content={tooltip}
+      position={tooltipPos ?? 'right'}
+    >
       <i
-        className={clsx('icon', `ic-${name}`, className)}
+        className={clsx('icon', `ic-${name}`)}
+        ref={ref}
         aria-hidden="true"
-        data-pr-tooltip={tooltip}
         {...rest}
       />
-    </>
+    </Tooltip>
   );
 };

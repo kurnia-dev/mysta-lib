@@ -35,5 +35,5 @@ export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
    * Tooltip position
    */
-  tooltipPos?: 'mouse' | 'right' | 'top' | 'bottom' | 'left';
+  tooltipPos?: 'right' | 'top' | 'bottom' | 'left';
 }
