@@ -1,4 +1,5 @@
 import { createContext, useContext, useMemo, ReactNode } from 'react';
+import { Tooltip as RUITooltip } from 'radix-ui';
 
 // Define the shape of your config options
 interface ConfigOptions {
@@ -36,7 +37,7 @@ export const MystaLibProvider = ({
 
   return (
     <MystaLibContext.Provider value={MystaLib}>
-      {children}
+      <RUITooltip.Provider>{children}</RUITooltip.Provider>
     </MystaLibContext.Provider>
   );
 };
