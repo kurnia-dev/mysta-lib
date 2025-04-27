@@ -1,4 +1,5 @@
 export { Button } from './button/Button';
+export { Card } from './card/Card';
 export { Checkbox } from './checkbox/Checkbox';
 export { Dialog } from './dialog/Dialog';
 export { DialogForm } from './dialogform/DialogForm';
