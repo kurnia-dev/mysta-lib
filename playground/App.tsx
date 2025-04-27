@@ -6,9 +6,6 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import 'primereact/resources/primereact.min.css';
-import 'primereact/resources/themes/saga-blue/theme.css';
-
 // Lazy loading components (similar to Vue's dynamic import)
 const ButtonDocs = lazy(() => import('./docs/button/ButtonDocs'));
 const IconDocs = lazy(() => import('./docs/icon/IconDocs'));

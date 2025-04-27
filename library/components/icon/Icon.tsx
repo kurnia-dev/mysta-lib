@@ -1,5 +1,4 @@
 import { IconProps } from './Icon.d';
-import { Tooltip } from 'primereact/tooltip';
 import React from 'react';
 import clsx from 'clsx';
 

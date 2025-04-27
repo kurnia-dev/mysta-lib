@@ -60,6 +60,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['radix-ui', 'primereact'],
+    include: ['radix-ui'],
   },
 });
