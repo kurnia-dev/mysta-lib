@@ -5,16 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tooltip container */
-.p-tooltip {
-  @apply bg-secondary-500 text-white text-xs rounded-md max-w-xs;
-}
-
-/* Tooltip inner text */
-.p-tooltip-text {
-  @apply bg-secondary-500 px-2 py-1;
-}
-
 * {
   font-family: 'Manrope', sans-serif;
   scrollbar-width: thin;

@@ -15,7 +15,7 @@ const directives = {
 
 const kitsune = {
   global,
-  directives,
+  ...directives,
 
   // Forms
   checkbox,
