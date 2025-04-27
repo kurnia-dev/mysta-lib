@@ -21,7 +21,7 @@ export default {
       // Sizes & Spacing
       'leading-none font-medium rounded',
       {
-        '!text-xs py-[5px] !w-full px-4 gap-1': props.label,
+        '!text-xs py-[5px] px-4 gap-1': props.label,
       },
       {
         '!w-[26px]': !props.label,

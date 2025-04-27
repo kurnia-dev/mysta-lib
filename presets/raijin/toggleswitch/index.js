@@ -21,7 +21,6 @@ export default {
       { 'translate-x-[0.825rem]': context.partialChecked },
       { 'translate-x-[0.825rem]': context.checked && context.tristate },
       { 'translate-x-[0.825rem]': context.checked && !context.tristate },
-
       { '!pointer-events-none': context.disabled },
     ],
   }),
