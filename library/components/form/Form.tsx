@@ -6,7 +6,6 @@ import {
   forwardRef,
   isValidElement,
   Ref,
-  useEffect,
   useImperativeHandle,
 } from 'react';
 import { Slot } from '../slot/Slot';
@@ -39,10 +38,6 @@ const FormContent = <T extends Record<string, any>>(
     onSubmit(values);
     if (resetOnSubmit) reset();
   };
-
-  useEffect(() => {
-    console.log('buttonsConfig', buttonsConfig);
-  }, [buttonsConfig]);
 
   const createChildren = () => {
     if (Array.isArray(children)) {
