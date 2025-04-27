@@ -4,7 +4,10 @@ import {
   Button,
   Checkbox,
   DialogForm,
-  BaseInput,
+  InputEmail,
+  InputNumber,
+  InputPassword,
+  InputText,
   RadioButton,
   ToggleSwitch,
 } from 'lib/components';
@@ -61,44 +64,47 @@ const DialogFormDocs: React.FC = () => {
 
       <DialogForm
         ref={formRef}
+        buttonsConfig={[
+          { type: 'back' },
+          { type: 'reset' },
+          { type: 'submit' },
+        ]}
         header="Dialog Form"
         visible={visible}
         onSubmit={(e) => console.log(e)}
         onVisibleChange={setVisible}
         defaultValues={initialValue}
       >
-        <BaseInput label="First Name" fieldName="firstName" required />
-        <BaseInput label="Last Name" fieldName="lastName" />
-        <BaseInput
+        <InputText label="First Name" fieldName="firstName" required />
+        <InputText label="Last Name" fieldName="lastName" />
+        <InputText
           label="Nick Name"
           fieldName="nickName"
           required
           maxLength={5}
           preventInputOnError
         />
-        <BaseInput
+        <InputText
           label="Employee Type"
           fieldName="employeeType"
           disabled
           info="DialogForm pendaftaran intern"
         />
-        <BaseInput
+        <InputNumber
           label="Age"
           fieldName="age"
-          type="number"
           max={30}
           min={24}
           info="Age range 24 to 30"
         />
-        <BaseInput
+        <InputText
           label="Siblings"
           fieldName="siblings"
           pattern={/^\d+$/}
           preventInputOnError
         />
-        <BaseInput type="email" fieldName="email" label="Email" required />
-        <BaseInput
-          type="password"
+        <InputEmail fieldName="email" label="Email" required />
+        <InputPassword
           fieldName="password"
           label="Password"
           required
