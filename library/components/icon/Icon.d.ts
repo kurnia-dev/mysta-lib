@@ -13,7 +13,17 @@ export type Icons =
   | 'check-4'
   | 'x'
   | 'circle'
-  | 'circle-fill';
+  | 'circle-fill'
+  | 'edit'
+  | 'edit-2'
+  | 'edit-3'
+  | 'trash'
+  | 'trash-2'
+  | 'settings'
+  | 'settings-2'
+  | 'user-circle'
+  | 'sort-asc'
+  | 'sort-desc';
 
 export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
