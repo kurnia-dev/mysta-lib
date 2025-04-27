@@ -8,7 +8,7 @@ tsc ./index.ts --declaration --allowJs --outDir dist
 
 # Preset names array
 presetNames=(
-  "kitsune" "yurei"
+  "kitsune" "yurei" "raijin" "inari" "yuki" "sakuragi"
 )
 
 # Loop through the array and run Tailwind CSS for each preset
