@@ -5,9 +5,20 @@ import { Icons } from '../icon/Icon.d';
 
 export interface KanbanDropEvent {
   originalEvent: DragEvent<HTMLDivElement>;
+  destinationId?: string;
+  destinationGroupId?: string;
+}
+
+export interface KanbanDragStartEvent {
+  originalEvent: DragEvent<HTMLDivElement>;
+  draggedId?: string;
+  draggedGroupId?: string;
+}
+
+export interface CardData {
+  originalEvent: MouseEvent;
+  cardId?: string;
   groupId?: string;
-  currentId?: string;
-  draggedId: string;
 }
 
 /**
@@ -18,6 +29,8 @@ export interface CardPopoverMenu extends HTMLAttributes<HTMLSpanElement> {
   icon: Icons;
   /** Visual severity level (affects icon color/style) */
   severity?: Severities;
+  /** Action on click */
+  command?: (e: CardData) => void;
 }
 
 /**
@@ -26,7 +39,7 @@ export interface CardPopoverMenu extends HTMLAttributes<HTMLSpanElement> {
 interface BaseCardProps
   extends Omit<
       HTMLAttributes<HTMLDivElement>,
-      'content' | 'children' | 'onDrop'
+      'content' | 'children' | 'onDrop' | 'onDragStart'
     >,
     CardSeparatorProps {
   /** Optional header text displayed at the top */
@@ -72,10 +85,10 @@ interface BaseCardProps
 
 interface CardKanbanProps extends BaseCardProps {
   onDrop?: (e: KanbanDropEvent) => void;
+  onDragStart?: (e: KanbanDragStartEvent) => void;
 
   mode?: 'kanban';
   menus?: CardPopoverMenu[];
-  actionOnDrop?: 'swap' | 'insert' | 'nothing';
 
   /**
    * Identifier used to associate this card with a specific group or column.

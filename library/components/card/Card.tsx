@@ -23,8 +23,8 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
     // Kanban attributes
     groupId,
-    actionOnDrop = 'swap',
     onDrop = () => {},
+    onDragStart = () => {},
     id,
 
     mode,
@@ -45,60 +45,19 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     }) ?? {};
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.setData(
-      'text/plain',
-      (e.currentTarget as HTMLDivElement).id,
-    );
+    if (!draggable || mode !== 'kanban') return;
+
+    onDragStart({ originalEvent: e, draggedGroupId: groupId, draggedId: id });
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    const currentId = id;
-    const draggedId = e.dataTransfer.getData('text');
-    e.dataTransfer.clearData();
-    if (
-      !draggedId ||
-      !currentId ||
-      !draggedId?.startsWith('draggable-kanban') ||
-      !currentId?.startsWith('draggable-kanban') ||
-      draggedId === currentId
-    )
-      return;
+    if (!draggable || mode !== 'kanban') return;
 
-    const draggedElement = document.getElementById(draggedId);
-    const currentElement = document.getElementById(currentId);
-
-    if (!draggedElement || !currentElement) return;
-
-    if (actionOnDrop === 'nothing') return;
-
-    if (
-      actionOnDrop === 'insert' &&
-      draggedElement.getAttribute('data-group-id') !==
-        currentElement.getAttribute('data-group-id')
-    ) {
-      const draggedParent = draggedElement.parentNode;
-      const currentParent = currentElement.parentNode;
-      if (!draggedParent || !currentParent) return;
-
-      const currentGrandParent = currentParent.parentNode;
-      currentGrandParent.insertBefore(draggedParent, currentParent);
-      draggedElement.setAttribute(
-        'data-group-id',
-        currentElement.getAttribute('data-group-id'),
-      );
-    } else {
-      const draggedParent = draggedElement.parentNode;
-      const currentParent = currentElement.parentNode;
-      if (!draggedParent || !currentParent) return;
-
-      const draggedSibling = draggedElement?.nextSibling;
-      currentParent.insertBefore(draggedElement, currentElement);
-
-      draggedSibling
-        ? draggedParent.insertBefore(currentElement, draggedSibling)
-        : draggedParent.appendChild(currentElement);
-    }
+    onDrop({
+      originalEvent: e,
+      destinationGroupId: groupId,
+      destinationId: id,
+    });
   };
 
   const interactableProps = useCallback(() => {
@@ -108,8 +67,8 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       type: clickable ? 'button' : undefined,
       onClick: clickable ? restProps.onClick : undefined,
       onKeyDown: clickable ? restProps.onKeyDown : undefined,
-      onDragStart: draggable && mode === 'kanban' ? handleDragStart : undefined,
-      onDrop: draggable && mode === 'kanban' ? handleDrop : undefined,
+      onDragStart: handleDragStart,
+      onDrop: handleDrop,
       onDragOver: (e: React.DragEvent<HTMLDivElement>) => e.preventDefault(),
     };
   }, [clickable, draggable, mode, handleDragStart, handleDrop, restProps]);
@@ -181,14 +140,14 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
     };
 
     const createBaseCard = () => {
-      const uniqueId = id ?? uuidv4();
+      const uniqueId = uuidv4();
       const draggableId = draggable ? 'draggable-' : '';
       const kanbanId = mode === 'kanban' ? 'kanban-' : '';
 
       return (
         <BaseCard
           {...restProps}
-          id={`${draggableId}${kanbanId}${uniqueId}`}
+          id={id ?? `${draggableId}${kanbanId}${uniqueId}`}
           ref={ref}
           clickable={clickable || mode === 'kanban'}
           draggable={draggable}
