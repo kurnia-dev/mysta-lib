@@ -15,7 +15,7 @@ export default {
     className: 'text-danger-500',
   },
   info: {
-    className: 'text-xs',
+    className: 'text-xs !pointer-events-auto',
   },
   errorMessage: {
     className: 'text-danger-500 text-xs font-light w-full',

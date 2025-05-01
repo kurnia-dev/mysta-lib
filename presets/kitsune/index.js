@@ -1,5 +1,6 @@
 import badge from './badge/index.js';
 import button from './button/index.js';
+import card from './card/index.js';
 import checkbox from './checkbox/index.js';
 import dialog from './dialog/index.js';
 import fieldwrapper from './fieldwrapper/index.js';
@@ -37,6 +38,7 @@ const kitsune = {
   // Overlays
 
   // Messages
+  card,
 
   // Media
 
