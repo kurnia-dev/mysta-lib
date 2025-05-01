@@ -6,8 +6,6 @@ export type Severities =
   | 'warning'
   | 'info';
 
-type Variant = 'solid' | 'outlined' | 'text';
-
 const severityBaseMap: Record<Severities, string> = {
   primary: 'text-white bg-primary-500 hover:bg-primary-600',
   secondary: 'text-white bg-secondary-500 hover:bg-secondary-600',
@@ -35,19 +33,41 @@ const textMap: Record<Severities, string> = {
   info: 'text-info-500 ring-transparent hover:bg-info-50',
 };
 
+const colorMap: Record<Severities, string> = {
+  primary: '!text-primary-500 hover:!text-white',
+  secondary: '!text-secondary-500 hover:!text-white',
+  danger: '!text-danger-500 hover:!text-white',
+  success: '!text-success-500 hover:!text-white',
+  warning: '!text-warning-500 hover:!text-white',
+  info: '!text-info-500 hover:!text-white',
+};
+
+const backgroundMap: Record<Severities, string> = {
+  primary: '!bg-primary-500 hover:!bg-white',
+  secondary: '!bg-secondary-500 hover:!bg-white',
+  danger: '!bg-danger-500 hover:!bg-white',
+  success: '!bg-success-500 hover:!bg-white',
+  warning: '!bg-warning-500 hover:!bg-white',
+  info: '!bg-info-500 hover:!bg-white',
+};
+
 interface GetSeverityOptions {
   outlined?: boolean;
   text?: boolean;
+  color?: boolean;
+  background?: boolean;
 }
 
 const getSeverity = (
   severity: Severities = 'primary',
   options?: GetSeverityOptions,
 ): string => {
-  const { outlined, text } = options ?? {};
+  const { outlined, text, color, background } = options ?? {};
 
   if (text) return textMap[severity];
   if (outlined) return outlinedMap[severity];
+  if (color) return colorMap[severity];
+  if (background) return backgroundMap[severity];
   return severityBaseMap[severity];
 };
 
