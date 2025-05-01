@@ -143,7 +143,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
     <div
       {...restProps}
       id={groupId}
-      className="grid gap-3 grid-cols-1 m-3 p-3 border border-secondary-800 min-h-[200px]"
+      className="flex flex-col h-max gap-3 m-3 p-3 border border-secondary-800 min-h-[200px] min-w-[200px]"
       {...interactableProps()}
     >
       {createChildren()}
