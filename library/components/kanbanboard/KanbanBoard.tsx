@@ -1,4 +1,4 @@
-import { KanbanProvider } from 'lib/context/KanbanContext';
+import { KanbanProvider } from 'lib/context';
 import { KanbanBoardProps } from './KanbanBoard.d';
 
 export const KanbanBoard: React.FC<KanbanBoardProps> = ({

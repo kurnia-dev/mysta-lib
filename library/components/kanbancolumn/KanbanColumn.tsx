@@ -3,7 +3,7 @@ import { KanbanColumnProps } from './KanbanColumn.d';
 import { Card } from '../card/Card';
 import { v4 as uuidv4 } from 'uuid';
 import { KanbanDragStartEvent, KanbanDropEvent } from '../card/Card.d';
-import { useKanban } from 'lib/context/KanbanContext';
+import { useKanban } from 'lib/context';
 
 export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
   const {
