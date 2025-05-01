@@ -3,7 +3,6 @@
   "globals": {
     "NodeJS": true
   },
-  "extends": ["ts-code-standard"],
   "overrides": [
     {
       "files": [
