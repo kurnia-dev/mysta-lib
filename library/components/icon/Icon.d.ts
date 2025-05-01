@@ -1,5 +1,6 @@
 // types/components.d.ts (or you can name it types/icon.d.ts if it's specific)
 
+import { Severities } from 'lib/utils';
 import React from 'react';
 
 export type Icons =
@@ -46,4 +47,6 @@ export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
    * Tooltip position
    */
   tooltipPos?: 'right' | 'top' | 'bottom' | 'left';
+
+  severity?: Severities;
 }
