@@ -18,7 +18,8 @@
     "build:presets": "pnpm --filter mysta-presets build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "serve:http": "sh ./scripts/serve.sh"
+    "serve:http": "sh ./scripts/serve.sh",
+    "sync:presets": "sh ./scripts/sync-presets.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",
