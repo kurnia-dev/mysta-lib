@@ -67,6 +67,7 @@ const FormDocs: React.FC = () => {
           { type: 'back', label: 'Cancel' },
           { type: 'reset', label: 'Clear' },
           { type: 'submit', label: 'Submit' },
+          { type: 'back', label: 'Cancel' },
         ]}
       >
         <InputText label="First Name" fieldName="firstName" required />
