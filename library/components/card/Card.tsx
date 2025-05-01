@@ -1,25 +1,218 @@
 import { useComponentPreset } from 'lib/hooks';
 import { Slot } from '../slot/Slot';
-import { CardProps } from './Card.d';
+import { CardKanbanProps, CardProps } from './Card.d';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { Icon } from '../icon/Icon';
+import { Popover } from '../popover/Popover';
+import { Separator } from '../separator/Separator';
+import { v4 as uuidv4 } from 'uuid';
+import clsx from 'clsx';
 
-export const Card: React.FC<CardProps> = (props) => {
-  const { header, content, footer, slots } = props;
+const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+  const {
+    // General div attributes
+    header,
+    content,
+    footer,
+    slots,
+    size = 'xs',
+    clickable = false,
+    draggable = false,
+    className,
+    severity,
+
+    // Kanban attributes
+    groupId,
+    actionOnDrop = 'swap',
+    onDrop = () => {},
+    id,
+
+    mode,
+
+    // Separator attributes
+    orientation = 'horizontal',
+    decorative = false,
+    useSeparator = true,
+
+    ...restProps
+  } = props as CardKanbanProps;
+
+  const innerRef = useRef<HTMLDivElement>(null);
 
   const preset =
     useComponentPreset('card', {
-      props,
+      props: { size, orientation, severity },
     }) ?? {};
+
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData(
+      'text/plain',
+      (e.currentTarget as HTMLDivElement).id,
+    );
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    const currentId = id;
+    const draggedId = e.dataTransfer.getData('text');
+    e.dataTransfer.clearData();
+    if (
+      !draggedId ||
+      !currentId ||
+      !draggedId?.startsWith('draggable-kanban') ||
+      !currentId?.startsWith('draggable-kanban') ||
+      draggedId === currentId
+    )
+      return;
+
+    const draggedElement = document.getElementById(draggedId);
+    const currentElement = document.getElementById(currentId);
+
+    if (!draggedElement || !currentElement) return;
+
+    if (actionOnDrop === 'nothing') return;
+
+    if (
+      actionOnDrop === 'insert' &&
+      draggedElement.getAttribute('data-group-id') !==
+        currentElement.getAttribute('data-group-id')
+    ) {
+      const draggedParent = draggedElement.parentNode;
+      const currentParent = currentElement.parentNode;
+      if (!draggedParent || !currentParent) return;
+
+      const currentGrandParent = currentParent.parentNode;
+      currentGrandParent.insertBefore(draggedParent, currentParent);
+      draggedElement.setAttribute(
+        'data-group-id',
+        currentElement.getAttribute('data-group-id'),
+      );
+    } else {
+      const draggedParent = draggedElement.parentNode;
+      const currentParent = currentElement.parentNode;
+      if (!draggedParent || !currentParent) return;
+
+      const draggedSibling = draggedElement?.nextSibling;
+      currentParent.insertBefore(draggedElement, currentElement);
+
+      draggedSibling
+        ? draggedParent.insertBefore(currentElement, draggedSibling)
+        : draggedParent.appendChild(currentElement);
+    }
+  };
+
+  const interactableProps = useCallback(() => {
+    return {
+      tabIndex: clickable ? 0 : undefined,
+      role: clickable ? 'button' : undefined,
+      type: clickable ? 'button' : undefined,
+      onClick: clickable ? restProps.onClick : undefined,
+      onKeyDown: clickable ? restProps.onKeyDown : undefined,
+      onDragStart: draggable && mode === 'kanban' ? handleDragStart : undefined,
+      onDrop: draggable && mode === 'kanban' ? handleDrop : undefined,
+      onDragOver: (e: React.DragEvent<HTMLDivElement>) => e.preventDefault(),
+    };
+  }, [clickable, draggable, mode, handleDragStart, handleDrop, restProps]);
+
+  useImperativeHandle(ref, () => {
+    return innerRef.current;
+  }, []);
   return (
-    <div {...preset.root}>
+    <div
+      {...preset.root}
+      {...restProps}
+      {...interactableProps()}
+      id={id}
+      ref={innerRef}
+      className={clsx(preset.root.className, className)}
+      draggable={draggable}
+    >
       <Slot name="header" slots={slots}>
-        <div {...preset.header}>{header}</div>
+        {(header || slots?.header) && <div {...preset.header}>{header}</div>}
       </Slot>
+      {useSeparator && (
+        <Separator
+          {...preset.separator}
+          orientation={orientation}
+          decorative={decorative}
+        />
+      )}
       <Slot name="content" slots={slots}>
-        <div {...preset.content}>{content}</div>
+        {(content || slots?.content) && (
+          <div {...preset.content}>{content}</div>
+        )}
       </Slot>
       <Slot name="footer" slots={slots}>
-        <div {...preset.footer}>{footer}</div>
+        {(footer || slots?.footer) && <div {...preset.footer}>{footer}</div>}
       </Slot>
     </div>
   );
-};
+});
+
+export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
+  (props, ref) => {
+    const {
+      mode = 'container',
+      clickable,
+      draggable,
+      className,
+      id,
+      ...restProps
+    } = props;
+
+    const createOverlayElement = () => {
+      return (
+        <div className="flex gap-1 items-center translate-x-8 translate-y-1 !w-0 group-hover:!w-full group-hover:translate-x-2.5 group-hover:translate-y-1 transition-all duration-300 ease-in-out">
+          {mode === 'kanban' &&
+            (restProps as CardKanbanProps).menus.map((each) => {
+              const stableIconId = uuidv4();
+              return (
+                <Icon
+                  key={stableIconId}
+                  name={each.icon}
+                  severity={each.severity}
+                  className={clsx('cursor-pointer hover:text-white', className)}
+                  onClick={() => console.log('clicked edit')}
+                />
+              );
+            })}
+        </div>
+      );
+    };
+
+    const createBaseCard = () => {
+      const uniqueId = id ?? uuidv4();
+      const draggableId = draggable ? 'draggable-' : '';
+      const kanbanId = mode === 'kanban' ? 'kanban-' : '';
+
+      return (
+        <BaseCard
+          {...restProps}
+          id={`${draggableId}${kanbanId}${uniqueId}`}
+          ref={ref}
+          clickable={clickable || mode === 'kanban'}
+          draggable={draggable}
+          mode={mode}
+          header="triggerOnMouseOver"
+          content="Cillum veniam aute elit consectetur officia deserunt sit laborum incididunt in anim ex. Magna nulla mollit ipsum labore incididunt mollit ad laborum velit ea amet pariatur. Ut culpa sunt eiusmod aliquip nulla ut quis est amet eiusmod cillum. Eu amet deserunt velit ad anim occaecat eiusmod."
+        />
+      );
+    };
+
+    return (
+      <>
+        {mode === 'kanban' ? (
+          <Popover
+            content={createOverlayElement()}
+            triggerOnMouseOver
+            alwaysRender
+          >
+            {createBaseCard()}
+          </Popover>
+        ) : (
+          <>{createBaseCard()}</>
+        )}
+      </>
+    );
+  },
+);
