@@ -25,7 +25,7 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
       data.map((each) => {
         return {
           ...each,
-          id: `draggable-kanban-${each.id ?? uuidv4()}`,
+          id: each.id ?? uuidv4(),
           groupId,
         };
       }),

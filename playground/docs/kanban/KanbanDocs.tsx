@@ -6,9 +6,21 @@ const KanbanDocs: React.FC = () => {
       <KanbanColumn
         data={[
           {
+            id: 'qwer',
             menus: [
-              { icon: 'edit', className: '!text-danger-500' },
-              { icon: 'trash' },
+              {
+                icon: 'edit',
+                className: '!text-danger-500',
+                command(e) {
+                  console.log(e);
+                },
+              },
+              {
+                icon: 'trash',
+                command(e) {
+                  console.log(e);
+                },
+              },
             ],
             severity: 'secondary',
             header: 'triggerOnMouseOver',
@@ -17,8 +29,19 @@ const KanbanDocs: React.FC = () => {
           },
           {
             menus: [
-              { icon: 'edit', className: '!text-danger-500' },
-              { icon: 'trash' },
+              {
+                icon: 'edit',
+                className: '!text-danger-500',
+                command(e) {
+                  console.log(e);
+                },
+              },
+              {
+                icon: 'trash',
+                command(e) {
+                  console.log(e);
+                },
+              },
             ],
             severity: 'primary',
             header: 'triggerOnMouseOver',

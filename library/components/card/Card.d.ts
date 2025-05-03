@@ -17,7 +17,7 @@ export interface KanbanDragStartEvent {
 }
 
 export interface CardData {
-  originalEvent: MouseEvent;
+  originalEvent: React.MouseEvent;
   cardId?: string;
   groupId?: string;
 }

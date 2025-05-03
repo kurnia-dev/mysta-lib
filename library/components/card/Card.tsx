@@ -140,7 +140,13 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
                   key={stableIconId}
                   name={each.icon}
                   severity={each.severity}
-                  onClick={() => console.log('clicked edit')}
+                  onClick={(e) => {
+                    each.command({
+                      originalEvent: e,
+                      cardId: id,
+                      groupId: (restProps as CardKanbanProps).groupId,
+                    });
+                  }}
                 />
               );
             })}
@@ -149,10 +155,6 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
     };
 
     const createBaseCard = () => {
-      const uniqueId = uuidv4();
-      const draggableId = draggable ? 'draggable-' : '';
-      const kanbanId = mode === 'kanban' ? 'kanban-' : '';
-
       return (
         <BaseCard
           {...restProps}
@@ -160,7 +162,7 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
           content="Cillum veniam aute elit consectetur officia deserunt sit laborum incididunt in anim ex. Magna nulla mollit ipsum labore incididunt mollit ad laborum velit ea amet pariatur. Ut culpa sunt eiusmod aliquip nulla ut quis est amet eiusmod cillum. Eu amet deserunt velit ad anim occaecat eiusmod."
           draggable={draggable}
           header="triggerOnMouseOver"
-          id={id ?? `${draggableId}${kanbanId}${uniqueId}`}
+          id={id ?? uuidv4()}
           mode={mode}
           ref={ref}
         />
