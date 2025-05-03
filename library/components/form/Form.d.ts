@@ -1,4 +1,4 @@
-import { Severities } from 'lib/utils';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode, Ref } from 'react';
 import {
   DeepMap,
@@ -15,8 +15,17 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 
+import { Severities } from 'lib/utils';
+
+declare const FORM_BUTTON_TYPE: readonly [
+  'back',
+  'reset',
+  'submit-raw',
+  'submit',
+];
+
 export type ButtonConfig = {
-  type: 'back' | 'reset' | 'submit-raw' | 'submit';
+  type: (typeof FORM_BUTTON_TYPE)[number];
   label?: string;
   severity?: Severities;
   style?: 'outlined' | 'text' | 'fill';

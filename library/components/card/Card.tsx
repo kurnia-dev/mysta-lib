@@ -1,12 +1,15 @@
-import { useComponentPreset } from 'lib/hooks';
-import { Slot } from '../slot/Slot';
-import { CardKanbanProps, CardProps } from './Card.d';
+import clsx from 'clsx';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
+import { useComponentPreset } from 'lib/hooks';
+
 import { Icon } from '../icon/Icon';
 import { Popover } from '../popover/Popover';
 import { Separator } from '../separator/Separator';
-import { v4 as uuidv4 } from 'uuid';
-import clsx from 'clsx';
+import { Slot } from '../slot/Slot';
+
+import { CardKanbanProps, CardProps } from './Card.d';
 
 const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   const {
@@ -44,21 +47,27 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       props: { size, orientation, severity },
     }) ?? {};
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!draggable || mode !== 'kanban') return;
+  const handleDragStart = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      if (!draggable || mode !== 'kanban') return;
 
-    onDragStart({ originalEvent: e, draggedGroupId: groupId, draggedId: id });
-  };
+      onDragStart({ originalEvent: e, draggedGroupId: groupId, draggedId: id });
+    },
+    [draggable, mode, groupId, id, onDragStart],
+  );
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!draggable || mode !== 'kanban') return;
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      if (!draggable || mode !== 'kanban') return;
 
-    onDrop({
-      originalEvent: e,
-      destinationGroupId: groupId,
-      destinationId: id,
-    });
-  };
+      onDrop({
+        originalEvent: e,
+        destinationGroupId: groupId,
+        destinationId: id,
+      });
+    },
+    [draggable, mode, groupId, id, onDrop],
+  );
 
   const interactableProps = useCallback(() => {
     return {
@@ -71,7 +80,7 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       onDrop: handleDrop,
       onDragOver: (e: React.DragEvent<HTMLDivElement>) => e.preventDefault(),
     };
-  }, [clickable, draggable, mode, handleDragStart, handleDrop, restProps]);
+  }, [clickable, handleDragStart, handleDrop, restProps]);
 
   useImperativeHandle(ref, () => {
     return innerRef.current;
@@ -81,10 +90,10 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {...preset.root}
       {...restProps}
       {...interactableProps()}
-      id={id}
-      ref={innerRef}
       className={clsx(preset.root.className, className)}
       draggable={draggable}
+      id={id}
+      ref={innerRef}
     >
       <Slot name="header" slots={slots}>
         {(header || slots?.header) && <div {...preset.header}>{header}</div>}
@@ -92,8 +101,8 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {useSeparator && (
         <Separator
           {...preset.separator}
-          orientation={orientation}
           decorative={decorative}
+          orientation={orientation}
         />
       )}
       <Slot name="content" slots={slots}>
@@ -127,10 +136,10 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
               const stableIconId = uuidv4();
               return (
                 <Icon
+                  className={clsx('cursor-pointer hover:text-white', className)}
                   key={stableIconId}
                   name={each.icon}
                   severity={each.severity}
-                  className={clsx('cursor-pointer hover:text-white', className)}
                   onClick={() => console.log('clicked edit')}
                 />
               );
@@ -147,13 +156,13 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
       return (
         <BaseCard
           {...restProps}
-          id={id ?? `${draggableId}${kanbanId}${uniqueId}`}
-          ref={ref}
           clickable={clickable || mode === 'kanban'}
-          draggable={draggable}
-          mode={mode}
-          header="triggerOnMouseOver"
           content="Cillum veniam aute elit consectetur officia deserunt sit laborum incididunt in anim ex. Magna nulla mollit ipsum labore incididunt mollit ad laborum velit ea amet pariatur. Ut culpa sunt eiusmod aliquip nulla ut quis est amet eiusmod cillum. Eu amet deserunt velit ad anim occaecat eiusmod."
+          draggable={draggable}
+          header="triggerOnMouseOver"
+          id={id ?? `${draggableId}${kanbanId}${uniqueId}`}
+          mode={mode}
+          ref={ref}
         />
       );
     };
@@ -162,9 +171,9 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
       <>
         {mode === 'kanban' ? (
           <Popover
-            content={createOverlayElement()}
-            triggerOnMouseOver
             alwaysRender
+            triggerOnMouseOver
+            content={createOverlayElement()}
           >
             {createBaseCard()}
           </Popover>
@@ -175,3 +184,6 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
     );
   },
 );
+
+BaseCard.displayName = 'BaseCard';
+Card.displayName = 'Card';

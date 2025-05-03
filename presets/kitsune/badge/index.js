@@ -14,16 +14,16 @@ export default {
       {
         'text-general-400 bg-general-100': props.disabled,
         'text-success-500 bg-success-100':
-          !props.disabled && props.severity == 'success',
+          !props.disabled && props.severity === 'success',
         'text-primary-500 bg-primary-50':
           !props.disabled &&
-          (props.severity == null || props.severity == 'primary'),
+          (props.severity === null || props.severity === 'primary'),
         'text-grayscale-800 bg-grayscale-200':
-          !props.disabled && props.severity == 'dark',
+          !props.disabled && props.severity === 'dark',
         'text-warning-600 bg-warning-100':
-          !props.disabled && props.severity == 'warning',
+          !props.disabled && props.severity === 'warning',
         'text-danger-600 bg-danger-100':
-          !props.disabled && props.severity == 'danger',
+          !props.disabled && props.severity === 'danger',
       },
     ],
     'data-wv-name': 'badge',

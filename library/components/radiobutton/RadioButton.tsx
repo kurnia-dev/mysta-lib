@@ -1,9 +1,12 @@
-import { useComponentPreset, useControllerValidator } from 'lib/hooks';
-import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
-import { RadioButtonProps } from './RadioButton.d';
 import { useCallback, useEffect } from 'react';
 
-export const RadioButton: React.FC<RadioButtonProps> = (props) => {
+import { useComponentPreset, useControllerValidator } from 'lib/hooks';
+
+import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
+
+import { RadioButtonProps } from './RadioButton.d';
+
+export const RadioButton = (props: RadioButtonProps) => {
   const {
     onChange = () => {},
 
@@ -51,26 +54,26 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
     if (value !== null) {
       formOnChange(value);
     }
-  }, [value]);
+  }, [value, formOnChange]);
 
   const handleChange = useCallback(() => {
     const newValue: RadioButtonProps['optionValue'] = optionValue;
 
     formOnChange(newValue);
     onChange(newValue);
-  }, [formOnChange, onChange, fieldValue, optionValue]);
+  }, [formOnChange, onChange, optionValue]);
 
   return (
     <FieldWrapper
       {...{ fieldName, required, label, info, hideRequiredMark }}
-      onClick={handleChange}
       className="flex items-center gap-1"
-      errors={error ? { [fieldName]: error } : {}}
       context={{
         invalid: !!error,
         disabled,
         containerless: true,
       }}
+      errors={error ? { [fieldName]: error } : {}}
+      onClick={handleChange}
     >
       <div {...preset.box} />
       {isChecked && <div {...preset.innerBox} />}
@@ -78,10 +81,10 @@ export const RadioButton: React.FC<RadioButtonProps> = (props) => {
         ref={ref}
         {...preset.input}
         checked={isChecked}
-        onChange={() => {}}
-        name={fieldName}
         disabled={disabled}
+        name={fieldName}
         type="radio"
+        onChange={() => {}}
       />
     </FieldWrapper>
   );

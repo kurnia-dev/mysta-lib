@@ -1,5 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
 
-export interface InternalFieldProps {
-  methods?: UseFormReturn;
+export interface InternalFieldProps<T> {
+  methods?: UseFormReturn<T>;
 }

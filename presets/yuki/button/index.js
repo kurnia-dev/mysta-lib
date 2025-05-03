@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 export default {
   root: ({ props, context }) => {
     const severityMap = {

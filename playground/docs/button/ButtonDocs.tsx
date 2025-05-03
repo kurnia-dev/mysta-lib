@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import DocTitle from '../DocTitle';
+
 import { Button } from 'lib/components';
 import { Severities } from 'lib/utils';
+
+import DocTitle from '../DocTitle';
 
 const severities = [
   undefined,
@@ -24,15 +26,15 @@ const ButtonDocs: React.FC = () => {
       <div className="grid grid-cols-3 gap-2 p-4 relative rounded-[5px] border border-primary-600">
         {severities.map((severity) =>
           ['text', 'outlined', undefined].map((style, index) => (
-            <div key={`${severity}-${index}`} className="flex gap-1">
+            <div className="flex gap-1" key={`${severity}-${index}`}>
               <Button
                 label={
                   severity
                     ? `${severity[0].toUpperCase()}${severity.slice(1)} ${style}`
                     : `primary ${style}`
                 }
-                severity={severity}
                 outlined={style === 'outlined'}
+                severity={severity}
                 text={style === 'text'}
               />
             </div>
@@ -43,17 +45,17 @@ const ButtonDocs: React.FC = () => {
       <div className="grid grid-cols-3 gap-2 p-4 relative rounded-[5px] border border-primary-600">
         {severities.map((severity) =>
           ['text', 'outlined', undefined].map((style, index) => (
-            <div key={`${severity}-${index}`} className="flex gap-1">
+            <div className="flex gap-1" key={`${severity}-${index}`}>
               <Button
+                disabled
                 label={
                   severity
                     ? `${severity[0].toUpperCase()}${severity.slice(1)} ${style}`
                     : `primary ${style}`
                 }
-                severity={severity}
                 outlined={style === 'outlined'}
+                severity={severity}
                 text={style === 'text'}
-                disabled
               />
             </div>
           )),
@@ -61,8 +63,8 @@ const ButtonDocs: React.FC = () => {
       </div>
 
       <div className="flex flex-col gap-1">
-        <Button label="Button" height={48} />
-        <Button label="Flex Button" icon="plus" />
+        <Button height={48} label="Button" />
+        <Button icon="plus" label="Flex Button" />
         <Button icon="minus" />
       </div>
     </div>

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import clsx from 'clsx';
+
 import { useMystaLib } from 'lib/context/LibContext';
 
 interface PresetAttributes extends React.HTMLAttributes<HTMLElement> {
-  'data-pc-section'?: string;
+  'data-mc-section'?: string;
 }
 
 type ClassValue =
@@ -14,23 +16,23 @@ type ClassValue =
   | Record<string, boolean>;
 
 interface SlotReturn {
-  class?: ClassValue;
+  className?: ClassValue;
   [key: string]: any;
 }
 
-type SlotFunction = (options: any) => SlotReturn;
+type SlotFunction<T> = (options: T) => SlotReturn;
 
-type ComponentPreset = {
-  [slotName: string]: SlotFunction;
+type ComponentPreset<T> = {
+  [slotName: string]: SlotFunction<T>;
 };
 
-export function useComponentPreset<T = any>(
+export function useComponentPreset<T = Record<string, any>>(
   componentName: string,
   options?: T,
 ): Record<string, PresetAttributes> {
   const { preset } = useMystaLib();
   const componentPreset = preset?.[componentName] as
-    | ComponentPreset
+    | ComponentPreset<T>
     | undefined;
 
   if (!componentPreset) return {};
@@ -44,7 +46,7 @@ export function useComponentPreset<T = any>(
       const { className: cls, ...rest } = slotAttrs ?? {};
 
       result[slot] = {
-        'data-pc-section': slot,
+        'data-mc-section': slot,
         'className': clsx(cls),
         ...rest,
       };

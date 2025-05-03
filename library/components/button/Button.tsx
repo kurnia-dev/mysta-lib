@@ -1,10 +1,13 @@
-import { BiLoaderAlt } from 'react-icons/bi';
-import { useComponentPreset } from 'lib/hooks';
-import { ButtonProps } from './Button.d';
 import clsx from 'clsx';
+import { BiLoaderAlt } from 'react-icons/bi';
+
+import { useComponentPreset } from 'lib/hooks';
+
 import { Icon } from '../icon/Icon';
 
-export const Button: React.FC<ButtonProps> = ({
+import { ButtonProps } from './Button.d';
+
+export const Button = ({
   icon,
   label,
   severity = 'primary',
@@ -16,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   text = false,
   width = 'max-content',
   type = 'button',
-}) => {
+}: ButtonProps): JSX.Element => {
   const preset =
     useComponentPreset('button', {
       context: { disabled: !!loading || !!disabled },
@@ -44,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
   const labelComponent = createLabel();
 
   return (
-    <button {...preset.root} onClick={onClick} type={type}>
+    <button {...preset.root} type={type} onClick={onClick}>
       {iconComponent}
       {labelComponent}
     </button>

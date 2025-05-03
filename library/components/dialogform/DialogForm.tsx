@@ -1,8 +1,12 @@
-import { DialogFormProps } from './DialogForm.d';
-import { Dialog, Form } from 'lib/components';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef, Ref } from 'react';
+
+import { Dialog, Form } from 'lib/components';
+
 import { DialogProps } from '../dialog/Dialog.d';
-import { FormProps, FormHandle } from '../form/Form.d';
+import { FormHandle, FormProps } from '../form/Form.d';
+
+import { DialogFormProps } from './DialogForm.d';
 
 const DialogFormContainer = <T extends Record<string, any>>(
   props: DialogFormProps<T>,

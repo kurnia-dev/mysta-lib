@@ -1,10 +1,13 @@
-import { ToggleSwitchProps } from './ToggleSwitch.d';
-import { useComponentPreset, useControllerValidator } from 'lib/hooks';
-import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
-import { Icon } from '../icon/Icon';
 import { useCallback, useEffect } from 'react';
 
-export const ToggleSwitch: React.FC<ToggleSwitchProps> = (props) => {
+import { useComponentPreset, useControllerValidator } from 'lib/hooks';
+
+import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
+import { Icon } from '../icon/Icon';
+
+import { ToggleSwitchProps } from './ToggleSwitch.d';
+
+export const ToggleSwitch = (props: ToggleSwitchProps) => {
   const {
     onChange = () => {},
 
@@ -59,7 +62,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = (props) => {
     if (value !== undefined) {
       formOnChange(value);
     }
-  }, [value]);
+  }, [value, formOnChange]);
 
   const handleChange = useCallback(() => {
     let newValue: boolean | null = fieldValue;
@@ -91,22 +94,22 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = (props) => {
   return (
     <FieldWrapper
       {...{ fieldName, required, label, info, hideRequiredMark }}
-      onClick={handleChange}
       className="flex items-center gap-1"
-      errors={error ? { [fieldName]: error } : {}}
       context={{
         invalid: !!error,
         disabled,
         borderless: true,
       }}
+      errors={error ? { [fieldName]: error } : {}}
+      onClick={handleChange}
     >
       <div {...preset.box}>{createToggleSwitch()}</div>
       <input
         ref={ref}
         {...preset.input}
         checked={isChecked !== null}
-        name={fieldName}
         disabled={disabled}
+        name={fieldName}
         type="checkbox"
         onChange={() => {}}
       />

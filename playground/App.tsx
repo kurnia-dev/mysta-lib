@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
 import {
+  Navigate,
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
-  Navigate,
 } from 'react-router-dom';
 
 const ButtonDocs = lazy(() => import('./docs/button/ButtonDocs'));
@@ -21,17 +21,17 @@ const App = () => {
     <Router basename="/mysta-lib">
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Navigate to="/button" replace />} />
-          <Route path="/button" element={<ButtonDocs />} />
-          <Route path="/card" element={<CardDocs />} />
-          <Route path="/dialog" element={<DialogDocs />} />
-          <Route path="/dialogform" element={<DialogFormDocs />} />
-          <Route path="/form" element={<FormDocs />} />
-          <Route path="/kanban" element={<KanbanDocs />} />
-          <Route path="/icon" element={<IconDocs />} />
-          <Route path="/inputtext" element={<BaseInputDocs />} />
-          <Route path="/playground" element={<PlaygroundDocs />} />
-          <Route path="*" element={<div>404 - Page Not Found</div>} />
+          <Route element={<Navigate replace to="/button" />} path="/" />
+          <Route element={<ButtonDocs />} path="/button" />
+          <Route element={<CardDocs />} path="/card" />
+          <Route element={<DialogDocs />} path="/dialog" />
+          <Route element={<DialogFormDocs />} path="/dialogform" />
+          <Route element={<FormDocs />} path="/form" />
+          <Route element={<KanbanDocs />} path="/kanban" />
+          <Route element={<IconDocs />} path="/icon" />
+          <Route element={<BaseInputDocs />} path="/inputtext" />
+          <Route element={<PlaygroundDocs />} path="/playground" />
+          <Route element={<div>404 - Page Not Found</div>} path="*" />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>

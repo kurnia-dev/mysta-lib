@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { BaseInputProps } from '../private/BaseInput.d';
 
 /**
@@ -6,8 +7,7 @@ import { BaseInputProps } from '../private/BaseInput.d';
  *
  * @description This defines the props for the InputNumber component including its field name, label, and event handlers.
  */
-export interface InputNumberProps
-  extends Omit<BaseInputProps<number>, 'type'> {}
+export type InputNumberProps = Omit<BaseInputProps<number>, 'type'>;
 
 /**
  * InputNumber component for form input with built-in validation and custom event handling.

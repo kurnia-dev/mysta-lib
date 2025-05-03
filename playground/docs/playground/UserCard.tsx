@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const UserCard = ({ name, isAdmin, age }: Record<string, any>) => {
   return (
     <div className="flex flex-col">

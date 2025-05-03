@@ -1,7 +1,8 @@
 // types/components.d.ts (or you can name it types/icon.d.ts if it's specific)
 
-import { Severities } from 'lib/utils';
 import React from 'react';
+
+import { Severities } from 'lib/utils';
 
 export type Icons =
   | 'plus'

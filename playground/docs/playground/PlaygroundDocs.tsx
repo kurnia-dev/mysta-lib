@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { UserCard } from './UserCard';
 
 const PlaygroundDocs = () => {
   //   const users = [

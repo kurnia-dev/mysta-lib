@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { KanbanColumnProps } from './KanbanColumn.d';
-import { Card } from '../card/Card';
 import { v4 as uuidv4 } from 'uuid';
-import { KanbanDragStartEvent, KanbanDropEvent } from '../card/Card.d';
+
 import { useKanban } from 'lib/context';
 
-export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
+import { Card } from '../card/Card';
+import { KanbanDragStartEvent, KanbanDropEvent } from '../card/Card.d';
+
+import { KanbanColumnProps } from './KanbanColumn.d';
+
+export const KanbanColumn = (props: KanbanColumnProps) => {
   const {
-    id,
     data = [],
     groupId,
     onDrop = () => {},
@@ -27,27 +29,28 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
           groupId,
         };
       }),
-    [],
+    [data, groupId],
   );
-
-  const idsInNewCards = useMemo(() => {
-    return new Set(cards.map((each) => each.id));
-  }, []);
 
   useEffect(() => {
     if (data.length > 0) {
+      const idsInNewCards = new Set(cards.map((each) => each.id));
+
       setCardElements((prev) => {
         const filteredPrev = prev.filter((c) => !idsInNewCards.has(c.id));
         return [...filteredPrev, ...cards];
       });
     }
-  }, [cards]);
+  }, [cards, data.length, setCardElements]);
 
-  const handleDragStart = (e: KanbanDragStartEvent) => {
-    const { draggedGroupId, draggedId } = e;
-    onDragStart(e);
-    setDragItem({ id: draggedId, groupId: draggedGroupId });
-  };
+  const handleDragStart = useCallback(
+    (e: KanbanDragStartEvent) => {
+      const { draggedGroupId, draggedId } = e;
+      onDragStart(e);
+      setDragItem({ id: draggedId, groupId: draggedGroupId });
+    },
+    [onDragStart, setDragItem],
+  );
 
   const handleDropOnCard = useCallback(
     (e: KanbanDropEvent) => {
@@ -77,7 +80,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
         return newCards;
       });
     },
-    [dragItem, cardElements],
+    [dragItem, cardElements, groupId, onDrop, onUpdate, setCardElements],
   );
 
   const handleDropOnContainer = useCallback(
@@ -104,7 +107,7 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
         index: cardElements.filter((each) => each.groupId === groupId).length,
       });
     },
-    [dragItem, cardElements, groupId],
+    [dragItem, cardElements, groupId, onDrop, onUpdate, setCardElements],
   );
 
   const interactableProps = useCallback(() => {
@@ -126,12 +129,12 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
         return (
           <Card
             {...child}
-            key={child.id}
-            id={child.id}
-            groupId={groupId}
-            mode="kanban"
-            draggable
             clickable
+            draggable
+            groupId={groupId}
+            id={child.id}
+            key={child.id}
+            mode="kanban"
             onDragStart={handleDragStart}
             onDrop={handleDropOnCard}
           />
@@ -142,8 +145,8 @@ export const KanbanColumn: React.FC<KanbanColumnProps> = (props) => {
   return (
     <div
       {...restProps}
-      id={groupId}
       className="flex flex-col h-max gap-3 m-3 p-3 border border-secondary-800 min-h-[200px] min-w-[200px]"
+      id={groupId}
       {...interactableProps()}
     >
       {createChildren()}

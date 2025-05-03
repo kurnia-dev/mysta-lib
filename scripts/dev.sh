@@ -54,15 +54,14 @@ export default {
 # Create main.js configuration with selected preset
 MAIN_CONTENT="import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './playground/App';
+
 import { MystaLibProvider } from 'lib/context';
 
-// Global styles
 import './library/assets/css/main.css';
-
-// Preset
-import { $PRESET_NAME } from './presets';
 import './presets/$PRESET_NAME/index.css';
+
+import App from './playground/App';
+import { $PRESET_NAME } from './presets';
 
 const root = document.getElementById('root');
 if (root) {

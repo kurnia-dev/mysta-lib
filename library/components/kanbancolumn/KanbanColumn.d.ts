@@ -1,12 +1,15 @@
 import { FC, HTMLAttributes } from 'react';
+
 import {
   CardKanbanProps,
   KanbanDragStartEvent,
   KanbanDropEvent,
 } from '../card/Card.d';
 
-export interface SimplifiedCardProps
-  extends Omit<CardKanbanProps, 'mode' | 'draggable' | 'clickable'> {}
+export type SimplifiedCardProps = Omit<
+  CardKanbanProps,
+  'mode' | 'draggable' | 'clickable'
+>;
 
 /**
  * Props for the KanbanColumn component.

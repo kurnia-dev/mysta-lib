@@ -1,8 +1,10 @@
-import { useComponentPreset } from 'lib/hooks';
-import { TooltipProps } from './Tooltip.d';
 import { Tooltip as RUITooltip } from 'radix-ui';
 
-export const Tooltip: React.FC<TooltipProps> = (props) => {
+import { useComponentPreset } from 'lib/hooks';
+
+import { TooltipProps } from './Tooltip.d';
+
+export const Tooltip = (props: TooltipProps) => {
   const { content, children, hide, className, position } = props;
 
   const preset =
@@ -11,8 +13,8 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
     }) ?? {};
 
   return (
-    <RUITooltip.Root open={hide ? false : undefined} delayDuration={0}>
-      <RUITooltip.Trigger className={className} asChild>
+    <RUITooltip.Root delayDuration={0} open={hide ? false : undefined}>
+      <RUITooltip.Trigger asChild className={className}>
         {children}
       </RUITooltip.Trigger>
 

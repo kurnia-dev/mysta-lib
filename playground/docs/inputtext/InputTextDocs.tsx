@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import DocTitle from '../DocTitle';
+
 import {
   InputEmail,
   InputNumber,
@@ -7,25 +7,7 @@ import {
   InputText,
 } from 'lib/components';
 
-type InputTextValues = {
-  firstName: string;
-  lastName?: string;
-  nickName: string;
-  employeeType: string;
-  age?: number;
-  siblings?: string;
-  email: string;
-  password: string;
-  permanentEmployee: boolean;
-  isIntern: boolean;
-  termsAndConditions: boolean;
-  collaboration: boolean | null;
-  presets: string[];
-  type: 'Admin' | 'Member';
-  workType: 'On-Site';
-  isApproved: boolean | null;
-  isActive: boolean;
-};
+import DocTitle from '../DocTitle';
 
 const InputTextDocs: React.FC = () => {
   useEffect(() => {
@@ -35,33 +17,33 @@ const InputTextDocs: React.FC = () => {
   return (
     <div className="p-16 bg-white rounded-[40px] flex-col justify-start items-start gap-4 inline-flex">
       <DocTitle name="InputText" />
-      <InputText label="Required" fieldName="firstName" required />
+      <InputText required fieldName="firstName" label="Required" />
       <InputNumber
-        label="Required hide mark"
-        fieldName="firstName"
-        required
         hideRequiredMark
-      />
-      <InputText label="Optional" fieldName="lastName" />
-      <InputText
-        label="Max length 5; prevent input on error"
-        fieldName="nickName"
         required
-        maxLength={5}
+        fieldName="firstName"
+        label="Required hide mark"
+      />
+      <InputText fieldName="lastName" label="Optional" />
+      <InputText
         preventInputOnError
+        required
+        fieldName="nickName"
+        label="Max length 5; prevent input on error"
+        maxLength={5}
       />
       <InputText
-        label="Disabled & Tooltip"
-        fieldName="employeeType"
         disabled
+        fieldName="employeeType"
         info="disabled & tooltip"
+        label="Disabled & Tooltip"
       />
       <InputEmail fieldName="email" label="Email" />
       <InputPassword
         fieldName="password"
         label="Password"
-        minLength={8}
         maxLength={30}
+        minLength={8}
         passwordRequirements={[
           'alpha-numeric',
           'lowercase',

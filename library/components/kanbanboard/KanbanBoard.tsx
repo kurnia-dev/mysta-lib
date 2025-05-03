@@ -1,11 +1,12 @@
 import { KanbanProvider } from 'lib/context';
+
 import { KanbanBoardProps } from './KanbanBoard.d';
 
-export const KanbanBoard: React.FC<KanbanBoardProps> = ({
+export const KanbanBoard = ({
   children,
   className,
   onUpdate = () => {},
-}) => {
+}: KanbanBoardProps) => {
   return (
     <KanbanProvider onUpdate={onUpdate}>
       <div className={className}>{children}</div>

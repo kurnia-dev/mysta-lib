@@ -42,7 +42,7 @@ export default {
       { '!cursor-pointer': !context.disabled },
     ],
   }),
-  box: ({ props, context }) => ({
+  box: ({ context }) => ({
     className: [
       'transition-colors duration-300 ease-in-out',
       '!w-[30px] !h-4 flex items-center justify-start',

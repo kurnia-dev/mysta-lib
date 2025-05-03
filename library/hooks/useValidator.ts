@@ -1,10 +1,12 @@
-import { BaseInputProps } from 'lib/components/private/BaseInput.d';
-import { useMemo } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useMemo } from 'react';
 import {
   RegisterOptions,
   useController,
   UseControllerReturn,
 } from 'react-hook-form';
+
+import { BaseInputProps } from 'lib/components/private/BaseInput.d';
 import { useEffectiveControl, useEffectiveRegister } from 'lib/hooks';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
@@ -43,28 +45,33 @@ export const useRegisterValidator = (
 ): any => {
   const { register } = useEffectiveRegister() ?? {};
 
-  const passwordValidations = {
-    'uppercase': (val: string) => {
-      if (/[A-Z]/.test(val)) return true;
-      return 'Password should contain an uppercase letter';
-    },
-    'lowercase': (val: string) => {
-      if (/[a-z]/.test(val)) return true;
-      return 'Password should contain a lowercase letter';
-    },
-    'special-character': (val: string) => {
-      if (/[!@#$%^&*()_+{}[\]:;"'<>,.?/\\|`~-]/.test(val)) return true;
-      return 'Password should contain a special character';
-    },
-    'alpha-numeric': (val) =>
-      /[A-Za-z]/.test(val) && /\d/.test(val)
-        ? true
-        : 'Password should be alphanumeric',
-  };
+  const passwordValidations = useMemo(() => {
+    return {
+      'uppercase': (val: string) => {
+        if (/[A-Z]/.test(val)) return true;
+        return 'Password should contain an uppercase letter';
+      },
+      'lowercase': (val: string) => {
+        if (/[a-z]/.test(val)) return true;
+        return 'Password should contain a lowercase letter';
+      },
+      'special-character': (val: string) => {
+        if (/[!@#$%^&*()_+{}[\]:;"'<>,.?/\\|`~-]/.test(val)) return true;
+        return 'Password should contain a special character';
+      },
+      'alpha-numeric': (val: string) =>
+        /[A-Za-z]/.test(val) && /\d/.test(val)
+          ? true
+          : 'Password should be alphanumeric',
+    };
+  }, []);
 
-  const hasValidator = (key: keyof RegisterOptions): boolean => {
-    return Boolean(!!config[key] || !!config.customMessage?.[key]);
-  };
+  const hasValidator = useCallback(
+    (key: keyof RegisterOptions): boolean => {
+      return Boolean(!!config[key] || !!config.customMessage?.[key]);
+    },
+    [config],
+  );
 
   const validators = useMemo(() => {
     if (!register) return;
@@ -130,7 +137,7 @@ export const useRegisterValidator = (
       ...(config.validate ? { validate: config.validate } : {}),
     };
     return baseValidators;
-  }, [config, register]);
+  }, [config, register, hasValidator, passwordValidations]);
 
   if (!validators) return;
   return register(fieldName, validators);

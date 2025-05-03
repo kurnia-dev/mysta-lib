@@ -1,7 +1,8 @@
+import { DragEvent, FC, HTMLAttributes } from 'react';
+
 import { Severities } from '../../utils';
-import { FC, HTMLAttributes, DragEvent } from 'react';
-import { SeparatorProps } from '../separator/Separator.d';
 import { Icons } from '../icon/Icon.d';
+import { SeparatorProps } from '../separator/Separator.d';
 
 export interface KanbanDropEvent {
   originalEvent: DragEvent<HTMLDivElement>;

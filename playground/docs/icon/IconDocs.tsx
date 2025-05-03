@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import DocTitle from '../DocTitle';
+
 import { Icon } from 'lib/components';
 import { IconProps } from 'lib/components/icon/Icon.d';
+
+import DocTitle from '../DocTitle';
 
 const icons = [
   'plus',
@@ -36,8 +38,8 @@ const IconDocs: React.FC = () => {
 
       <div className="flex gap-2 p-4 relative rounded-[5px] border border-primary-600">
         {icons.map((icon) => (
-          <div key={icon} className="flex flex-col gap-1 items-center">
-            <Icon name={icon} className="scale-150" />
+          <div className="flex flex-col gap-1 items-center" key={icon}>
+            <Icon className="scale-150" name={icon} />
             <span>{icon}</span>
           </div>
         ))}

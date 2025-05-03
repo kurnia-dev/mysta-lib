@@ -1,10 +1,13 @@
-import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
-import { Icon } from '../icon/Icon';
 import { useCallback, useEffect, useState } from 'react';
-import { BaseInputProps } from './BaseInput.d';
-import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
-import { InternalFieldProps } from 'lib/types';
 import { FieldValues, UseFormReturn } from 'react-hook-form';
+
+import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
+import { InternalFieldProps } from 'lib/types';
+
+import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
+import { Icon } from '../icon/Icon';
+
+import { BaseInputProps } from './BaseInput.d';
 
 export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
   const {
@@ -33,7 +36,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     passwordRequirements,
     customValidation,
     preventInputOnError,
-  } = props as BaseInputProps & InternalFieldProps;
+  } = props as BaseInputProps & InternalFieldProps<T>;
 
   const [localValue, setLocalValue] = useState({});
   const [localErrors, setLocalErrors] = useState({});
@@ -86,7 +89,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     if (value !== null) {
       setValue(fieldName, value);
     }
-  }, [value]);
+  }, [value, fieldName, setValue]);
 
   const handleChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +108,17 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
 
       onChange(e.target.value);
     },
-    [getValues, setValue, trigger, preventInputOnError, onChange],
+    [
+      getValues,
+      setValue,
+      trigger,
+      preventInputOnError,
+      onChange,
+      errors,
+      fieldName,
+      methods,
+      value,
+    ],
   );
 
   const handleBlur = useCallback(
@@ -113,7 +126,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
       await trigger(fieldName);
       onBlur(e.target.value);
     },
-    [trigger, onBlur],
+    [trigger, onBlur, fieldName],
   );
 
   const handleKeydown = useCallback(
@@ -124,7 +137,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
 
       onKeydown(e.key);
     },
-    [type],
+    [type, onKeydown],
   );
 
   return (
@@ -140,14 +153,14 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         {...validator}
         {...preset.input}
         autoComplete="off"
+        disabled={disabled}
+        name={fieldName}
+        placeholder={placeholderText}
+        type={passwordVisibility && type === 'password' ? 'text' : type}
         onBlur={handleBlur}
         onChange={handleChange}
         onInput={onInput}
         onKeyDown={handleKeydown}
-        name={fieldName}
-        placeholder={placeholderText}
-        disabled={disabled}
-        type={passwordVisibility && type === 'password' ? 'text' : type}
       />
       {type === 'password' && (
         <Icon

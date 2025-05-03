@@ -1,11 +1,14 @@
+import { isEqual } from 'lodash';
+import { useCallback, useEffect } from 'react';
+
 import { useComponentPreset, useControllerValidator } from 'lib/hooks';
+
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
-import { CheckboxProps } from './Checkbox.d';
-import { useCallback, useEffect } from 'react';
-import { isEqual } from 'lodash';
 
-export const Checkbox: React.FC<CheckboxProps> = (props) => {
+import { CheckboxProps } from './Checkbox.d';
+
+export const Checkbox = (props: CheckboxProps): JSX.Element => {
   const {
     onChange = () => {},
 
@@ -71,7 +74,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
     if (value !== undefined) {
       formOnChange(value);
     }
-  }, [value]);
+  }, [formOnChange, value]);
 
   const handleChange = useCallback(() => {
     let newValue: CheckboxProps['optionValue'][] | boolean | null = fieldValue;
@@ -123,15 +126,15 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
   return (
     <FieldWrapper
       {...{ fieldName, required, label, info, hideRequiredMark }}
-      onClick={handleChange}
       className="flex items-center gap-1"
-      errors={error ? { [fieldName]: error } : {}}
       context={{
         invalid: !!error,
         disabled,
         containerless: role === 'checkbox',
         borderless: true,
       }}
+      errors={error ? { [fieldName]: error } : {}}
+      onClick={handleChange}
     >
       <div {...preset.box}>
         {role === 'checkbox' ? createIconBox() : createToggleSwitch()}
@@ -140,8 +143,8 @@ export const Checkbox: React.FC<CheckboxProps> = (props) => {
         ref={ref}
         {...preset.input}
         checked={isChecked !== null}
-        name={fieldName}
         disabled={disabled}
+        name={fieldName}
         type="checkbox"
         onChange={() => {}}
       />

@@ -30,7 +30,7 @@ export default {
       { '!cursor-pointer': !context?.disabled },
     ],
   }),
-  box: ({ props, context }) => ({
+  box: ({ context }) => ({
     className: [
       '!w-4 !h-4 flex items-center justify-center bg-white',
       'border-2 rounded-full',

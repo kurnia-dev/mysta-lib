@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // FieldWrapper.d.ts
 
-import { ReactNode, FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
 export interface FieldWrapperProps extends FieldWrapperEvent {

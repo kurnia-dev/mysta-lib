@@ -1,8 +1,9 @@
 import { Popover as RUIPopover } from 'radix-ui';
-import { PopoverProps } from './Popover.d';
 import { useCallback, useEffect, useState } from 'react';
 
-export const Popover: React.FC<PopoverProps> = (props) => {
+import { PopoverProps } from './Popover.d';
+
+export const Popover = (props: PopoverProps) => {
   const {
     children,
     closeOnBlur,
@@ -28,33 +29,33 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       setVisible(type === 'in');
       onVisibleChange?.(type === 'in');
     },
-    [setVisible],
+    [setVisible, onVisibleChange],
   );
 
   return (
     <RUIPopover.Root
       defaultOpen={defaultVisibility}
-      onOpenChange={setVisible}
       open={visible}
+      onOpenChange={setVisible}
     >
       {triggerOnMouseOver ? (
         <RUIPopover.Trigger
           asChild
-          onMouseOver={() => handleMouseInOut('in')}
           onMouseOut={() => handleMouseInOut('out')}
+          onMouseOver={() => handleMouseInOut('in')}
         >
           <div className="group w-max h-max relative m-auto">
             {children}
             <RUIPopover.Content
+              align="end"
+              className="absolute bottom-2 right-2"
               forceMount={alwaysRender}
               tabIndex={undefined}
-              className="absolute bottom-2 right-2"
-              align="end"
-              onMouseOver={() => handleMouseInOut('in')}
-              onMouseOut={() => handleMouseInOut('out')}
               onFocusOutside={(e) => {
                 if (!closeOnBlur) e.preventDefault();
               }}
+              onMouseOut={() => handleMouseInOut('out')}
+              onMouseOver={() => handleMouseInOut('in')}
             >
               {content}
             </RUIPopover.Content>
@@ -64,10 +65,10 @@ export const Popover: React.FC<PopoverProps> = (props) => {
         <>
           <RUIPopover.Trigger asChild>{children}</RUIPopover.Trigger>
           <RUIPopover.Content
+            align="end"
+            className="absolute bottom-2 right-2"
             forceMount={alwaysRender}
             tabIndex={undefined}
-            className="absolute bottom-2 right-2"
-            align="end"
             onFocusOutside={(e) => {
               if (!closeOnBlur) e.preventDefault();
             }}

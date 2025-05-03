@@ -1,9 +1,11 @@
-import { useComponentPreset } from 'lib/hooks';
-import { DialogProps } from './Dialog.d';
-import { Dialog as RUIDialog } from 'radix-ui';
-import { Icon, Slot } from 'lib/components';
-import { memo } from 'react';
 import clsx from 'clsx';
+import { Dialog as RUIDialog } from 'radix-ui';
+import { memo } from 'react';
+
+import { Icon, Slot } from 'lib/components';
+import { useComponentPreset } from 'lib/hooks';
+
+import { DialogProps } from './Dialog.d';
 
 export const Dialog = memo((props: DialogProps) => {
   const {
@@ -59,8 +61,8 @@ export const Dialog = memo((props: DialogProps) => {
                 {useCloseIcon && (
                   <div {...preset.iconContainer}>
                     <Icon
-                      name="x"
                       className="cursor-pointer"
+                      name="x"
                       onClick={() => onVisibleChange(false)}
                     />
                   </div>
@@ -79,3 +81,5 @@ export const Dialog = memo((props: DialogProps) => {
     </RUIDialog.Root>
   );
 });
+
+Dialog.displayName = 'Dialog';

@@ -1,11 +1,6 @@
-import { ReactNode } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DialogProps } from '../dialog/Dialog.d';
 import { FormProps } from '../form/Form.d';
-import {
-  UseFormGetValues,
-  UseFormReset,
-  UseFormResetField,
-} from 'react-hook-form';
 
 export interface DialogFormProps<T extends Record<string, any>>
   extends Omit<DialogProps, 'slots'>,

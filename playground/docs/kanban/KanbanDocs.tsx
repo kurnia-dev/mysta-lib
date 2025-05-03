@@ -4,8 +4,6 @@ const KanbanDocs: React.FC = () => {
   return (
     <KanbanBoard className="flex gap-2" onUpdate={(e) => console.log(e)}>
       <KanbanColumn
-        groupId="to-do"
-        onDrop={(e) => console.log(e)}
         data={[
           {
             menus: [
@@ -38,10 +36,10 @@ const KanbanDocs: React.FC = () => {
               'Cillum veniam aute elit consectetur officia deserunt sit laborum incididunt in anim ex. Magna nulla mollit ipsum labore incididunt mollit ad laborum velit ea amet pariatur. Ut culpa sunt eiusmod aliquip nulla ut quis est amet eiusmod cillum. Eu amet deserunt velit ad anim occaecat eiusmod.',
           },
         ]}
+        groupId="to-do"
+        onDrop={(e) => console.log(e)}
       />
       <KanbanColumn
-        groupId="done"
-        onDrop={(e) => console.log(e)}
         data={[
           {
             menus: [
@@ -74,6 +72,8 @@ const KanbanDocs: React.FC = () => {
               'Cillum veniam aute elit consectetur officia deserunt sit laborum incididunt in anim ex. Magna nulla mollit ipsum labore incididunt mollit ad laborum velit ea amet pariatur. Ut culpa sunt eiusmod aliquip nulla ut quis est amet eiusmod cillum. Eu amet deserunt velit ad anim occaecat eiusmod.',
           },
         ]}
+        groupId="done"
+        onDrop={(e) => console.log(e)}
       />
     </KanbanBoard>
   );

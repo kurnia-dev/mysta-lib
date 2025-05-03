@@ -1,9 +1,12 @@
-import { useComponentPreset } from 'lib/hooks';
-import { FieldWrapperProps } from './FieldWrapper.d';
-import { Icon } from '../icon/Icon';
 import clsx from 'clsx';
 
-export const FieldWrapper: React.FC<FieldWrapperProps> = ({
+import { useComponentPreset } from 'lib/hooks';
+
+import { Icon } from '../icon/Icon';
+
+import { FieldWrapperProps } from './FieldWrapper.d';
+
+export const FieldWrapper = ({
   children,
   className,
   context,
@@ -15,7 +18,7 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   hideRequiredMark = false,
 
   onClick,
-}) => {
+}: FieldWrapperProps) => {
   const preset =
     useComponentPreset('fieldwrapper', {
       context,

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DocTitle from '../DocTitle';
+
 import {
   Button,
   Checkbox,
@@ -12,6 +12,8 @@ import {
   ToggleSwitch,
 } from 'lib/components';
 import { FormHandle } from 'lib/components/form/Form.d';
+
+import DocTitle from '../DocTitle';
 
 type DialogFormValues = {
   firstName: string;
@@ -58,58 +60,58 @@ const DialogFormDocs: React.FC = () => {
 
       <Button
         label="Open Dialog"
-        onClick={() => setVisible(true)}
         type="button"
+        onClick={() => setVisible(true)}
       />
 
       <DialogForm
-        ref={formRef}
         buttonsConfig={[
           { type: 'back' },
           { type: 'reset' },
           { type: 'submit' },
         ]}
+        defaultValues={initialValue}
         header="Dialog Form"
+        ref={formRef}
         visible={visible}
         onSubmit={(e) => console.log(e)}
         onVisibleChange={setVisible}
-        defaultValues={initialValue}
       >
-        <InputText label="First Name" fieldName="firstName" required />
-        <InputText label="Last Name" fieldName="lastName" />
+        <InputText required fieldName="firstName" label="First Name" />
+        <InputText fieldName="lastName" label="Last Name" />
         <InputText
-          label="Nick Name"
-          fieldName="nickName"
-          required
-          maxLength={5}
           preventInputOnError
+          required
+          fieldName="nickName"
+          label="Nick Name"
+          maxLength={5}
         />
         <InputText
-          label="Employee Type"
-          fieldName="employeeType"
           disabled
+          fieldName="employeeType"
           info="DialogForm pendaftaran intern"
+          label="Employee Type"
         />
         <InputNumber
-          label="Age"
           fieldName="age"
+          info="Age range 24 to 30"
+          label="Age"
           max={30}
           min={24}
-          info="Age range 24 to 30"
         />
         <InputText
-          label="Siblings"
-          fieldName="siblings"
-          pattern={/^\d+$/}
           preventInputOnError
+          fieldName="siblings"
+          label="Siblings"
+          pattern={/^\d+$/}
         />
-        <InputEmail fieldName="email" label="Email" required />
+        <InputEmail required fieldName="email" label="Email" />
         <InputPassword
+          required
           fieldName="password"
           label="Password"
-          required
-          minLength={8}
           maxLength={30}
+          minLength={8}
           passwordRequirements={[
             'alpha-numeric',
             'lowercase',
@@ -118,82 +120,82 @@ const DialogFormDocs: React.FC = () => {
           ]}
         />
         <Checkbox
+          disabled
           fieldName="permanentEmployee"
-          mode="binary"
-          disabled
           label="Permanent Employee"
+          mode="binary"
         />
         <Checkbox
-          fieldName="isIntern"
-          mode="binary"
           disabled
+          fieldName="isIntern"
           label="Intern Employee"
-        />
-        <Checkbox
-          fieldName="termsAndConditions"
           mode="binary"
-          label="T&C Agreement"
-          required
         />
         <Checkbox
-          fieldName="collaboration"
-          mode="tristate"
-          label="Collaboration Agreement"
           required
+          fieldName="termsAndConditions"
+          label="T&C Agreement"
+          mode="binary"
+        />
+        <Checkbox
+          required
+          fieldName="collaboration"
+          label="Collaboration Agreement"
+          mode="tristate"
         />
         <div className="flex flex-col gap-1">
           <span>Preset</span>
           <Checkbox
-            fieldName="presets"
-            required
-            optionValue={{ a: 'a', aa: 'aa' }}
-            mode="value"
-            label="Preset 1"
             hideRequiredMark
+            required
+            fieldName="presets"
+            label="Preset 1"
+            mode="value"
+            optionValue={{ a: 'a', aa: 'aa' }}
           />
           <Checkbox
-            fieldName="presets"
-            required
-            optionValue={{ b: 'b', bb: 'bb' }}
-            mode="value"
-            label="Preset 2"
             hideRequiredMark
+            required
+            fieldName="presets"
+            label="Preset 2"
+            mode="value"
+            optionValue={{ b: 'b', bb: 'bb' }}
           />
         </div>
         <div className="flex flex-col gap-1">
           <span>Type</span>
           <RadioButton
-            fieldName="type"
-            required
-            optionValue="Admin"
-            label="Admin"
             hideRequiredMark
+            required
+            fieldName="type"
+            label="Admin"
+            optionValue="Admin"
           />
           <RadioButton
-            fieldName="type"
-            required
-            optionValue="Member"
-            label="Member"
             hideRequiredMark
+            required
+            fieldName="type"
+            label="Member"
+            optionValue="Member"
           />
         </div>
         <div className="flex flex-col gap-1">
           <span>Work Type</span>
           <RadioButton
-            fieldName="workType"
-            required
-            optionValue="On-Site"
-            label="On-Site"
             disabled
             hideRequiredMark
+            required
+            fieldName="workType"
+            label="On-Site"
+            optionValue="On-Site"
           />
         </div>
-        <ToggleSwitch fieldName="isActive" required label="Active" disabled />
+        <ToggleSwitch disabled required fieldName="isActive" label="Active" />
         <ToggleSwitch
-          fieldName="isApproved"
           required
-          mode="tristate"
+          fieldName="isApproved"
           label="Approve"
+          mode="tristate"
         />
       </DialogForm>
     </div>

@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from 'react';
-import { KanbanDragStartEvent, KanbanDropEvent } from '../card/Card.d';
+
 import { DragItem } from 'lib/types/kanban.type';
 
 /**

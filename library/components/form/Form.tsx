@@ -1,6 +1,4 @@
-import { useForm, FormProvider } from 'lib/context';
-import { ButtonConfig, FormHandle, FormProps } from './Form.d';
-import { Button } from '../button/Button';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   cloneElement,
   forwardRef,
@@ -8,7 +6,14 @@ import {
   Ref,
   useImperativeHandle,
 } from 'react';
+
+import { FormProvider, useForm } from 'lib/context';
+import { InternalFieldProps } from 'lib/types';
+
+import { Button } from '../button/Button';
 import { Slot } from '../slot/Slot';
+
+import { ButtonConfig, FormHandle, FormProps } from './Form.d';
 
 const FormContent = <T extends Record<string, any>>(
   {
@@ -43,17 +48,40 @@ const FormContent = <T extends Record<string, any>>(
     if (Array.isArray(children)) {
       return children.map((child, index) => {
         return isValidElement(child)
-          ? cloneElement(child as React.ReactElement<any>, {
-              key: child.key ?? index,
+          ? cloneElement(child as React.ReactElement<InternalFieldProps<T>>, {
               methods,
+              key: child.key ?? index,
             })
           : child;
       });
     } else if (isValidElement(children)) {
-      return cloneElement(children as React.ReactElement<any>, { methods });
+      return cloneElement(
+        children as React.ReactElement<InternalFieldProps<T>>,
+        { methods },
+      );
     }
 
     return children;
+  };
+
+  const createButton = () => {
+    const uniqueButtons = new Set();
+
+    return buttonsConfig.map(({ type, label, severity, style }) => {
+      if (uniqueButtons.has(type)) return;
+      uniqueButtons.add(type);
+      return (
+        <Button
+          key={type}
+          label={label}
+          outlined={style === 'outlined'}
+          severity={severity}
+          text={style === 'text'}
+          type={type === 'submit' ? 'submit' : 'button'}
+          onClick={() => (type === 'reset' ? reset() : undefined)}
+        />
+      );
+    });
   };
 
   useImperativeHandle(
@@ -70,7 +98,18 @@ const FormContent = <T extends Record<string, any>>(
       isDirty,
       dirtyFields,
     }),
-    [resetField, reset, getValues],
+    [
+      resetField,
+      reset,
+      getValues,
+      setValue,
+      setError,
+      clearErrors,
+      errors,
+      watch,
+      isDirty,
+      dirtyFields,
+    ],
   );
 
   return (
@@ -80,19 +119,7 @@ const FormContent = <T extends Record<string, any>>(
 
         <Slot name="footer" slots={slots}>
           <div className="col-span-2 gap-1 flex justify-end w-full">
-            {buttonsConfig.map(({ type, label, severity, style }) => {
-              return (
-                <Button
-                  key={type}
-                  onClick={() => (type === 'reset' ? reset() : undefined)}
-                  label={label}
-                  severity={severity}
-                  outlined={style === 'outlined'}
-                  text={style === 'text'}
-                  type={type === 'submit' ? 'submit' : 'button'}
-                />
-              );
-            })}
+            {createButton()}
           </div>
         </Slot>
       </div>
@@ -166,12 +193,12 @@ const FormContainer = <T extends Record<string, any>>(
   return (
     <FormProvider defaultValues={defaultValues}>
       <FormRefWrapper
+        buttonsConfig={getButtonsTemplate()}
         ref={ref}
         resetOnSubmit={resetOnSubmit}
-        onSubmit={onSubmit}
-        onError={onError}
         slots={slots}
-        buttonsConfig={getButtonsTemplate()}
+        onError={onError}
+        onSubmit={onSubmit}
       >
         {children}
       </FormRefWrapper>

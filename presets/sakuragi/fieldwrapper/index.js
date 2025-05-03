@@ -1,11 +1,11 @@
 export default {
-  root: ({ context }) => ({
+  root: () => ({
     className: [
       'flex flex-col gap-1 max-w-full items-start text-left',
       'pointer-events-none',
     ],
   }),
-  labelContainer: ({ context }) => ({
+  labelContainer: () => ({
     className: ['text-sm flex gap-1 cursor-[inherit] items-center'],
   }),
   label: {

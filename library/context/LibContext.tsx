@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo, ReactNode } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tooltip as RUITooltip } from 'radix-ui';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 
 // Define the shape of your config options
 interface ConfigOptions {

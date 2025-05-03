@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { BaseInputProps } from '../private/BaseInput.d';
 
 /**
@@ -6,7 +7,7 @@ import { BaseInputProps } from '../private/BaseInput.d';
  *
  * @description This defines the props for the InputText component including its field name, label, and event handlers.
  */
-export interface InputTextProps extends Omit<BaseInputProps<string>, 'type'> {}
+export type InputTextProps = Omit<BaseInputProps<string>, 'type'>;
 
 /**
  * InputText component for form input with built-in validation and custom event handling.

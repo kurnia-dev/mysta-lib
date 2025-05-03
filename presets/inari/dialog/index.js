@@ -1,11 +1,11 @@
 export default {
-  overlay: ({ context }) => ({
+  overlay: () => ({
     className: ['fixed inset-0 bg-black/50 backdrop-blur-sm z-40'],
   }),
-  iconContainer: ({ context }) => ({
+  iconContainer: () => ({
     className: ['hover:bg-secondary-100 rounded-full p-1'],
   }),
-  container: ({ props, context }) => ({
+  container: ({ props }) => ({
     className: [
       'fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-xl w-full',
       'flex flex-col gap-3',
