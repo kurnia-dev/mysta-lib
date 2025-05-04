@@ -4,7 +4,11 @@ import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 
-import { RadioButtonProps } from './RadioButton.d';
+import {
+  FieldValidation,
+  RadioButtonEvent,
+  RadioButtonProps,
+} from './RadioButton.d';
 
 export const RadioButton = (props: RadioButtonProps) => {
   const {
@@ -32,7 +36,21 @@ export const RadioButton = (props: RadioButtonProps) => {
           if (required && val === null) {
             return 'This field is required';
           }
-          return customValidation?.(val) ?? true;
+
+          if (typeof optionValue === 'string') {
+            return (
+              (
+                customValidation as FieldValidation<string>['customValidation']
+              )?.(val as string) ?? true
+            );
+          } else if (typeof optionValue === 'boolean') {
+            return (
+              (
+                customValidation as FieldValidation<boolean>['customValidation']
+              )?.(val as boolean) ?? true
+            );
+          }
+          return true;
         },
       },
     },
@@ -60,7 +78,20 @@ export const RadioButton = (props: RadioButtonProps) => {
     const newValue: RadioButtonProps['optionValue'] = optionValue;
 
     formOnChange(newValue);
-    onChange(newValue);
+
+    if (typeof optionValue === 'string') {
+      return (
+        (onChange as RadioButtonEvent<string>['onChange'])?.(
+          newValue as string,
+        ) ?? true
+      );
+    } else if (typeof optionValue === 'boolean') {
+      return (
+        (onChange as RadioButtonEvent<boolean>['onChange'])?.(
+          newValue as boolean,
+        ) ?? true
+      );
+    }
   }, [formOnChange, onChange, optionValue]);
 
   return (

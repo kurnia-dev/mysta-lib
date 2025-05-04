@@ -5,7 +5,7 @@ import { FC } from 'react';
  *
  * @description This defines the props for the ToggleSwitch component including its field name, label, and event handlers.
  */
-export interface ToggleSwitchProps extends ToggleSwitchEvent, FieldValidation {
+export interface BaseToggleSwitchProps {
   /** The name of the field used for form submission */
   fieldName?: string;
 
@@ -14,10 +14,6 @@ export interface ToggleSwitchProps extends ToggleSwitchEvent, FieldValidation {
 
   /** Whether the input is disabled */
   disabled?: boolean;
-
-  mode?: 'binary' | 'tristate';
-
-  value?: boolean | null;
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
@@ -30,17 +26,35 @@ export interface ToggleSwitchProps extends ToggleSwitchEvent, FieldValidation {
   hideRequiredMark?: boolean;
 }
 
+interface BinaryModeProps
+  extends ToggleSwitchEvent<boolean>,
+    FieldValidation<boolean>,
+    BaseToggleSwitchProps {
+  mode?: 'binary';
+  value?: boolean;
+}
+
+interface TriStateModeProps
+  extends ToggleSwitchEvent<boolean | null>,
+    FieldValidation<boolean | null>,
+    BaseToggleSwitchProps {
+  mode: 'tristate';
+  value?: boolean | null;
+}
+
+export type ToggleSwitchProps = BinaryModeProps | TriStateModeProps;
+
 /**
  * Validation rules for an input field.
  *
  * @description Defines various validation rules for the  field, including required fields, min/max length, and custom validation.
  */
-export interface FieldValidation {
+export interface FieldValidation<T = boolean | null> {
   /** Whether the input is required */
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (e: boolean | null) => boolean;
+  customValidation?: (e: T) => boolean;
 
   customMessage?: string;
 }
@@ -50,9 +64,9 @@ export interface FieldValidation {
  *
  * @description Defines event handler functions related to changes and input in the ToggleSwitch component.
  */
-export interface ToggleSwitchEvent {
+export interface ToggleSwitchEvent<T = boolean | null> {
   /** Called when the input value changes */
-  onChange?: (value: boolean | null) => void;
+  onChange?: (value: T) => void;
 }
 
 /**

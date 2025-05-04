@@ -183,6 +183,16 @@ const FormDocs: React.FC = () => {
             fieldName="workType"
             label="On-Site"
             optionValue="On-Site"
+            onChange={(e) => console.log(e)}
+          />
+          <RadioButton
+            disabled
+            hideRequiredMark
+            required
+            fieldName="workType"
+            label="On-Site"
+            optionValue={true}
+            onChange={(e) => console.log(e)}
           />
         </div>
         <ToggleSwitch disabled required fieldName="isActive" label="Active" />

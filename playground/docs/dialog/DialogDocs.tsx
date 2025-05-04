@@ -125,28 +125,28 @@ const DialogDocs: React.FC = () => {
             label="Use Modal"
             value={modal}
             onChange={(e) => {
-              setModal(Boolean(e));
+              setModal(e);
             }}
           />
           <ToggleSwitch
             label="Close On Blur"
             value={closeOnBlur}
             onChange={(e) => {
-              setCloseOnBlur(Boolean(e));
+              setCloseOnBlur(e);
             }}
           />
           <ToggleSwitch
             label="Close On Escape"
             value={closeOnEscape}
             onChange={(e) => {
-              setCloseOnEscape(Boolean(e));
+              setCloseOnEscape(e);
             }}
           />
           <ToggleSwitch
             label="Use Close Icon"
             value={useCloseIcon}
             onChange={(e) => {
-              setUseCloseIcon(Boolean(e));
+              setUseCloseIcon(e);
             }}
           />
         </div>

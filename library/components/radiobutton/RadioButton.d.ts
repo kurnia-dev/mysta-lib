@@ -5,7 +5,7 @@ import { FC } from 'react';
  *
  * @description This defines the props for the RadioButton component including its field name, label, and event handlers.
  */
-export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
+export interface BaseRadioButtonProps {
   /** The name of the field used for form submission */
   fieldName?: string;
 
@@ -14,11 +14,6 @@ export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
 
   /** Whether the input is disabled */
   disabled?: boolean;
-
-  value?: string | boolean;
-
-  /** The value for this checkbox, switch mode to value to use this props */
-  optionValue?: string | boolean;
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
@@ -31,17 +26,39 @@ export interface RadioButtonProps extends RadioButtonEvent, FieldValidation {
   hideRequiredMark?: boolean;
 }
 
+interface StringRadioButtonProps
+  extends BaseRadioButtonProps,
+    RadioButtonEvent<string>,
+    FieldValidation<string> {
+  value?: string;
+
+  /** The value for this checkbox, switch mode to value to use this props */
+  optionValue: string;
+}
+
+interface BooleanRadioButtonProps
+  extends BaseRadioButtonProps,
+    RadioButtonEvent<boolean>,
+    FieldValidation<boolean> {
+  value?: boolean;
+
+  /** The value for this checkbox, switch mode to value to use this props */
+  optionValue?: boolean;
+}
+
+export type RadioButtonProps = BooleanRadioButtonProps | StringRadioButtonProps;
+
 /**
  * Validation rules for an input field.
  *
  * @description Defines various validation rules for the  field, including required fields, min/max length, and custom validation.
  */
-export interface FieldValidation {
+export interface FieldValidation<T = string | boolean> {
   /** Whether the input is required */
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (e: string | boolean) => boolean;
+  customValidation?: (e: T) => boolean;
 
   customMessage?: string;
 }
@@ -51,9 +68,9 @@ export interface FieldValidation {
  *
  * @description Defines event handler functions related to changes and input in the RadioButton component.
  */
-export interface RadioButtonEvent {
+export interface RadioButtonEvent<T = string | boolean> {
   /** Called when the input value changes */
-  onChange?: (value: string | boolean) => void;
+  onChange?: (value: T) => void;
 }
 
 /**
