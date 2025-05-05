@@ -1,16 +1,13 @@
 import { FC } from 'react';
 
-export type CheckboxValue =
-  | (string | number | Record<string, unknown>)[]
-  | boolean
-  | null;
+export type CheckboxValue = (string | number | Record<string, unknown>)[];
 
 /**
  * Props for the Checkbox component.
  *
  * @description This defines the props for the Checkbox component including its field name, label, and event handlers.
  */
-export interface CheckboxProps extends CheckboxEvent, FieldValidation {
+export interface BaseCheckboxProps {
   /** The name of the field used for form submission */
   fieldName?: string;
 
@@ -19,13 +16,6 @@ export interface CheckboxProps extends CheckboxEvent, FieldValidation {
 
   /** Whether the input is disabled */
   disabled?: boolean;
-
-  /** The value for this checkbox, switch mode to value to use this props */
-  optionValue?: string | number | Record<string, unknown>;
-
-  mode?: 'value' | 'binary' | 'tristate';
-
-  value?: CheckboxValue;
 
   /** Additional information to display beside the input, typically as a tooltip */
   info?: string;
@@ -45,19 +35,52 @@ export interface CheckboxProps extends CheckboxEvent, FieldValidation {
   role?: 'toggleswitch' | 'checkbox';
 }
 
+export interface ValueCheckboxProps
+  extends BaseCheckboxProps,
+    FieldValidation<CheckboxValue>,
+    CheckboxEvent<CheckboxValue> {
+  /** The value for this checkbox, switch mode to value to use this props */
+  optionValue?: string | number | Record<string, unknown>;
+
+  mode: 'value';
+
+  value?: CheckboxValue;
+}
+
+export interface BinaryCheckboxProps
+  extends BaseCheckboxProps,
+    FieldValidation<boolean>,
+    CheckboxEvent<boolean> {
+  mode?: 'binary';
+
+  value?: boolean;
+}
+
+export interface TristateCheckboxProps
+  extends BaseCheckboxProps,
+    FieldValidation<boolean | null>,
+    CheckboxEvent<boolean | null> {
+  mode: 'tristate';
+
+  value?: boolean | null;
+}
+
+export type CheckboxProps =
+  | BinaryCheckboxProps
+  | TristateCheckboxProps
+  | ValueCheckboxProps;
+
 /**
  * Validation rules for an input field.
  *
  * @description Defines various validation rules for the  field, including required fields, min/max length, and custom validation.
  */
-export interface FieldValidation {
+export interface FieldValidation<T> {
   /** Whether the input is required */
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (
-    e: (string | number | Record<string, unknown>)[] | boolean | null,
-  ) => boolean;
+  customValidation?: (e: T) => boolean;
 
   customMessage?: string;
 }
@@ -67,9 +90,9 @@ export interface FieldValidation {
  *
  * @description Defines event handler functions related to changes and input in the Checkbox component.
  */
-export interface CheckboxEvent {
+export interface CheckboxEvent<T> {
   /** Called when the input value changes */
-  onChange?: (value: CheckboxValue) => void;
+  onChange?: (value: T) => void;
 }
 
 /**

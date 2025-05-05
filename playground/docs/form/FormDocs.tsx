@@ -119,24 +119,28 @@ const FormDocs: React.FC = () => {
           fieldName="permanentEmployee"
           label="Permanent Employee"
           mode="binary"
+          onChange={(e) => console.log(e)}
         />
         <Checkbox
           disabled
           fieldName="isIntern"
           label="Intern Employee"
           mode="binary"
+          onChange={(e) => console.log(e)}
         />
         <Checkbox
           required
           fieldName="termsAndConditions"
           label="T&C Agreement"
           mode="binary"
+          onChange={(e) => console.log(e)}
         />
         <Checkbox
           required
           fieldName="collaboration"
           label="Collaboration Agreement"
           mode="tristate"
+          onChange={(e) => console.log(e)}
         />
         <div className="flex flex-col gap-1">
           <span>Preset</span>
@@ -147,6 +151,7 @@ const FormDocs: React.FC = () => {
             label="Preset 1"
             mode="value"
             optionValue={{ a: 'a', aa: 'aa' }}
+            onChange={(e) => console.log(e)}
           />
           <Checkbox
             hideRequiredMark
@@ -155,6 +160,7 @@ const FormDocs: React.FC = () => {
             label="Preset 2"
             mode="value"
             optionValue={{ b: 'b', bb: 'bb' }}
+            onChange={(e) => console.log(e)}
           />
         </div>
         <div className="flex flex-col gap-1">

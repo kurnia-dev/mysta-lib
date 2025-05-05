@@ -6,7 +6,8 @@ import { useComponentPreset, useControllerValidator } from 'lib/hooks';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
 
-import { CheckboxProps } from './Checkbox.d';
+import { CheckboxProps, CheckboxValue, ValueCheckboxProps } from './Checkbox.d';
+import { callMultiTypeFn } from './helper';
 
 export const Checkbox = (props: CheckboxProps): JSX.Element => {
   const {
@@ -15,7 +16,6 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
     label,
     disabled,
     mode = 'binary',
-    optionValue,
     info,
     fieldName = label ?? 'checkbox',
     hideRequiredMark = false,
@@ -25,6 +25,9 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
     required,
     customValidation,
   } = props;
+
+  const optionValue =
+    mode === 'value' ? (props as ValueCheckboxProps).optionValue : undefined;
 
   const isValueMode = !!optionValue && mode === 'value';
 
@@ -38,7 +41,7 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
         return mode === 'tristate' ? null : false;
       })(),
       rules: {
-        validate: (val: CheckboxProps['optionValue'][] | boolean | null) => {
+        validate: (val: CheckboxValue | boolean | null) => {
           if (
             required &&
             ((isValueMode && (!Array.isArray(val) || val.length === 0)) ||
@@ -47,7 +50,8 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
           ) {
             return 'This field is required';
           }
-          return customValidation?.(val) ?? true;
+
+          return callMultiTypeFn(mode, customValidation, val);
         },
       },
     },
@@ -77,7 +81,7 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
   }, [formOnChange, value]);
 
   const handleChange = useCallback(() => {
-    let newValue: CheckboxProps['optionValue'][] | boolean | null = fieldValue;
+    let newValue: CheckboxValue | boolean | null = fieldValue;
 
     if (isValueMode) {
       if (!Array.isArray(fieldValue)) {
@@ -103,7 +107,7 @@ export const Checkbox = (props: CheckboxProps): JSX.Element => {
     }
 
     formOnChange(newValue);
-    onChange(newValue);
+    callMultiTypeFn(mode, onChange, newValue);
   }, [formOnChange, onChange, fieldValue, mode, isValueMode, optionValue]);
 
   const createToggleSwitch = () => {
