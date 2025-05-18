@@ -4,6 +4,7 @@ import Button from './button';
 import Card from './card';
 import Checkbox from './checkbox';
 import Dialog from './dialog';
+import Dropdown from './dropdown';
 import FieldWrapper from './fieldwrapper';
 import global from './global';
 import RadioButton from './radiobutton';
@@ -32,6 +33,7 @@ const yurei = {
 
   // Panels
   Dialog,
+  Dropdown,
 
   // Menu
 

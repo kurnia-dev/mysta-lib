@@ -32,19 +32,22 @@ const preset: CheckboxPresetOptions = {
       { '!cursor-pointer': !context?.disabled },
     ],
   }),
-  box: ({ context }) => ({
-    className: [
-      '!w-4 !h-4 flex items-center justify-center bg-primary-500',
-      'border-2 rounded-[4px]',
-      'border-secondary-500 ',
+  box: ({ context }) => {
+    return {
+      className: [
+        '!w-4 !h-4 flex items-center justify-center',
+        'border-2 rounded-[4px]',
+        'border-secondary-500 ',
 
-      { 'bg-white': !context.checked && !context.partialChecked },
+        { 'bg-white': !context.checked && !context.partialChecked },
+        { 'bg-primary-500': context.checked || context.partialChecked },
 
-      {
-        '!bg-secondary-100': context?.disabled,
-      },
-    ],
-  }),
+        {
+          '!bg-secondary-100': context?.disabled,
+        },
+      ],
+    };
+  },
 };
 
 export default preset;
