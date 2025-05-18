@@ -1,6 +1,12 @@
 import { FC } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 /**
  * Props for the BaseInput component.
  *
@@ -102,6 +108,11 @@ export interface BaseInputEvent<T> {
 
   /** Called when the keyboard is being pressed (on keydown) */
   onKeydown?: (value: T) => void;
+}
+
+export interface BaseInputPresetOptions {
+  eyetoggle: PresetAttributes;
+  input: PresetMethodAttributes<PresetOptions<'BaseInput'>>;
 }
 
 /**
