@@ -59,9 +59,7 @@ const DialogFormContainer = <T extends Record<string, any>>(
     headerClass,
 
     slots: {
-      content: slots['content'],
-      footer: slots['footer'],
-      header: slots['header'],
+      header: slots?.['header'],
     },
   };
 
@@ -72,7 +70,7 @@ const DialogFormContainer = <T extends Record<string, any>>(
     resetOnSubmit,
     buttonsConfig,
 
-    slots: { footer: slots['formFooter'] },
+    slots: { footer: slots?.['formFooter'] },
   };
 
   const handleSubmit: FormProps<T>['onSubmit'] = (e) => {

@@ -11,8 +11,6 @@ export interface DialogFormProps<T extends Record<string, any>>
 
 export interface DialogFormSlots {
   header?: JSX.Element;
-  content?: JSX.Element;
-  footer?: JSX.Element;
   formFooter?: JSX.Element;
 }
 
