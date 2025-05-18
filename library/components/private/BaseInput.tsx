@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Path } from 'react-hook-form';
 
-import { useComponentPreset, useRegisterValidator } from 'lib/hooks';
-import { InternalFieldProps } from 'lib/types';
+import { useComponentPreset, useValidator } from 'lib/hooks';
+import { UseValidatorReturn } from 'lib/hooks/useValidator';
+import { FieldPathValue } from 'lib/types/internalFields.type';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
@@ -16,15 +17,14 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     onBlur = () => {},
     onKeydown = () => {},
 
-    placeholder,
     label,
     disabled,
     info,
     fieldName = label ?? 'baseinput',
+    placeholder = label ? `Input ${label.toLowerCase()}` : '',
     type = 'text',
     hideRequiredMark = false,
     value,
-    methods,
 
     required,
     customMessage,
@@ -36,37 +36,40 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     passwordRequirements,
     customValidation,
     preventInputOnError,
-  } = props as BaseInputProps & InternalFieldProps<T>;
+  } = props as BaseInputProps;
+
+  const typedFieldName = useMemo(() => {
+    return fieldName as Path<Record<string, T>>;
+  }, [fieldName]);
 
   const [localValue, setLocalValue] = useState({});
   const [localErrors, setLocalErrors] = useState({});
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
-  const fallBackMethods = {
-    getValues: () => localValue,
-    setValue: (name: string, value: T) => {
-      setLocalValue({ [name]: value });
-    },
-    formState: { errors: localErrors },
-    trigger: (name: string) => {
-      const validity = customValidation?.(localValue[name]);
-      return validity === true;
-    },
-  };
-
-  const {
-    setValue,
-    getValues,
-    trigger,
-    formState: { errors = {} },
-  } = (methods as UseFormReturn<FieldValues>) ?? fallBackMethods;
+  const fallBackMethods = useMemo(() => {
+    return {
+      watchedValue: localValue[fieldName],
+      setValue: (name: string, value: T) => {
+        setLocalValue({ [name]: value });
+      },
+      formState: { errors: localErrors },
+      trigger: (name: string) => {
+        const validity = customValidation?.(localValue[name]);
+        return validity === true;
+      },
+    };
+  }, [localErrors, localValue, customValidation, fieldName]);
 
   const preset =
-    useComponentPreset('baseinput', {
+    useComponentPreset('BaseInput', {
       props: { label, type },
     }) ?? {};
 
-  const { ref, ...validator } = useRegisterValidator(
+  const {
+    ref,
+    methods: registeredMethods,
+    ...validator
+  } = useValidator<Record<string, T>>(
     {
       type,
       required,
@@ -79,54 +82,67 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
       customMessage,
       passwordRequirements,
     },
-    fieldName,
+    typedFieldName,
   ) ?? { ref: undefined };
 
-  const placeholderText =
-    placeholder ?? (label ? `Input ${label.toLowerCase()}` : '');
+  const {
+    setValue,
+    watchedValue,
+    trigger,
+    formState: { errors = {} },
+  } = registeredMethods ??
+  (fallBackMethods as unknown as UseValidatorReturn<Record<string, T>>);
 
   useEffect(() => {
-    if (value !== null) {
-      setValue(fieldName, value);
+    // eslint-disable-next-line eqeqeq
+    if (value != null && value !== watchedValue) {
+      setValue(typedFieldName, value as FieldPathValue<T>);
     }
-  }, [value, fieldName, setValue]);
+  }, [value, typedFieldName, setValue, watchedValue]);
 
   const handleChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const currentValue = getValues()[fieldName];
-      setValue(fieldName, e.target.value);
-      const isValid = await trigger(fieldName);
+      const currentValue = watchedValue;
+      setValue(typedFieldName, e.target.value as FieldPathValue<T>);
+      const isValid = await trigger(typedFieldName);
 
-      if (preventInputOnError && errors[fieldName]?.type !== 'required') {
+      if (preventInputOnError && errors[typedFieldName]?.type !== 'required') {
         if (!isValid) {
-          setValue(fieldName, currentValue);
+          setValue(typedFieldName, currentValue as FieldPathValue<T>);
           return;
-        } else if (!methods) {
-          setLocalErrors({ [fieldName]: value });
+        } else if (!registeredMethods) {
+          setLocalErrors({ [typedFieldName]: value });
         }
       }
 
       onChange(e.target.value);
     },
     [
-      getValues,
+      watchedValue,
       setValue,
       trigger,
       preventInputOnError,
       onChange,
       errors,
-      fieldName,
-      methods,
+      typedFieldName,
       value,
+      registeredMethods,
     ],
   );
 
   const handleBlur = useCallback(
     async (e: React.FocusEvent<HTMLInputElement>) => {
-      await trigger(fieldName);
+      await trigger(typedFieldName);
       onBlur(e.target.value);
     },
-    [trigger, onBlur, fieldName],
+    [trigger, onBlur, typedFieldName],
+  );
+
+  const handleInput = useCallback(
+    async (e: React.FormEvent<HTMLInputElement>) => {
+      onInput(e.currentTarget.value);
+    },
+    [onInput],
   );
 
   const handleKeydown = useCallback(
@@ -142,9 +158,16 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
 
   return (
     <FieldWrapper
-      {...{ required, fieldName, info, label, errors, hideRequiredMark }}
+      {...{
+        required,
+        info,
+        label,
+        errors,
+        hideRequiredMark,
+        fieldName: typedFieldName,
+      }}
       context={{
-        invalid: !!errors[fieldName],
+        invalid: !!errors[typedFieldName],
         disabled,
       }}
     >
@@ -154,12 +177,12 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         {...preset.input}
         autoComplete="off"
         disabled={disabled}
-        name={fieldName}
-        placeholder={placeholderText}
+        name={typedFieldName}
+        placeholder={placeholder}
         type={passwordVisibility && type === 'password' ? 'text' : type}
         onBlur={handleBlur}
         onChange={handleChange}
-        onInput={onInput}
+        onInput={handleInput}
         onKeyDown={handleKeydown}
       />
       {type === 'password' && (
