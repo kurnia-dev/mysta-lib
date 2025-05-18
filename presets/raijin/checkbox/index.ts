@@ -1,4 +1,6 @@
-export default {
+import { CheckboxPresetOptions } from 'lib/components/checkbox/Checkbox.d';
+
+const preset: CheckboxPresetOptions = {
   labelContainer: {
     className: 'text-sm flex gap-1 items-center',
   },
@@ -14,7 +16,6 @@ export default {
   icon: ({ context }) => ({
     className: [
       '!w-4 !h-4',
-
       { '!text-secondary-300': context?.disabled },
       { 'text-white': !context?.disabled },
     ],
@@ -22,35 +23,28 @@ export default {
   input: ({ context }) => ({
     className: [
       'absolute',
-      `appearance-none`,
+      'appearance-none',
 
       'focus:!outline-primary-500',
 
       '!w-4 !h-4',
+
       { '!cursor-pointer': !context?.disabled },
     ],
   }),
   box: ({ context }) => ({
     className: [
-      '!w-4 !h-4 flex items-center justify-center bg-white',
-      'border-2 rounded-full',
+      '!w-4 !h-4 flex items-center justify-center bg-primary-500',
+      'border-2 rounded-[4px]',
       'border-secondary-500 ',
 
-      { 'bg-white': !context.checked },
+      { 'bg-white': !context.checked && !context.partialChecked },
 
       {
         '!bg-secondary-100': context?.disabled,
       },
     ],
   }),
-  innerBox: ({ context }) => ({
-    className: [
-      '!w-2 !h-2 flex items-center justify-center bg-primary-500 absolute left-1',
-      'rounded-full',
-
-      {
-        '!bg-secondary-300': context?.disabled,
-      },
-    ],
-  }),
 };
+
+export default preset;

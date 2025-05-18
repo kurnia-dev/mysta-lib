@@ -1,4 +1,6 @@
-export default {
+import { BaseInputPresetOptions } from 'lib/components/private/BaseInput.d';
+
+const preset: BaseInputPresetOptions = {
   eyetoggle: {
     className: 'absolute right-2 top-1/4 cursor-pointer text-secondary-400',
   },
@@ -12,3 +14,5 @@ export default {
     ],
   }),
 };
+
+export default preset;

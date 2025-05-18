@@ -1,6 +1,6 @@
 export default {
-  root: ({ props }) => ({
-    'className': [
+  root: ({ props }): Record<'className', (string | object)[]> => ({
+    className: [
       // Alignment
       'inline-flex items-center',
 
@@ -26,10 +26,8 @@ export default {
           !props.disabled && props.severity === 'danger',
       },
     ],
-    'data-wv-name': 'badge',
-    'data-wv-section': 'root',
   }),
-  input: ({ props, context }) => ({
+  input: ({ props, context }): Record<'className', (string | object)[]> => ({
     className: [
       'text-nowrap whitespace-nowrap font-semibold text-[9px] leading-3 tracking-[0.02em]',
       {
@@ -38,8 +36,8 @@ export default {
       },
     ],
   }),
-  removebutton: ({ props }) => ({
-    'className': [
+  removebutton: ({ props }): Record<'className', (string | object)[]> => ({
+    className: [
       '!p-0 !w-[10px] !h-[10px] ml-1',
       {
         'text-primary-500':
@@ -55,7 +53,5 @@ export default {
         'text-general-400': props.disabled,
       },
     ],
-    'icon-className': 'w-[10px] h-[10px] !text-[10px]',
-    'data-wv-section': 'removebutton',
   }),
 };

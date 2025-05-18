@@ -1,4 +1,6 @@
-export default {
+import { CardPresetOptions } from 'lib/components/card/Card.d';
+
+const preset: CardPresetOptions = {
   root: ({ props }) => ({
     className: [
       'px-2 py-2 flex flex-col gap-3 bg-secondary-200 group-hover:bg-secondary-300/80 text-white text-xs rounded-md relative',
@@ -61,3 +63,5 @@ export default {
     className: [],
   },
 };
+
+export default preset;

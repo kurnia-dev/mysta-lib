@@ -1,4 +1,6 @@
-export default {
+import { DialogPresetOptions } from 'lib/components/dialog/Dialog.d';
+
+const preset: DialogPresetOptions = {
   overlay: () => ({
     className: ['fixed inset-0 bg-black/50 backdrop-blur-sm z-40'],
   }),
@@ -30,3 +32,5 @@ export default {
   header: { className: 'flex justify-between items-center' },
   content: { className: 'flex flex-col gap-2' },
 };
+
+export default preset;

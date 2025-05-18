@@ -1,4 +1,6 @@
-export default {
+import { ToggleSwitchPresetOptions } from 'lib/components/toggleswitch/ToggleSwitch.d';
+
+const preset: ToggleSwitchPresetOptions = {
   labelContainer: {
     className: 'text-sm flex gap-1 items-center',
   },
@@ -83,3 +85,5 @@ export default {
     ],
   }),
 };
+
+export default preset;

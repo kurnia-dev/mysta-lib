@@ -1,5 +1,7 @@
+import { ButtonPresetOptions } from 'lib/components/button/Button.d';
+
 /* eslint-disable eqeqeq */
-export default {
+const preset: ButtonPresetOptions = {
   root: ({ props, context }) => {
     const severityMap = {
       base: {
@@ -46,21 +48,21 @@ export default {
 
         // Alignments
         'items-center inline-flex text-center align-bottom justify-center w-max',
-        {
-          'flex-col':
-            (props.iconPos === 'top' || props.iconPos === 'bottom') &&
-            props.label,
-        },
+        // {
+        //   'flex-col':
+        //     (props.iconPos === 'top' || props.iconPos === 'bottom') &&
+        //     props.label,
+        // },
 
-        props.iconPos,
-        {
-          'flex-row-reverse': props.iconPos === 'right',
-        },
+        // props.iconPos,
+        // {
+        //   'flex-row-reverse': props.iconPos === 'right',
+        // },
 
         // Sizes & Spacing
         'leading-none font-medium rounded',
         {
-          '!text-xs py-[5px] px-4 gap-1': props.label,
+          '!text-xs py-[5px] px-4 gap-1': !!props.label,
         },
         {
           '!w-[26px]': !props.label,
@@ -107,34 +109,39 @@ export default {
       'duration-200',
       'font-medium text-xs',
       'leading-4 tracking-[0.02em]',
-      {
-        'hover:underline': props.link,
-      },
+      // {
+      //   'hover:underline': props.link,
+      // },
       { 'flex-1': props.label !== null, 'invisible w-0': props.label == null },
     ],
   }),
-  icon: ({ props }) => ({
-    className: ['shrink-0', { '!h-3 !w-3': props.size === 'small' }],
+  icon: () => ({
+    className: [
+      'shrink-0',
+      // { '!h-3 !w-3': props.size === 'small' }
+    ],
   }),
-  loadingIcon: ({ props }) => ({
+  loadingIcon: () => ({
     className: [
       'h-4 w-4',
       'mx-0',
-      {
-        'mr-2': props.iconPos === 'left' && props.label != null,
-        'ml-2 order-1': props.iconPos === 'right' && props.label != null,
-        'mb-2': props.iconPos === 'top' && props.label != null,
-        'mt-2': props.iconPos === 'bottom' && props.label != null,
-      },
+      // {
+      //   'mr-2': props.iconPos === 'left' && props.label != null,
+      //   'ml-2 order-1': props.iconPos === 'right' && props.label != null,
+      //   'mb-2': props.iconPos === 'top' && props.label != null,
+      //   'mt-2': props.iconPos === 'bottom' && props.label != null,
+      // },
       'animate-spin',
     ],
   }),
-  badge: ({ props }) => ({
+  badge: () => ({
     className: [
-      {
-        'ml-2 w-4 h-4 leading-none flex items-center justify-center':
-          props.badge,
-      },
+      // {
+      //   'ml-2 w-4 h-4 leading-none flex items-center justify-center':
+      //     props.badge,
+      // },
     ],
   }),
 };
+
+export default preset;
