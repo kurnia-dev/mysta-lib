@@ -5,7 +5,7 @@ set -euo pipefail
 SRC="presets/raijin"
 
 # What to copy from the root of raijin
-ROOT_FILES=( "index.js" "icons.css" )
+ROOT_FILES=( "index.ts" "global.ts" "icons.css" )
 
 # Loop over all theme folders
 for TARGET in presets/*; do
@@ -30,7 +30,7 @@ for TARGET in presets/*; do
     echo "   • $F"
     cp "$SRC/$F" "$TARGET/$F"
 
-    if [[ "$F" == "index.js" ]]; then
+    if [[ "$F" == "index.ts" ]]; then
       # in-place replace `raijin` → "${PRESET_NAME}"
       sed -i \
         -e "s/\bconst[[:space:]]\+raijin\b/const ${PRESET_NAME}/g" \
