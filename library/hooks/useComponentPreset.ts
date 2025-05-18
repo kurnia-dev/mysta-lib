@@ -26,7 +26,7 @@ import { useMystaLib } from 'lib/context/LibContext';
 
 type ClassValue = string | Record<string, boolean>;
 
-interface PresetReturn extends React.HTMLAttributes<HTMLElement> {
+export interface PresetReturn extends React.HTMLAttributes<HTMLElement> {
   'data-mc-name'?: string;
   'data-mc-section'?: string;
 }
