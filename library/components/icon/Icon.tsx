@@ -19,7 +19,7 @@ export const Icon: React.FC<IconProps> = ({
 
   const severityClass = severity
     ? getSeverity(severity, { color: true })
-    : 'text-black hover:text-white';
+    : 'text-black';
 
   return (
     <Tooltip

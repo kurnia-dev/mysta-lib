@@ -25,7 +25,9 @@ export type Icons =
   | 'settings-2'
   | 'user-circle'
   | 'sort-asc'
-  | 'sort-desc';
+  | 'sort-desc'
+  | 'chevron-down'
+  | 'chevron-up';
 
 export interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
