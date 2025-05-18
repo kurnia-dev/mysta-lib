@@ -9,7 +9,7 @@ export default defineConfig({
     sourcemap: false,
     outDir: 'dist',
     lib: {
-      entry: ['index.js'],
+      entry: ['index.ts'],
       formats: ['system'],
       fileName: (format) => `index.${format}.js`,
     },
