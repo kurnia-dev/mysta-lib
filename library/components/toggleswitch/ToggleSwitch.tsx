@@ -1,7 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useComponentPreset, useControllerValidator } from 'lib/hooks';
+import { useComponentPreset, useValidator } from 'lib/hooks';
 
+import { callMultiTypeFn } from '../checkbox/helper';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
 
@@ -23,65 +24,93 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     customValidation,
   } = props;
 
-  const {
-    field: { value: fieldValue, onChange: formOnChange, ref },
-    fieldState: { error },
-  } = useControllerValidator(
-    {
-      defaultValue: mode === 'tristate' ? null : false,
-      rules: {
-        validate: (val: boolean | null) => {
-          if (
-            required &&
-            ((mode === 'binary' && val !== true) ||
-              (mode === 'tristate' && val === null))
-          ) {
-            return 'This field is required';
-          }
-          return customValidation?.(val) ?? true;
-        },
-      },
-    },
-    fieldName,
-  );
+  const [localValue, setLocalValue] = useState({});
 
-  const isChecked = fieldValue;
+  const fallBackMethods = useMemo(() => {
+    return {
+      watchedValue: localValue[fieldName],
+      setValue: (name: string, value: boolean | null) => {
+        setLocalValue({ [name]: value });
+      },
+      formState: { errors: {} },
+      trigger: (name: string) => {
+        const validity = customValidation?.(localValue[name]);
+        return validity === true;
+      },
+    };
+  }, [localValue, customValidation, fieldName]);
+
+  const { methods: registeredMethods } =
+    useValidator(
+      useMemo(
+        () => ({
+          validate: (val: boolean | null) => {
+            if (
+              required &&
+              ((mode === 'binary' && val !== true) ||
+                // eslint-disable-next-line eqeqeq
+                (mode === 'tristate' && val == null))
+            ) {
+              return 'This field is required';
+            }
+
+            return callMultiTypeFn(mode, customValidation, val);
+          },
+        }),
+        [customValidation, mode, required],
+      ),
+      fieldName,
+    ) ?? {};
+
+  const {
+    setValue,
+    watchedValue,
+    formState: { errors = {} },
+  } = registeredMethods ?? fallBackMethods;
+
+  const isChecked = watchedValue;
 
   const preset =
-    useComponentPreset('toggleswitch', {
+    useComponentPreset('ToggleSwitch', {
       props: { label },
       context: {
         checked: isChecked,
-        partialChecked: fieldValue === false && mode === 'tristate',
+        partialChecked: watchedValue === false && mode === 'tristate',
         tristate: mode === 'tristate',
         disabled,
       },
     }) ?? {};
 
   useEffect(() => {
-    if (value !== undefined) {
-      formOnChange(value);
+    const defaultValue = (() => {
+      if (mode === 'tristate') return null;
+      return false;
+    })();
+
+    if (watchedValue === undefined) {
+      setValue(fieldName, defaultValue);
     }
-  }, [value, formOnChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, watchedValue]);
 
   const handleChange = useCallback(() => {
-    let newValue: boolean | null = fieldValue;
+    let newValue: boolean | null = watchedValue;
 
     if (mode === 'tristate') {
-      if (fieldValue === null) {
+      if (watchedValue === null) {
         newValue = true;
-      } else if (fieldValue === true) {
+      } else if (watchedValue === true) {
         newValue = false;
-      } else if (fieldValue === false) {
+      } else if (watchedValue === false) {
         newValue = null;
       }
     } else if (mode === 'binary') {
-      newValue = !fieldValue;
+      newValue = !watchedValue;
     }
 
-    formOnChange(newValue);
+    setValue(fieldName, newValue);
     onChange(newValue);
-  }, [formOnChange, onChange, fieldValue, mode]);
+  }, [setValue, onChange, watchedValue, fieldName, mode]);
 
   const createToggleSwitch = () => {
     return (
@@ -93,21 +122,18 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
 
   return (
     <FieldWrapper
-      {...{ fieldName, required, label, info, hideRequiredMark }}
+      {...{ fieldName, required, label, errors, info, hideRequiredMark }}
       className="flex items-center gap-1"
       context={{
-        invalid: !!error,
+        invalid: !!errors[fieldName],
         disabled,
         borderless: true,
       }}
-      errors={error ? { [fieldName]: error } : {}}
       onClick={handleChange}
     >
       <div {...preset.box}>{createToggleSwitch()}</div>
       <input
-        ref={ref}
         {...preset.input}
-        checked={isChecked !== null}
         disabled={disabled}
         name={fieldName}
         type="checkbox"

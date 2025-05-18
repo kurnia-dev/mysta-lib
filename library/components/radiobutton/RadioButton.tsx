@@ -1,14 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useComponentPreset, useControllerValidator } from 'lib/hooks';
+import { useComponentPreset, useValidator } from 'lib/hooks';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 
-import {
-  FieldValidation,
-  RadioButtonEvent,
-  RadioButtonProps,
-} from './RadioButton.d';
+import { RadioButtonEvent, RadioButtonProps } from './RadioButton.d';
+import { callMultiTypeFn } from './helper';
 
 export const RadioButton = (props: RadioButtonProps) => {
   const {
@@ -26,41 +23,54 @@ export const RadioButton = (props: RadioButtonProps) => {
     customValidation,
   } = props;
 
-  const {
-    field: { value: fieldValue, onChange: formOnChange, ref },
-    fieldState: { error },
-  } = useControllerValidator(
-    {
-      rules: {
-        validate: (val: RadioButtonProps['optionValue']) => {
-          if (required && val === null) {
-            return 'This field is required';
-          }
+  const [localValue, setLocalValue] = useState({});
 
-          if (typeof optionValue === 'string') {
-            return (
-              (
-                customValidation as FieldValidation<string>['customValidation']
-              )?.(val as string) ?? true
-            );
-          } else if (typeof optionValue === 'boolean') {
-            return (
-              (
-                customValidation as FieldValidation<boolean>['customValidation']
-              )?.(val as boolean) ?? true
-            );
-          }
-          return true;
-        },
+  const fallBackMethods = useMemo(() => {
+    return {
+      watchedValue: localValue[fieldName],
+      setValue: (name: string, value: boolean | null) => {
+        setLocalValue({ [name]: value });
       },
-    },
-    fieldName,
-  );
+      formState: { errors: {} },
+      trigger: (name: string) => {
+        const validity = callMultiTypeFn(
+          typeof optionValue,
+          customValidation,
+          localValue[name],
+        );
+        return validity === true;
+      },
+    };
+  }, [localValue, fieldName, optionValue, customValidation]);
 
-  const isChecked = fieldValue === optionValue;
+  const { methods: registeredMethods } =
+    useValidator(
+      useMemo(
+        () => ({
+          validate: (val: boolean | null) => {
+            // eslint-disable-next-line eqeqeq
+            if (required && val == null) {
+              return 'This field is required';
+            }
+
+            return callMultiTypeFn(typeof optionValue, customValidation, val);
+          },
+        }),
+        [customValidation, optionValue, required],
+      ),
+      fieldName,
+    ) ?? {};
+
+  const {
+    setValue,
+    watchedValue,
+    formState: { errors = {} },
+  } = registeredMethods ?? fallBackMethods;
+
+  const isChecked = watchedValue === optionValue;
 
   const preset =
-    useComponentPreset('radiobutton', {
+    useComponentPreset('RadioButton', {
       props: { label },
       context: {
         checked: isChecked,
@@ -69,15 +79,26 @@ export const RadioButton = (props: RadioButtonProps) => {
     }) ?? {};
 
   useEffect(() => {
-    if (value !== null) {
-      formOnChange(value);
+    const defaultValue = (() => {
+      if (typeof optionValue === 'string') {
+        return '';
+      }
+      if (typeof optionValue === 'boolean') {
+        return false;
+      }
+      return false;
+    })();
+
+    if (!watchedValue) {
+      setValue(fieldName, defaultValue);
     }
-  }, [value, formOnChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, watchedValue]);
 
   const handleChange = useCallback(() => {
     const newValue: RadioButtonProps['optionValue'] = optionValue;
 
-    formOnChange(newValue);
+    setValue(fieldName, newValue);
 
     if (typeof optionValue === 'string') {
       return (
@@ -92,26 +113,23 @@ export const RadioButton = (props: RadioButtonProps) => {
         ) ?? true
       );
     }
-  }, [formOnChange, onChange, optionValue]);
+  }, [optionValue, setValue, fieldName, onChange]);
 
   return (
     <FieldWrapper
-      {...{ fieldName, required, label, info, hideRequiredMark }}
+      {...{ fieldName, required, label, errors, info, hideRequiredMark }}
       className="flex items-center gap-1"
       context={{
-        invalid: !!error,
+        invalid: !!errors[fieldName],
         disabled,
         containerless: true,
       }}
-      errors={error ? { [fieldName]: error } : {}}
       onClick={handleChange}
     >
       <div {...preset.box} />
       {isChecked && <div {...preset.innerBox} />}
       <input
-        ref={ref}
         {...preset.input}
-        checked={isChecked}
         disabled={disabled}
         name={fieldName}
         type="radio"
