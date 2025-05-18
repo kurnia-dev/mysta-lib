@@ -1,6 +1,14 @@
 import { FC } from 'react';
 
-export type CheckboxValue = (string | number | Record<string, unknown>)[];
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
+export type ValueModeType = (string | number | Record<string, unknown>)[];
+
+export type CheckboxValue = ValueModeType | boolean | null;
 
 /**
  * Props for the Checkbox component.
@@ -26,25 +34,18 @@ export interface BaseCheckboxProps {
    * @default false
    */
   hideRequiredMark?: boolean;
-
-  /**
-   * Input role
-   *
-   * @default checkbox
-   */
-  role?: 'toggleswitch' | 'checkbox';
 }
 
 export interface ValueCheckboxProps
   extends BaseCheckboxProps,
-    FieldValidation<CheckboxValue>,
-    CheckboxEvent<CheckboxValue> {
+    FieldValidation<ValueModeType>,
+    CheckboxEvent<ValueModeType> {
   /** The value for this checkbox, switch mode to value to use this props */
   optionValue?: string | number | Record<string, unknown>;
 
   mode: 'value';
 
-  value?: CheckboxValue;
+  value?: ValueModeType;
 }
 
 export interface BinaryCheckboxProps
@@ -93,6 +94,23 @@ export interface FieldValidation<T> {
 export interface CheckboxEvent<T> {
   /** Called when the input value changes */
   onChange?: (value: T) => void;
+}
+
+export interface CheckboxContext {
+  checked?: boolean;
+  disabled?: boolean;
+  partialChecked?: boolean;
+  tristate?: boolean;
+}
+
+export interface CheckboxPresetOptions {
+  labelContainer: PresetAttributes;
+  label: PresetAttributes;
+  required: PresetAttributes;
+  info: PresetAttributes;
+  icon: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  input: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  box: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
 }
 
 /**

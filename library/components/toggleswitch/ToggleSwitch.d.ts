@@ -1,5 +1,11 @@
 import { FC } from 'react';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 /**
  * Props for the ToggleSwitch component.
  *
@@ -67,6 +73,24 @@ export interface FieldValidation<T = boolean | null> {
 export interface ToggleSwitchEvent<T = boolean | null> {
   /** Called when the input value changes */
   onChange?: (value: T) => void;
+}
+
+export interface ToggleSwitchContext {
+  checked?: boolean;
+  disabled?: boolean;
+  partialChecked?: boolean;
+  tristate?: boolean;
+}
+
+export interface ToggleSwitchPresetOptions {
+  labelContainer: PresetAttributes;
+  label: PresetAttributes;
+  required: PresetAttributes;
+  info: PresetAttributes;
+  iconContainer: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  icon: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  input: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  box: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
 }
 
 /**

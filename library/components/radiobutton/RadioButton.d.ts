@@ -1,5 +1,11 @@
 import { FC } from 'react';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 /**
  * Props for the RadioButton component.
  *
@@ -71,6 +77,22 @@ export interface FieldValidation<T = string | boolean> {
 export interface RadioButtonEvent<T = string | boolean> {
   /** Called when the input value changes */
   onChange?: (value: T) => void;
+}
+
+export interface RadioButtonContext {
+  checked?: boolean;
+  disabled?: boolean;
+}
+
+export interface RadioButtonPresetOptions {
+  labelContainer: PresetAttributes;
+  label: PresetAttributes;
+  required: PresetAttributes;
+  info: PresetAttributes;
+  icon: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  input: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  box: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  innerBox: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
 }
 
 /**
