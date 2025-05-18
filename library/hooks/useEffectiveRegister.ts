@@ -4,9 +4,11 @@ import {
   useFormContext,
 } from 'react-hook-form';
 
-export const useEffectiveRegister = (): UseFormReturn<FieldValues | null> => {
+export const useEffectiveRegister = <
+  T extends FieldValues,
+>(): UseFormReturn<T | null> => {
   try {
-    return useFormContext();
+    return useFormContext<T>();
   } catch {
     return null;
   }
