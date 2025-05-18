@@ -1,26 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useMemo } from 'react';
 import {
+  FieldValues,
+  Path,
+  PathValue,
   RegisterOptions,
-  useController,
-  UseControllerReturn,
+  UseFormRegisterReturn,
+  UseFormReturn,
 } from 'react-hook-form';
 
 import { BaseInputProps } from 'lib/components/private/BaseInput.d';
-import { useEffectiveControl, useEffectiveRegister } from 'lib/hooks';
+import { useEffectiveRegister } from 'lib/hooks';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
 
-export type FieldType =
-  | 'text'
-  | 'password'
-  | 'email'
-  | 'number'
-  | 'checkbox'
-  | 'radio';
+export type FieldType = 'text' | 'password' | 'email' | 'number';
 
 export type ValidatorRules = {
-  type: FieldType;
+  type?: FieldType;
   required?: boolean;
   min?: number;
   max?: number;
@@ -39,11 +36,24 @@ export type ControllerConfig = {
   defaultValue?: any;
 };
 
-export const useRegisterValidator = (
+export type UseValidatorReturn<T> = Omit<
+  UseFormReturn<T>,
+  'register' | 'watch'
+> & {
+  watchedValue: PathValue<T, Path<T>>;
+};
+
+export const useValidator = <T extends FieldValues>(
   config: ValidatorRules,
   fieldName: string,
-): any => {
-  const { register } = useEffectiveRegister() ?? {};
+): UseFormRegisterReturn<typeof fieldName> & {
+  methods: UseValidatorReturn<T>;
+} => {
+  const methods =
+    useEffectiveRegister<T>() ??
+    ({ register: undefined } as UseFormReturn<T | null>);
+
+  const { register, watch, ...rest } = methods;
 
   const passwordValidations = useMemo(() => {
     return {
@@ -76,7 +86,7 @@ export const useRegisterValidator = (
   const validators = useMemo(() => {
     if (!register) return;
 
-    const baseValidators: RegisterOptions = {
+    const baseValidators: RegisterOptions<T, Path<T>> = {
       ...(hasValidator('required') && {
         required: config.customMessage?.required ?? 'This field is required',
       }),
@@ -140,19 +150,9 @@ export const useRegisterValidator = (
   }, [config, register, hasValidator, passwordValidations]);
 
   if (!validators) return;
-  return register(fieldName, validators);
-};
 
-export const useControllerValidator = (
-  config: ControllerConfig,
-  fieldName: string,
-): UseControllerReturn => {
-  const control = useEffectiveControl();
-
-  return useController({
-    name: fieldName,
-    control,
-    defaultValue: config.defaultValue,
-    rules: config.rules,
-  });
+  return {
+    ...register(fieldName as Path<T>, validators),
+    methods: { ...rest, watchedValue: watch<Path<T>>(fieldName as Path<T>) },
+  };
 };
