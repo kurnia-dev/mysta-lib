@@ -1,5 +1,6 @@
-import { UseFormReturn } from 'react-hook-form';
+import { Path, PathValue } from 'react-hook-form';
 
-export interface InternalFieldProps<T> {
-  methods?: UseFormReturn<T>;
-}
+export type FieldPathValue<T> = PathValue<
+  Record<string, T>,
+  Path<Record<string, T>>
+>;
