@@ -11,13 +11,17 @@ export type SimplifiedCardProps = Omit<
   'mode' | 'draggable' | 'clickable'
 >;
 
+type OmittedDivAttributes = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'onDrop' | 'onDragStart'
+>;
+
 /**
  * Props for the KanbanColumn component.
  *
  * @description This defines the props for the KanbanColumn component including its field name, label, and event handlers.
  */
-export interface KanbanColumnProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onDrop' | 'onDragStart'> {
+export interface KanbanColumnProps extends OmittedDivAttributes {
   /** The unique id/name of kanban column */
   groupId?: string;
 
