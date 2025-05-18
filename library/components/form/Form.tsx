@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   cloneElement,
+  Dispatch,
   forwardRef,
   isValidElement,
   Ref,
+  SetStateAction,
   useImperativeHandle,
+  useState,
 } from 'react';
-
-import { FormProvider, useForm } from 'lib/context';
-import { InternalFieldProps } from 'lib/types';
+import {
+  DefaultValues,
+  FormProvider as RHFProvider,
+  useForm,
+} from 'react-hook-form';
 
 import { Button } from '../button/Button';
 import { Slot } from '../slot/Slot';
@@ -16,17 +21,28 @@ import { Slot } from '../slot/Slot';
 import { ButtonConfig, FormHandle, FormProps } from './Form.d';
 
 const FormContent = <T extends Record<string, any>>(
-  {
+  props: FormProps<T> & {
+    formKey: number;
+    setFormKey: Dispatch<SetStateAction<number>>;
+  },
+  ref: Ref<FormHandle<T>>,
+) => {
+  const {
     children,
     resetOnSubmit,
     onSubmit,
     onError,
     buttonsConfig,
     slots,
-  }: FormProps<T>,
-  ref: Ref<FormHandle<T>>,
-) => {
-  const { methods } = useForm<T>();
+    formKey,
+    defaultValues,
+    setFormKey,
+  } = props;
+
+  const methods = useForm<T>({
+    defaultValues: defaultValues as DefaultValues<T>,
+  });
+
   const {
     handleSubmit,
     reset,
@@ -44,21 +60,22 @@ const FormContent = <T extends Record<string, any>>(
     if (resetOnSubmit) reset();
   };
 
+  const handleReset = () => {
+    reset(defaultValues as DefaultValues<T>);
+    setFormKey(formKey + 1);
+  };
+
   const createChildren = () => {
     if (Array.isArray(children)) {
       return children.map((child, index) => {
         return isValidElement(child)
-          ? cloneElement(child as React.ReactElement<InternalFieldProps<T>>, {
-              methods,
+          ? cloneElement(child as React.ReactElement, {
               key: child.key ?? index,
             })
           : child;
       });
     } else if (isValidElement(children)) {
-      return cloneElement(
-        children as React.ReactElement<InternalFieldProps<T>>,
-        { methods },
-      );
+      return cloneElement(children as React.ReactElement);
     }
 
     return children;
@@ -78,7 +95,7 @@ const FormContent = <T extends Record<string, any>>(
           severity={severity}
           text={style === 'text'}
           type={type === 'submit' ? 'submit' : 'button'}
-          onClick={() => (type === 'reset' ? reset() : undefined)}
+          onClick={() => (type === 'reset' ? handleReset() : undefined)}
         />
       );
     });
@@ -113,24 +130,29 @@ const FormContent = <T extends Record<string, any>>(
   );
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit, onError)}>
-      <div className="grid grid-cols-2 gap-x-2 gap-y-2">
-        {createChildren()}
+    <RHFProvider {...methods}>
+      <form onSubmit={handleSubmit(handleFormSubmit, onError)}>
+        <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+          {createChildren()}
 
-        <Slot name="footer" slots={slots}>
-          <div className="col-span-2 gap-1 flex justify-end w-full">
-            {createButton()}
-          </div>
-        </Slot>
-      </div>
-    </form>
+          <Slot name="footer" slots={slots}>
+            <div className="col-span-2 gap-1 flex justify-end w-full">
+              {createButton()}
+            </div>
+          </Slot>
+        </div>
+      </form>
+    </RHFProvider>
   );
 };
 
 export const FormRefWrapper = forwardRef(FormContent) as <
   T extends Record<string, any> = any,
 >(
-  props: FormProps<T>,
+  props: FormProps<T> & {
+    formKey: number;
+    setFormKey: Dispatch<SetStateAction<number>>;
+  },
 ) => JSX.Element;
 
 const FormContainer = <T extends Record<string, any>>(
@@ -146,6 +168,8 @@ const FormContainer = <T extends Record<string, any>>(
   }: FormProps<T>,
   ref: Ref<FormHandle<T>>,
 ) => {
+  const [formKey, setFormKey] = useState(0);
+
   const getButtonsTemplate = (): ButtonConfig[] => {
     const defaultConfig: Record<ButtonConfig['type'], ButtonConfig> = {
       'back': {
@@ -191,18 +215,18 @@ const FormContainer = <T extends Record<string, any>>(
   };
 
   return (
-    <FormProvider defaultValues={defaultValues}>
-      <FormRefWrapper
-        buttonsConfig={getButtonsTemplate()}
-        ref={ref}
-        resetOnSubmit={resetOnSubmit}
-        slots={slots}
-        onError={onError}
-        onSubmit={onSubmit}
-      >
-        {children}
-      </FormRefWrapper>
-    </FormProvider>
+    <FormRefWrapper
+      {...{ formKey, setFormKey }}
+      buttonsConfig={getButtonsTemplate()}
+      defaultValues={defaultValues}
+      ref={ref}
+      resetOnSubmit={resetOnSubmit}
+      slots={slots}
+      onError={onError}
+      onSubmit={onSubmit}
+    >
+      {children}
+    </FormRefWrapper>
   );
 };
 
