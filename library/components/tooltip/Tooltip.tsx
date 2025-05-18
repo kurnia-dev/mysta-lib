@@ -8,7 +8,7 @@ export const Tooltip = (props: TooltipProps) => {
   const { content, children, hide, className, position } = props;
 
   const preset =
-    useComponentPreset('tooltip', {
+    useComponentPreset('Tooltip', {
       props,
     }) ?? {};
 

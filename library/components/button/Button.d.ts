@@ -1,5 +1,10 @@
 import { FC } from 'react';
 
+import {
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
 
@@ -109,6 +114,18 @@ export interface ButtonProps {
    * @default 'button'
    */
   type?: 'button' | 'submit' | 'reset';
+}
+
+export interface ButtonContext {
+  disabled?: boolean;
+}
+
+export interface ButtonPresetOptions {
+  root: PresetMethodAttributes<PresetOptions<'Button'>>;
+  label: PresetMethodAttributes<PresetOptions<'Button'>>;
+  icon: PresetMethodAttributes<PresetOptions<'Button'>>;
+  loadingIcon: PresetMethodAttributes<PresetOptions<'Button'>>;
+  badge: PresetMethodAttributes<PresetOptions<'Button'>>;
 }
 
 /**

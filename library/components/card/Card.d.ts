@@ -1,8 +1,19 @@
 import { DragEvent, FC, HTMLAttributes } from 'react';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
 import { SeparatorProps } from '../separator/Separator.d';
+
+type OmittedDivAttributes = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'content' | 'children' | 'onDrop' | 'onDragStart'
+>;
 
 export interface KanbanDropEvent {
   originalEvent: DragEvent<HTMLDivElement>;
@@ -37,12 +48,7 @@ export interface CardPopoverMenu extends HTMLAttributes<HTMLSpanElement> {
 /**
  * Base props shared by all Card modes.
  */
-interface BaseCardProps
-  extends Omit<
-      HTMLAttributes<HTMLDivElement>,
-      'content' | 'children' | 'onDrop' | 'onDragStart'
-    >,
-    CardSeparatorProps {
+interface BaseCardProps extends OmittedDivAttributes, CardSeparatorProps {
   /** Optional header text displayed at the top */
   header?: string;
   /** Main body text of the card */
@@ -118,6 +124,14 @@ export interface CardSlots {
 export interface CardSeparatorProps {
   orientation?: SeparatorProps['orientation'];
   decorative?: SeparatorProps['decorative'];
+}
+
+export interface CardPresetOptions {
+  root: PresetMethodAttributes<PresetOptions<'Card'>>;
+  separator: PresetMethodAttributes<PresetOptions<'Card'>>;
+  header: PresetAttributes;
+  content: PresetAttributes;
+  footer: PresetAttributes;
 }
 
 /**

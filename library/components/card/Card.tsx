@@ -43,7 +43,7 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   const innerRef = useRef<HTMLDivElement>(null);
 
   const preset =
-    useComponentPreset('card', {
+    useComponentPreset('Card', {
       props: { size, orientation, severity },
     }) ?? {};
 

@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
 
+import { PresetAttributes } from 'lib/hooks/useComponentPreset';
+
 /**
  * Props for the Tooltip component.
  *
@@ -16,6 +18,10 @@ export interface TooltipProps {
 
   content?: string | JSX.Element;
   children?: ReactNode;
+}
+
+export interface TooltipPresetOptions {
+  content: PresetAttributes;
 }
 
 /**

@@ -20,9 +20,8 @@ export const FieldWrapper = ({
   onClick,
 }: FieldWrapperProps) => {
   const preset =
-    useComponentPreset('fieldwrapper', {
+    useComponentPreset('FieldWrapper', {
       context,
-      className,
     }) ?? {};
 
   const createLabel = () => {

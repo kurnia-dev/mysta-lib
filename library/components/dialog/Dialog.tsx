@@ -31,7 +31,7 @@ export const Dialog = memo((props: DialogProps) => {
   } = props;
 
   const preset =
-    useComponentPreset('dialog', {
+    useComponentPreset('Dialog', {
       props: { size },
       context: { open: visible },
     }) ?? {};

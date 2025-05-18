@@ -21,7 +21,7 @@ export const Button = ({
   type = 'button',
 }: ButtonProps): JSX.Element => {
   const preset =
-    useComponentPreset('button', {
+    useComponentPreset('Button', {
       context: { disabled: !!loading || !!disabled },
       props: {
         height,

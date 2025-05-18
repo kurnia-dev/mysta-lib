@@ -1,5 +1,11 @@
 import { ReactNode } from 'react';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 export interface DialogProps {
   /**
    * Dialog children
@@ -18,7 +24,7 @@ export interface DialogProps {
 
   modal?: boolean;
 
-  slots?: Record<keyof DialogSlots, JSX.Element>;
+  slots?: Partial<Record<keyof DialogSlots, JSX.Element>>;
 
   size?:
     | 'xs'
@@ -45,6 +51,18 @@ export interface DialogSlots {
   header?: JSX.Element;
   content?: JSX.Element;
   footer?: JSX.Element;
+}
+
+export interface DialogContext {
+  open?: boolean;
+}
+
+export interface DialogPresetOptions {
+  overlay: PresetMethodAttributes<PresetOptions<'Dialog'>>;
+  iconContainer: PresetMethodAttributes<PresetOptions<'Dialog'>>;
+  container: PresetMethodAttributes<PresetOptions<'Dialog'>>;
+  header: PresetAttributes;
+  content: PresetAttributes;
 }
 
 export declare const Dialog: (props: DialogProps) => JSX.Element;

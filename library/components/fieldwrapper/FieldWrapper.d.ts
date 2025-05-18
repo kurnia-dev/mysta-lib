@@ -4,6 +4,12 @@
 import { FC, ReactNode } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
 export interface FieldWrapperProps extends FieldWrapperEvent {
   errors: FieldErrors<any>;
 
@@ -46,6 +52,23 @@ export interface FieldWrapperProps extends FieldWrapperEvent {
 export interface FieldWrapperEvent {
   /** Called when the input value changes */
   onClick?: () => void;
+}
+
+export interface FieldWrapperContext {
+  borderless?: boolean;
+  containerless?: boolean;
+  disabled?: boolean;
+  invalid?: boolean;
+}
+
+export interface FieldWrapperPresetOptions {
+  root: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  labelContainer: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  label: PresetAttributes;
+  required: PresetAttributes;
+  info: PresetAttributes;
+  errorMessage: PresetAttributes;
+  field: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
 }
 
 /**
