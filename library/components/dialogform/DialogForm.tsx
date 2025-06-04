@@ -90,5 +90,5 @@ const DialogFormContainer = <T extends Record<string, any>>(
 export const DialogForm = forwardRef(DialogFormContainer) as <
   T extends Record<string, any> = any,
 >(
-  props: DialogFormProps<T>,
+  props: DialogFormProps<T> & { ref?: Ref<FormHandle<T>> },
 ) => JSX.Element;

@@ -68,11 +68,9 @@ const FormContent = <T extends Record<string, any>>(
   const createChildren = () => {
     if (Array.isArray(children)) {
       return children.map((child, index) => {
-        return isValidElement(child)
-          ? cloneElement(child as React.ReactElement, {
-              key: child.key ?? index,
-            })
-          : child;
+        return cloneElement(child as React.ReactElement, {
+          key: child.key ?? index,
+        });
       });
     } else if (isValidElement(children)) {
       return cloneElement(children as React.ReactElement);
@@ -152,6 +150,7 @@ export const FormRefWrapper = forwardRef(FormContent) as <
   props: FormProps<T> & {
     formKey: number;
     setFormKey: Dispatch<SetStateAction<number>>;
+    ref: Ref<FormHandle<T>>;
   },
 ) => JSX.Element;
 
@@ -233,5 +232,5 @@ const FormContainer = <T extends Record<string, any>>(
 export const Form = forwardRef(FormContainer) as <
   T extends Record<string, any> = any,
 >(
-  props: FormProps<T>,
+  props: FormProps<T> & { ref?: Ref<FormHandle<T>> },
 ) => JSX.Element;

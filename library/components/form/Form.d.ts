@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ReactNode, Ref } from 'react';
+import { ReactNode } from 'react';
 import {
   DeepMap,
   DeepPartial,
@@ -32,8 +32,6 @@ export type ButtonConfig = {
 };
 
 export interface FormProps<T extends Record<string, any>> {
-  ref?: Ref<FormHandle<T>>;
-
   /**
    * Array of buttons configuration to tell form what button that should be rendered on form footer
    * Order of array's value take effect to the rendered button order
