@@ -1,9 +1,11 @@
 import { FieldWrapperPresetOptions } from 'lib/components/fieldwrapper/FieldWrapper.d';
 
 const preset: FieldWrapperPresetOptions = {
-  root: () => ({
+  root: ({ context }) => ({
     className: [
-      'flex flex-col gap-1 min-w-full items-start text-left',
+      'flex flex-col gap-1 max-w-full items-start text-left',
+      { 'w-max': context.containerless },
+
       'pointer-events-none',
     ],
   }),
