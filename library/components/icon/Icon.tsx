@@ -33,4 +33,3 @@ const IconBase = (
 };
 
 export const Icon = forwardRef<HTMLElement, IconProps>(IconBase);
-Icon.displayName = 'Icon';
