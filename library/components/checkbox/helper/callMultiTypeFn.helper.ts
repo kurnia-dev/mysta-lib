@@ -1,9 +1,9 @@
-import { CheckboxProps, CheckboxValue } from '../Checkbox.d';
+import { CheckboxProps, ValueModeType } from '../Checkbox.d';
 
 type Mode = CheckboxProps['mode'];
 
 type ModeValueStruct = {
-  value: CheckboxValue;
+  value: ValueModeType;
   binary: boolean;
   tristate: boolean | null;
 };
