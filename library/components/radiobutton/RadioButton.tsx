@@ -90,7 +90,7 @@ export const RadioButton = (props: RadioButtonProps) => {
     })();
 
     if (!watchedValue) {
-      setValue(fieldName, defaultValue);
+      setValue(fieldName, value ?? defaultValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, watchedValue]);

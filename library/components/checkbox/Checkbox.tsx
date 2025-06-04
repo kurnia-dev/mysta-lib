@@ -96,7 +96,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
     })();
 
     if (watchedValue === undefined) {
-      setValue(fieldName, defaultValue);
+      setValue(fieldName, value ?? defaultValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, watchedValue]);

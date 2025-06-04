@@ -88,7 +88,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     })();
 
     if (watchedValue === undefined) {
-      setValue(fieldName, defaultValue);
+      setValue(fieldName, value ?? defaultValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, watchedValue]);
