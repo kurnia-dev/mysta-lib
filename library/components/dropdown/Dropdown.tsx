@@ -7,20 +7,9 @@ import { PresetReturn } from 'lib/hooks/useComponentPreset';
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';
 
-import { DropdownProps, Option, OptionValue } from './Dropdown.d';
+import { DropdownProps, OptionValue } from './Dropdown.d';
+import { DropdownItem } from './DropdownItem';
 import { callMultiTypeFn } from './helper';
-
-export const DropdownItem = (
-  props: Omit<Option, 'value'> & { value: string },
-): JSX.Element => {
-  const { label, value } = props;
-
-  return (
-    <Select.Item value={value}>
-      <Select.ItemText>{label}</Select.ItemText>
-    </Select.Item>
-  );
-};
 
 export const Dropdown = (props: DropdownProps): JSX.Element => {
   const {
@@ -32,6 +21,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     placeholder = `Select ${label ?? 'item'}`,
     mode = 'single',
     info,
+    value,
     fieldName = label ?? 'dropdown',
     hideRequiredMark = false,
 
@@ -39,28 +29,45 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     customValidation,
   } = props;
 
-  const [localValue, setLocalValue] = useState({});
+  const [localValue, setLocalValue] = useState<
+    Record<string, OptionValue | OptionValue[]>
+  >({});
 
   const fallBackMethods = useMemo(() => {
     return {
       watchedValue: localValue[fieldName],
-      setValue: (name: string, value: OptionValue) => {
-        setLocalValue({ [name]: value });
+      setValue: (name: string, value: OptionValue | OptionValue[]) => {
+        setLocalValue((prev) => {
+          if (mode === 'multi') {
+            const current = prev[name];
+            const currentArray = Array.isArray(current) ? current : [];
+
+            return {
+              [name]: [...currentArray, value] as OptionValue[],
+            };
+          }
+
+          return { [name]: value as OptionValue };
+        });
       },
       formState: { errors: {} },
       trigger: (name: string) => {
-        const validity = customValidation?.(localValue[name]);
+        const validity = callMultiTypeFn(
+          mode,
+          customValidation,
+          localValue[name],
+        );
         return validity === true;
       },
     };
-  }, [localValue, customValidation, fieldName]);
+  }, [localValue, customValidation, mode, fieldName]);
 
   const { methods: registeredMethods, ref } = useValidator<
-    Record<string, OptionValue>
+    Record<string, OptionValue | OptionValue[]>
   >(
     useMemo(
       () => ({
-        validate: (val: OptionValue | null) => {
+        validate: (val: OptionValue | OptionValue[] | null) => {
           if (
             required &&
             ((mode === 'multi' && (!Array.isArray(val) || val.length === 0)) ||
@@ -81,6 +88,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
   const {
     setValue,
     watchedValue,
+    trigger,
     formState: { errors = {} },
   } = registeredMethods ?? fallBackMethods;
 
@@ -98,10 +106,10 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     })();
 
     if (!watchedValue) {
-      setValue(fieldName, defaultValue);
+      setValue(fieldName, value ?? defaultValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [value, watchedValue]);
 
   const normalizedOptions = useMemo(() => {
     return options.map((each) => {
@@ -113,13 +121,14 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
   }, [options]);
 
   const handleChange = useCallback(
-    (val: string) => {
+    async (val: string) => {
       const parsedValue = JSON.parse(val);
 
       setValue(fieldName, parsedValue);
       callMultiTypeFn(mode, onChange, parsedValue);
+      await trigger(fieldName);
     },
-    [setValue, fieldName, mode, onChange],
+    [setValue, fieldName, trigger, mode, onChange],
   );
 
   return (
@@ -151,7 +160,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
             sideOffset={4}
           >
             <Select.ScrollUpButton asChild>
-              <Icon name="chevron-up" />
+              <Icon className="w-full" name="chevron-up" />
             </Select.ScrollUpButton>
             <Select.Viewport className="p-1 w-full">
               {normalizedOptions.map((each) => {
@@ -159,7 +168,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
               })}
             </Select.Viewport>
             <Select.ScrollDownButton asChild>
-              <Icon name="chevron-down" />
+              <Icon className="w-full" name="chevron-down" />
             </Select.ScrollDownButton>
           </Select.Content>
         </Select.Portal>
