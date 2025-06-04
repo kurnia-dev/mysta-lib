@@ -59,6 +59,10 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
       setLocalValue({ [name]: value });
     },
     watchedValue = localValue[fieldName],
+    trigger = (name: string) => {
+      const validity = customValidation?.(localValue[name]);
+      return validity === true;
+    },
     formState: { errors = {} } = {},
   } = registeredMethods ?? {};
 
@@ -97,7 +101,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, watchedValue]);
 
-  const handleChange = useCallback(() => {
+  const handleChange = useCallback(async () => {
     let newValue: CheckboxValue = watchedValue;
 
     if (isValueMode) {
@@ -125,11 +129,13 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
 
     setValue(fieldName, newValue);
     callMultiTypeFn(mode, onChange, newValue);
+    await trigger(fieldName);
   }, [
     setValue,
     onChange,
     watchedValue,
     mode,
+    trigger,
     isValueMode,
     optionValue,
     fieldName,
