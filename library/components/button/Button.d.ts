@@ -3,8 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
-
+} from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
 
@@ -13,7 +12,8 @@ import { Icons } from '../icon/Icon.d';
  *
  * @description Defines the props for the PrimaryButton, including visual customization, loading state, icon support, and click handling.
  */
-export interface ButtonProps {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Height of the button (e.g., px, rem, %, etc.)
    * Can be specified as a number (pixels) or string (e.g., '50px', '10rem').
@@ -29,6 +29,8 @@ export interface ButtonProps {
    * @default 'max-content'
    */
   width?: number | string;
+
+  className?: string;
 
   /**
    * Severity level for styling the button (e.g., "error", "warning", "success").
@@ -114,6 +116,8 @@ export interface ButtonProps {
    * @default 'button'
    */
   type?: 'button' | 'submit' | 'reset';
+
+  pt?: ButtonPresetOptions;
 }
 
 export interface ButtonContext {
@@ -121,11 +125,11 @@ export interface ButtonContext {
 }
 
 export interface ButtonPresetOptions {
-  root: PresetMethodAttributes<PresetOptions<'Button'>>;
-  label: PresetMethodAttributes<PresetOptions<'Button'>>;
-  icon: PresetMethodAttributes<PresetOptions<'Button'>>;
-  loadingIcon: PresetMethodAttributes<PresetOptions<'Button'>>;
-  badge: PresetMethodAttributes<PresetOptions<'Button'>>;
+  root?: PresetMethodAttributes<PresetOptions<'Button'>>;
+  label?: PresetMethodAttributes<PresetOptions<'Button'>>;
+  icon?: PresetMethodAttributes<PresetOptions<'Button'>>;
+  loadingIcon?: PresetMethodAttributes<PresetOptions<'Button'>>;
+  badge?: PresetMethodAttributes<PresetOptions<'Button'>>;
 }
 
 /**

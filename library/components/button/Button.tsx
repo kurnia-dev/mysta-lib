@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useCallback, useMemo } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 
 import { useComponentPreset } from 'lib/hooks';
@@ -7,22 +8,32 @@ import { Icon } from '../icon/Icon';
 
 import { ButtonProps } from './Button.d';
 
-export const Button = ({
-  icon,
-  label,
-  severity = 'primary',
-  onClick = () => {},
-  disabled = false,
-  height = 26,
-  loading = false,
-  outlined = false,
-  text = false,
-  width = 'max-content',
-  type = 'button',
-}: ButtonProps): JSX.Element => {
+export const Button = (props: ButtonProps): JSX.Element => {
+  const {
+    icon,
+    label,
+    severity = 'primary',
+    onClick = () => {},
+    disabled = false,
+    height = 26,
+    loading = false,
+    outlined = false,
+    text = false,
+    width = 'max-content',
+    type = 'button',
+    className,
+
+    pt,
+  } = props;
+
+  const context = useMemo(
+    () => ({ disabled: !!loading || !!disabled }),
+    [loading, disabled],
+  );
+
   const preset =
     useComponentPreset('Button', {
-      context: { disabled: !!loading || !!disabled },
+      context,
       props: {
         height,
         width,
@@ -33,23 +44,65 @@ export const Button = ({
       },
     }) ?? {};
 
-  const createLabel = () => {
-    if (label) return <span {...preset.label}>{label}</span>;
-  };
+  const createIcon = useCallback(() => {
+    if (!icon && !loading) return <span />;
+    else if (icon && !loading)
+      return (
+        <Icon
+          {...preset.icon}
+          className={clsx(
+            preset.icon?.className,
+            pt?.icon?.({ context, props })?.className,
+          )}
+          name={icon}
+        />
+      );
+    return (
+      <BiLoaderAlt
+        className={clsx(
+          preset.loadingIcon?.className,
+          pt?.loadingIcon?.({ context, props })?.className,
+        )}
+      />
+    );
+  }, [
+    context,
+    icon,
+    loading,
+    preset.icon,
+    preset.loadingIcon?.className,
+    props,
+    pt,
+  ]);
 
-  const createIcon = () => {
-    if (!icon && !loading) return <span {...preset.icon} />;
-    else if (icon && !loading) return <Icon name={icon} />;
-    return <BiLoaderAlt className={clsx(preset.loadingIcon?.className)} />;
-  };
-
-  const iconComponent = createIcon();
-  const labelComponent = createLabel();
+  const createLabel = useCallback(
+    () => (
+      <span
+        {...preset.label}
+        className={clsx(
+          preset.label.className,
+          pt?.label?.({ context, props })?.className,
+        )}
+      >
+        {label}
+      </span>
+    ),
+    [context, label, preset.label, props, pt],
+  );
 
   return (
-    <button {...preset.root} type={type} onClick={onClick}>
-      {iconComponent}
-      {labelComponent}
+    <button
+      {...preset.root}
+      className={clsx(
+        preset.root.className,
+        className,
+        pt?.root?.({ context, props })?.className,
+      )}
+      type={type}
+      onClick={onClick}
+    >
+      {(icon || loading) && createIcon()}
+      {label && createLabel()}
     </button>
   );
 };
