@@ -5,7 +5,8 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
+import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
 /**
  * Props for the BaseInput component.
@@ -17,6 +18,8 @@ export interface BaseInputProps<T = string>
     FieldValidation<T> {
   /** The name of the field used for form submission */
   fieldName?: string;
+
+  pt?: BaseInputPassThroughOptions;
 
   /** The label text to display above the input */
   label?: string;
@@ -107,12 +110,16 @@ export interface BaseInputEvent<T> {
   onInput?: (value: T) => void;
 
   /** Called when the keyboard is being pressed (on keydown) */
-  onKeydown?: (value: T) => void;
+  onKeydown?: (value: string) => void;
+}
+
+export interface BaseInputPassThroughOptions extends BaseInputPresetOptions {
+  fieldWrapper?: FieldWrapperPresetOptions;
 }
 
 export interface BaseInputPresetOptions {
-  eyetoggle: PresetAttributes;
-  input: PresetMethodAttributes<PresetOptions<'BaseInput'>>;
+  eyetoggle?: PresetAttributes;
+  input?: PresetMethodAttributes<PresetOptions<'BaseInput'>>;
 }
 
 /**

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Path } from 'react-hook-form';
 
@@ -36,7 +37,9 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     passwordRequirements,
     customValidation,
     preventInputOnError,
-  } = props as BaseInputProps;
+
+    pt,
+  } = props as BaseInputProps<T>;
 
   const typedFieldName = useMemo(() => {
     return fieldName as Path<Record<string, T>>;
@@ -115,7 +118,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         }
       }
 
-      onChange(e.target.value);
+      onChange(e.target.value as T);
     },
     [
       watchedValue,
@@ -133,14 +136,14 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
   const handleBlur = useCallback(
     async (e: React.FocusEvent<HTMLInputElement>) => {
       await trigger(typedFieldName);
-      onBlur(e.target.value);
+      onBlur(e.target.value as T);
     },
     [trigger, onBlur, typedFieldName],
   );
 
   const handleInput = useCallback(
     async (e: React.FormEvent<HTMLInputElement>) => {
-      onInput(e.currentTarget.value);
+      onInput(e.currentTarget.value as T);
     },
     [onInput],
   );
@@ -165,6 +168,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         errors,
         hideRequiredMark,
         fieldName: typedFieldName,
+        pt: pt?.fieldWrapper,
       }}
       context={{
         invalid: !!errors[typedFieldName],
@@ -176,6 +180,10 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         {...validator}
         {...preset.input}
         autoComplete="off"
+        className={clsx(
+          preset.input.className,
+          pt?.input?.({ props: props as Partial<BaseInputProps> })?.className,
+        )}
         disabled={disabled}
         name={typedFieldName}
         placeholder={placeholder}
@@ -188,6 +196,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
       {type === 'password' && (
         <Icon
           {...preset.eyetoggle}
+          className={clsx(preset.eyetoggle.className, pt?.eyetoggle?.className)}
           name={passwordVisibility ? 'eye-off' : 'eye-on'}
           onClick={() => setPasswordVisibility(!passwordVisibility)}
         />
