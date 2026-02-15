@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,6 +15,8 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
     groupId,
     onDrop = () => {},
     onDragStart = () => {},
+
+    className,
     ...restProps
   } = props;
 
@@ -145,7 +148,10 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
   return (
     <div
       {...restProps}
-      className="flex flex-col h-max gap-3 m-3 p-3 border border-secondary-800 min-h-[200px] min-w-[200px]"
+      className={clsx(
+        'flex flex-col h-max gap-3 m-3 p-3 border border-secondary-800 min-h-[200px] min-w-[200px]',
+        className,
+      )}
       id={groupId}
       {...interactableProps()}
     >
