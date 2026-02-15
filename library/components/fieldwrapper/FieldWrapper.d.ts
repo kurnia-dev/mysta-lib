@@ -8,7 +8,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
 
 export interface FieldWrapperProps extends FieldWrapperEvent {
   errors: FieldErrors<any>;
@@ -42,6 +42,8 @@ export interface FieldWrapperProps extends FieldWrapperEvent {
    * @default false
    */
   hideRequiredMark?: boolean;
+
+  pt?: FieldWrapperPresetOptions;
 }
 
 /**
@@ -62,13 +64,13 @@ export interface FieldWrapperContext {
 }
 
 export interface FieldWrapperPresetOptions {
-  root: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
-  labelContainer: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
-  label: PresetAttributes;
-  required: PresetAttributes;
-  info: PresetAttributes;
-  errorMessage: PresetAttributes;
-  field: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  root?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  labelContainer?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  label?: PresetAttributes;
+  required?: PresetAttributes;
+  info?: PresetAttributes;
+  errorMessage?: PresetAttributes;
+  field?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
 }
 
 /**
