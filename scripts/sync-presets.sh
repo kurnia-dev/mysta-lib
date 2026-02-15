@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # Source preset
-SRC="presets/raijin"
+SRC="presets/kitsune"
 
-# What to copy from the root of raijin
-ROOT_FILES=( "index.ts" "global.ts" "icons.css" )
+# What to copy from the root of kitsune
+ROOT_FILES=( "index.ts" "global.ts" "icons.css" "tailwind.config.js" )
 
 # Loop over all theme folders
 for TARGET in presets/*; do
@@ -31,10 +31,10 @@ for TARGET in presets/*; do
     cp "$SRC/$F" "$TARGET/$F"
 
     if [[ "$F" == "index.ts" ]]; then
-      # in-place replace `raijin` → "${PRESET_NAME}"
+      # in-place replace `kitsune` → "${PRESET_NAME}"
       sed -i \
-        -e "s/\bconst[[:space:]]\+raijin\b/const ${PRESET_NAME}/g" \
-        -e "s/\bexport[[:space:]]\+default[[:space:]]\+raijin\b/export default ${PRESET_NAME}/g" \
+        -e "s/\bconst[[:space:]]\+kitsune\b/const ${PRESET_NAME}/g" \
+        -e "s/\bexport[[:space:]]\+default[[:space:]]\+kitsune\b/export default ${PRESET_NAME}/g" \
         "$TARGET/$F"
     fi
   done
