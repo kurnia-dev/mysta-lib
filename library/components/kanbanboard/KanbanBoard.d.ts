@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from 'react';
 
-import { DragItem } from 'lib/types/kanban.type';
+import { DragItem } from '../../types/kanban.type';
 
 /**
  * Props for the KanbanBoard component.
