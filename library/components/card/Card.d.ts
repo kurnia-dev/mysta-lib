@@ -4,8 +4,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
-
+} from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
 import { SeparatorProps } from '../separator/Separator.d';
@@ -88,6 +87,8 @@ interface BaseCardProps extends OmittedDivAttributes, CardSeparatorProps {
     | '6xl'
     | '7xl'
     | 'full';
+
+  pt?: CardPresetOptions;
 }
 
 interface CardKanbanProps extends BaseCardProps {
@@ -127,11 +128,11 @@ export interface CardSeparatorProps {
 }
 
 export interface CardPresetOptions {
-  root: PresetMethodAttributes<PresetOptions<'Card'>>;
-  separator: PresetMethodAttributes<PresetOptions<'Card'>>;
-  header: PresetAttributes;
-  content: PresetAttributes;
-  footer: PresetAttributes;
+  root?: PresetMethodAttributes<PresetOptions<'Card'>>;
+  separator?: PresetMethodAttributes<PresetOptions<'Card'>>;
+  header?: PresetAttributes;
+  content?: PresetAttributes;
+  footer?: PresetAttributes;
 }
 
 /**

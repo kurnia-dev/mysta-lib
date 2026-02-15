@@ -37,6 +37,8 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     decorative = false,
     useSeparator = true,
 
+    pt,
+
     ...restProps
   } = props as CardKanbanProps;
 
@@ -90,28 +92,55 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       {...preset.root}
       {...restProps}
       {...interactableProps()}
-      className={clsx(preset.root.className, className)}
+      className={clsx(
+        preset.root.className,
+        className,
+        pt?.root?.({ props })?.className,
+      )}
       draggable={draggable}
       id={id}
       ref={innerRef}
     >
       <Slot name="header" slots={slots}>
-        {(header || slots?.header) && <div {...preset.header}>{header}</div>}
+        {(header || slots?.header) && (
+          <div
+            {...preset.header}
+            className={clsx(preset.header, pt?.header?.className)}
+          >
+            {header}
+          </div>
+        )}
       </Slot>
       {useSeparator && (
         <Separator
           {...preset.separator}
+          className={clsx(
+            preset.separator,
+            pt?.separator?.({ props })?.className,
+          )}
           decorative={decorative}
           orientation={orientation}
         />
       )}
       <Slot name="content" slots={slots}>
         {(content || slots?.content) && (
-          <div {...preset.content}>{content}</div>
+          <div
+            {...preset.content}
+            className={clsx(preset.content, pt?.content?.className)}
+          >
+            {content}
+          </div>
         )}
       </Slot>
       <Slot name="footer" slots={slots}>
-        {(footer || slots?.footer) && <div {...preset.footer}>{footer}</div>}
+        {(footer || slots?.footer) && (
+          <div
+            {...preset.footer}
+            className={clsx(preset.footer, pt?.footer?.className)}
+          >
+            {footer}
+          </div>
+        )}
       </Slot>
     </div>
   );
