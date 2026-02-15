@@ -33,6 +33,7 @@ const DialogFormContainer = <T extends Record<string, any>>(
     contentClass,
 
     slots,
+    pt,
 
     defaultValues,
     onError,
@@ -79,8 +80,8 @@ const DialogFormContainer = <T extends Record<string, any>>(
   };
 
   return (
-    <Dialog {...dialogProps}>
-      <Form {...formProps} ref={ref} onSubmit={handleSubmit}>
+    <Dialog {...dialogProps} pt={pt?.dialog}>
+      <Form {...formProps} pt={pt?.form} ref={ref} onSubmit={handleSubmit}>
         {children}
       </Form>
     </Dialog>
