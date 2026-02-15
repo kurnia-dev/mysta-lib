@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import clsx from 'clsx';
 import {
   cloneElement,
   Dispatch,
@@ -14,6 +16,8 @@ import {
   FormProvider as RHFProvider,
   useForm,
 } from 'react-hook-form';
+
+import { useComponentPreset } from 'lib/hooks';
 
 import { Button } from '../button/Button';
 import { Slot } from '../slot/Slot';
@@ -37,7 +41,11 @@ const FormContent = <T extends Record<string, any>>(
     formKey,
     defaultValues,
     setFormKey,
+
+    pt,
   } = props;
+
+  const preset = useComponentPreset('Form', { props }) ?? {};
 
   const methods = useForm<T>({
     defaultValues: defaultValues as DefaultValues<T>,
@@ -66,17 +74,20 @@ const FormContent = <T extends Record<string, any>>(
   };
 
   const createChildren = () => {
+    if (!children || (!Array.isArray(children) && !isValidElement(children)))
+      return null;
+
     if (Array.isArray(children)) {
-      return children.map((child, index) => {
-        return cloneElement(child as React.ReactElement, {
-          key: child.key ?? index,
-        });
-      });
-    } else if (isValidElement(children)) {
-      return cloneElement(children as React.ReactElement);
+      return children.map((child, index) =>
+        isValidElement(child)
+          ? cloneElement(child as React.ReactElement, {
+              key: child.key ?? index,
+            })
+          : null,
+      );
     }
 
-    return children;
+    return cloneElement(children as React.ReactElement);
   };
 
   const createButton = () => {
@@ -90,6 +101,7 @@ const FormContent = <T extends Record<string, any>>(
           key={type}
           label={label}
           outlined={style === 'outlined'}
+          pt={pt?.button}
           severity={severity}
           text={style === 'text'}
           type={type === 'submit' ? 'submit' : 'button'}
@@ -129,12 +141,27 @@ const FormContent = <T extends Record<string, any>>(
 
   return (
     <RHFProvider {...methods}>
-      <form onSubmit={handleSubmit(handleFormSubmit, onError)}>
-        <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+      <form
+        {...preset.root}
+        className={clsx(preset.root.className, pt?.root?.className)}
+        onSubmit={handleSubmit(handleFormSubmit, onError)}
+      >
+        <div
+          className={clsx(
+            preset.wrapper.className,
+            pt?.wrapper?.({ props })?.className,
+          )}
+          style={{
+            ...preset.wrapper.style,
+            ...(pt?.wrapper?.({ props })?.style ?? {}),
+          }}
+        >
           {createChildren()}
 
           <Slot name="footer" slots={slots}>
-            <div className="col-span-2 gap-1 flex justify-end w-full">
+            <div
+              className={clsx(preset.footer.className, pt?.footer?.className)}
+            >
               {createButton()}
             </div>
           </Slot>
@@ -161,6 +188,10 @@ const FormContainer = <T extends Record<string, any>>(
     resetOnSubmit = true,
     onSubmit,
     onError,
+
+    columnPerRow = 2,
+
+    pt,
 
     buttonsConfig = [],
     slots,
@@ -217,7 +248,9 @@ const FormContainer = <T extends Record<string, any>>(
     <FormRefWrapper
       {...{ formKey, setFormKey }}
       buttonsConfig={getButtonsTemplate()}
+      columnPerRow={columnPerRow}
       defaultValues={defaultValues}
+      pt={pt}
       ref={ref}
       resetOnSubmit={resetOnSubmit}
       slots={slots}

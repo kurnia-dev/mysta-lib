@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ReactNode } from 'react';
+import { ReactNode, Ref } from 'react';
 import {
   DeepMap,
   DeepPartial,
@@ -15,7 +15,14 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 
-import { Severities } from 'lib/utils';
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from 'lib/hooks/useComponentPreset';
+
+import { Severities } from '../../utils';
+import { ButtonPresetOptions } from '../button/Button.d';
 
 declare const FORM_BUTTON_TYPE: readonly [
   'back',
@@ -66,6 +73,11 @@ export interface FormProps<T extends Record<string, any>> {
   resetOnSubmit?: boolean;
 
   /**
+   * @default 2
+   */
+  columnPerRow?: number;
+
+  /**
    * To gives default value to form
    *
    * @default {}
@@ -81,6 +93,8 @@ export interface FormProps<T extends Record<string, any>> {
    * Error emit
    */
   onError?: SubmitErrorHandler<T>;
+
+  pt?: FormPassThroughOptions;
 }
 
 export interface FormSlots {
@@ -100,6 +114,16 @@ export interface FormHandle<T extends Record<string, any>> {
   dirtyFields: Partial<Readonly<DeepMap<DeepPartial<T>, boolean>>>;
 }
 
+export interface FormPassThroughOptions extends FormPresetOptions {
+  button?: ButtonPresetOptions;
+}
+
+export interface FormPresetOptions {
+  root?: PresetAttributes;
+  wrapper?: PresetMethodAttributes<PresetOptions<'Form'>>;
+  footer?: PresetAttributes;
+}
+
 export declare const Form: <T extends Record<string, any> = any>(
-  props: FormProps<T>,
+  props: FormProps<T> & { ref?: Ref<FormHandle<T>> },
 ) => JSX.Element;
