@@ -1,6 +1,11 @@
 import { FC } from 'react';
 
-import { PresetAttributes } from 'lib/hooks/useComponentPreset';
+import {
+  PresetAttributes,
+  PresetMethodAttributes,
+  PresetOptions,
+} from '../../hooks/useComponentPreset';
+import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
 export type OptionValue = string | number | boolean | Record<string, unknown>;
 
@@ -14,6 +19,8 @@ export type Option = { label?: string; value: OptionValue };
 export interface BaseDropdownProps {
   /** The name of the field used for form submission */
   fieldName?: string;
+
+  pt?: DropdownPassThroughOptions;
 
   /** The label text to display above the input */
   label?: string;
@@ -58,6 +65,10 @@ export interface MultiDropdownProps
 
 export type DropdownProps = SingleDropdownProps | MultiDropdownProps;
 
+export interface DropdownContext {
+  open?: boolean;
+}
+
 /**
  * Validation rules for an input field.
  *
@@ -83,10 +94,14 @@ export interface DropdownEvent<T> {
   onChange?: (value: T) => void;
 }
 
+export interface DropdownPassThroughOptions extends DropdownPresetOptions {
+  fieldWrapper?: FieldWrapperPresetOptions;
+}
+
 export interface DropdownPresetOptions {
-  trigger: PresetAttributes;
-  icon: PresetAttributes;
-  content: PresetAttributes;
+  trigger?: PresetAttributes;
+  icon?: PresetAttributes;
+  content?: PresetMethodAttributes<PresetOptions<'Dropdown'>>;
 }
 
 /**

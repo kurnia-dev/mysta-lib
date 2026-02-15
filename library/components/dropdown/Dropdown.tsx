@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Select } from 'radix-ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -27,7 +28,12 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
 
     required,
     customValidation,
+
+    pt,
   } = props;
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [isClosing, setIsClosing] = useState<boolean>(false);
 
   const [localValue, setLocalValue] = useState<
     Record<string, OptionValue | OptionValue[]>
@@ -92,9 +98,12 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     formState: { errors = {} },
   } = registeredMethods ?? fallBackMethods;
 
+  const context = useMemo(() => ({ open: !isClosing }), [isClosing]);
+
   const preset =
     useComponentPreset('Dropdown', {
       props: { label },
+      context,
     }) ?? {};
 
   useEffect(() => {
@@ -131,9 +140,21 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     [setValue, fieldName, trigger, mode, onChange],
   );
 
+  useEffect(() => {
+    console.log('🚀 ~ preset.content:', preset.content);
+  }, [preset.content]);
+
   return (
     <FieldWrapper
-      {...{ fieldName, required, label, info, errors, hideRequiredMark }}
+      {...{
+        fieldName,
+        required,
+        label,
+        info,
+        errors,
+        hideRequiredMark,
+        pt: pt?.fieldWrapper,
+      }}
       className="flex items-center gap-1"
       context={{
         invalid: !!errors?.[fieldName],
@@ -142,19 +163,46 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     >
       <Select.Root
         {...(preset.root as Pick<PresetReturn, 'className'>)}
+        open={true}
         // eslint-disable-next-line eqeqeq
         value={watchedValue == null ? '' : JSON.stringify(watchedValue)}
         onValueChange={handleChange}
       >
-        <Select.Trigger {...preset.trigger} name={fieldName}>
+        <Select.Trigger
+          {...preset.trigger}
+          className={clsx(preset.trigger.className, pt?.trigger?.className)}
+          name={fieldName}
+          onClick={() => {
+            if (open) {
+              setIsClosing(true);
+
+              setTimeout(() => {
+                setIsClosing(false);
+                setOpen(false);
+              }, 300);
+            } else {
+              setTimeout(() => {
+                setOpen(true);
+              }, 300);
+            }
+          }}
+        >
           <Select.Value placeholder={placeholder} />
-          <Select.Icon {...preset.icon} asChild>
+          <Select.Icon
+            {...preset.icon}
+            asChild
+            className={clsx(preset.icon.className, pt?.icon?.className)}
+          >
             <Icon name="chevron-down" />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
           <Select.Content
             {...preset.content}
+            className={clsx(
+              preset.content.className,
+              pt?.content?.({ context, props })?.className,
+            )}
             position="popper"
             ref={ref}
             sideOffset={4}
