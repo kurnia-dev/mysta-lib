@@ -2,6 +2,8 @@
 import { Tooltip as RUITooltip } from 'radix-ui';
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 
+import { ToastProvider } from './ToastContext';
+
 // Define the shape of your config options
 interface ConfigOptions {
   preset: Record<string, any>; // Replace `any` with your actual preset type
@@ -38,7 +40,9 @@ export const MystaLibProvider = ({
 
   return (
     <MystaLibContext.Provider value={MystaLib}>
-      <RUITooltip.Provider>{children}</RUITooltip.Provider>
+      <RUITooltip.Provider>
+        <ToastProvider>{children}</ToastProvider>
+      </RUITooltip.Provider>
     </MystaLibContext.Provider>
   );
 };
