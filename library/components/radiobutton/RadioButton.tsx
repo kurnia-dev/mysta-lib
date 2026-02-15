@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
@@ -21,6 +22,8 @@ export const RadioButton = (props: RadioButtonProps) => {
 
     required,
     customValidation,
+
+    pt,
   } = props;
 
   const [localValue, setLocalValue] = useState({});
@@ -69,6 +72,15 @@ export const RadioButton = (props: RadioButtonProps) => {
 
   const isChecked = watchedValue === optionValue;
 
+  const context = useMemo(
+    () => ({
+      invalid: !!errors[fieldName],
+      disabled,
+      containerless: true,
+    }),
+    [disabled, errors, fieldName],
+  );
+
   const preset =
     useComponentPreset('RadioButton', {
       props: { label },
@@ -89,7 +101,7 @@ export const RadioButton = (props: RadioButtonProps) => {
       return false;
     })();
 
-    if (!watchedValue) {
+    if (watchedValue === undefined || value !== watchedValue) {
       setValue(fieldName, value ?? defaultValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,35 +113,57 @@ export const RadioButton = (props: RadioButtonProps) => {
     setValue(fieldName, newValue);
 
     if (typeof optionValue === 'string') {
-      return (
-        (onChange as RadioButtonEvent<string>['onChange'])?.(
-          newValue as string,
-        ) ?? true
-      );
+      return onChange
+        ? (onChange as RadioButtonEvent<string>['onChange'])?.(
+            newValue as string,
+          )
+        : true;
     } else if (typeof optionValue === 'boolean') {
-      return (
-        (onChange as RadioButtonEvent<boolean>['onChange'])?.(
-          newValue as boolean,
-        ) ?? true
-      );
+      return onChange
+        ? (onChange as RadioButtonEvent<boolean>['onChange'])?.(
+            newValue as boolean,
+          )
+        : true;
     }
   }, [optionValue, setValue, fieldName, onChange]);
 
   return (
     <FieldWrapper
-      {...{ fieldName, required, label, errors, info, hideRequiredMark }}
-      className="flex items-center gap-1"
-      context={{
-        invalid: !!errors[fieldName],
-        disabled,
-        containerless: true,
+      {...{
+        fieldName,
+        required,
+        label,
+        errors,
+        info,
+        hideRequiredMark,
+        pt: pt?.fieldWrapper,
       }}
+      className="flex items-center gap-1"
+      context={context}
       onClick={handleChange}
     >
-      <div {...preset.box} />
-      {isChecked && <div {...preset.innerBox} />}
+      <div
+        {...preset.box}
+        className={clsx(
+          preset.box.className,
+          pt?.box?.({ context, props })?.className,
+        )}
+      />
+      {isChecked && (
+        <div
+          {...preset.innerBox}
+          className={clsx(
+            preset.innerBox.className,
+            pt?.innerBox?.({ context, props })?.className,
+          )}
+        />
+      )}
       <input
         {...preset.input}
+        className={clsx(
+          preset.input.className,
+          pt?.input?.({ context, props })?.className,
+        )}
         disabled={disabled}
         name={fieldName}
         type="radio"

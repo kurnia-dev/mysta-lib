@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 import {
-  PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
+import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
 /**
  * Props for the RadioButton component.
@@ -14,6 +14,8 @@ import {
 export interface BaseRadioButtonProps {
   /** The name of the field used for form submission */
   fieldName?: string;
+
+  pt?: RadioButtonPassThroughOptions;
 
   /** The label text to display above the input */
   label?: string;
@@ -84,15 +86,15 @@ export interface RadioButtonContext {
   disabled?: boolean;
 }
 
+export interface RadioButtonPassThroughOptions
+  extends RadioButtonPresetOptions {
+  fieldWrapper?: FieldWrapperPresetOptions;
+}
+
 export interface RadioButtonPresetOptions {
-  labelContainer: PresetAttributes;
-  label: PresetAttributes;
-  required: PresetAttributes;
-  info: PresetAttributes;
-  icon: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
-  input: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
-  box: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
-  innerBox: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  input?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  box?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  innerBox?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
 }
 
 /**
