@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { isEqual } from 'lodash';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -23,6 +24,8 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
 
     required,
     customValidation,
+
+    pt,
   } = props;
 
   const [localValue, setLocalValue] = useState({});
@@ -73,15 +76,20 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
       : watchedValue;
   }, [isValueMode, optionValue, watchedValue]);
 
+  const context = useMemo(
+    () => ({
+      checked: isChecked,
+      partialChecked: watchedValue === false && mode === 'tristate',
+      tristate: mode === 'tristate',
+      disabled,
+    }),
+    [disabled, isChecked, mode, watchedValue],
+  );
+
   const preset =
     useComponentPreset('Checkbox', {
       props: { label },
-      context: {
-        checked: isChecked,
-        partialChecked: watchedValue === false && mode === 'tristate',
-        tristate: mode === 'tristate',
-        disabled,
-      },
+      context,
     }) ?? {};
 
   useEffect(() => {
@@ -142,10 +150,15 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
   ]);
 
   const createIconBox = useCallback(() => {
+    const className = clsx(
+      preset.icon.className,
+      pt?.icon?.({ props })?.className,
+    );
+
     if (isChecked === true) {
-      return <Icon {...preset.icon} name="check-4" />;
+      return <Icon {...preset.icon} className={className} name="check-4" />;
     } else if (isChecked === false && mode === 'tristate') {
-      return <Icon {...preset.icon} name="minus-4" />;
+      return <Icon {...preset.icon} className={className} name="minus-4" />;
     }
 
     return null;
@@ -161,6 +174,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
         label,
         info,
         hideRequiredMark,
+        pt: pt?.fieldWrapper,
       }}
       className="flex items-center gap-1"
       context={{
@@ -171,9 +185,21 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
       }}
       onClick={handleChange}
     >
-      <div {...preset.box}>{createIconBox()}</div>
+      <div
+        {...preset.box}
+        className={clsx(
+          preset.box.className,
+          pt?.box?.({ context, props })?.className,
+        )}
+      >
+        {createIconBox()}
+      </div>
       <input
         {...preset.input}
+        className={clsx(
+          preset.input.className,
+          pt?.input?.({ context, props })?.className,
+        )}
         disabled={disabled}
         name={fieldName}
         type="checkbox"

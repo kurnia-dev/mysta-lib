@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 import {
-  PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
+import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
 export type ValueModeType = (string | number | Record<string, unknown>)[];
 
@@ -34,6 +34,8 @@ export interface BaseCheckboxProps {
    * @default false
    */
   hideRequiredMark?: boolean;
+
+  pt?: CheckboxPresetOptions;
 }
 
 export interface ValueCheckboxProps
@@ -104,13 +106,10 @@ export interface CheckboxContext {
 }
 
 export interface CheckboxPresetOptions {
-  labelContainer: PresetAttributes;
-  label: PresetAttributes;
-  required: PresetAttributes;
-  info: PresetAttributes;
-  icon: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
-  input: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
-  box: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  icon?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  input?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  box?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  fieldWrapper?: FieldWrapperPresetOptions;
 }
 
 /**
