@@ -9,7 +9,7 @@ type ModeValueStruct = {
 };
 
 const callMultiTypeFn = <M extends Mode, R = boolean>(
-  mode: M,
+  _: M,
   fn: ((val: ModeValueStruct[M]) => R) | undefined,
   value: ModeValueStruct[M],
 ): R => {
