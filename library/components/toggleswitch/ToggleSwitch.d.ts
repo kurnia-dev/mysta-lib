@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 import {
-  PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
+import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
 /**
  * Props for the ToggleSwitch component.
@@ -14,6 +14,8 @@ import {
 export interface BaseToggleSwitchProps {
   /** The name of the field used for form submission */
   fieldName?: string;
+
+  pt?: ToggleSwitchPassThroughOptions;
 
   /** The label text to display above the input */
   label?: string;
@@ -82,15 +84,16 @@ export interface ToggleSwitchContext {
   tristate?: boolean;
 }
 
+export interface ToggleSwitchPassThroughOptions
+  extends ToggleSwitchPresetOptions {
+  fieldWrapper?: FieldWrapperPresetOptions;
+}
+
 export interface ToggleSwitchPresetOptions {
-  labelContainer: PresetAttributes;
-  label: PresetAttributes;
-  required: PresetAttributes;
-  info: PresetAttributes;
-  iconContainer: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  icon: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  input: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  box: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  iconContainer?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  icon?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  input?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  box?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
 }
 
 /**

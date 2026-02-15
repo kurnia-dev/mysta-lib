@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
@@ -22,6 +23,8 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
 
     required,
     customValidation,
+
+    pt,
   } = props;
 
   const [localValue, setLocalValue] = useState({});
@@ -70,15 +73,20 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
 
   const isChecked = watchedValue;
 
+  const context = useMemo(
+    () => ({
+      checked: isChecked,
+      partialChecked: watchedValue === false && mode === 'tristate',
+      tristate: mode === 'tristate',
+      disabled,
+    }),
+    [disabled, isChecked, mode, watchedValue],
+  );
+
   const preset =
     useComponentPreset('ToggleSwitch', {
       props: { label },
-      context: {
-        checked: isChecked,
-        partialChecked: watchedValue === false && mode === 'tristate',
-        tristate: mode === 'tristate',
-        disabled,
-      },
+      context,
     }) ?? {};
 
   useEffect(() => {
@@ -114,15 +122,36 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
 
   const createToggleSwitch = () => {
     return (
-      <div {...preset.iconContainer}>
-        <Icon name="circle-fill" {...preset.icon} />
+      <div
+        {...preset.iconContainer}
+        className={clsx(
+          preset.iconContainer.className,
+          pt?.iconContainer?.({ context, props })?.className,
+        )}
+      >
+        <Icon
+          name="circle-fill"
+          {...preset.icon}
+          className={clsx(
+            preset.icon.className,
+            pt?.icon?.({ context, props })?.className,
+          )}
+        />
       </div>
     );
   };
 
   return (
     <FieldWrapper
-      {...{ fieldName, required, label, errors, info, hideRequiredMark }}
+      {...{
+        fieldName,
+        required,
+        label,
+        errors,
+        info,
+        hideRequiredMark,
+        pt: pt?.fieldWrapper,
+      }}
       className="flex items-center gap-1"
       context={{
         invalid: !!errors[fieldName],
@@ -131,9 +160,21 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
       }}
       onClick={handleChange}
     >
-      <div {...preset.box}>{createToggleSwitch()}</div>
+      <div
+        {...preset.box}
+        className={clsx(
+          preset.box.className,
+          pt?.box?.({ context, props })?.className,
+        )}
+      >
+        {createToggleSwitch()}
+      </div>
       <input
         {...preset.input}
+        className={clsx(
+          preset.input.className,
+          pt?.input?.({ context, props })?.className,
+        )}
         disabled={disabled}
         name={fieldName}
         type="checkbox"
