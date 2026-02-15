@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Dialog as RUIDialog } from 'radix-ui';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Icon, Slot } from 'lib/components';
 import { useComponentPreset } from 'lib/hooks';
@@ -28,7 +28,11 @@ export const Dialog = memo((props: DialogProps) => {
     contentClass,
 
     slots,
+
+    pt,
   } = props;
+
+  const context = useMemo(() => ({ open: visible }), [visible]);
 
   const preset =
     useComponentPreset('Dialog', {
@@ -44,9 +48,19 @@ export const Dialog = memo((props: DialogProps) => {
       onOpenChange={onVisibleChange}
     >
       <RUIDialog.Portal>
-        <RUIDialog.Overlay {...preset.overlay} />
+        <RUIDialog.Overlay
+          {...preset.overlay}
+          className={clsx(
+            preset.overlay.className,
+            pt?.overlay?.({ props, context })?.className,
+          )}
+        />
         <RUIDialog.Content
-          className={clsx(preset.container.className, containerClass)}
+          className={clsx(
+            preset.container.className,
+            containerClass,
+            pt?.container?.({ context, props })?.className,
+          )}
           onEscapeKeyDown={(e) => {
             if (!closeOnEscape) e.preventDefault();
           }}
@@ -55,11 +69,23 @@ export const Dialog = memo((props: DialogProps) => {
           }}
         >
           <RUIDialog.Title asChild>
-            <div className={clsx(preset.header.className, headerClass)}>
+            <div
+              className={clsx(
+                preset.header.className,
+                headerClass,
+                pt?.header?.className,
+              )}
+            >
               <Slot name="header" slots={slots}>
                 <span>{header}</span>
                 {useCloseIcon && (
-                  <div {...preset.iconContainer}>
+                  <div
+                    {...preset.iconContainer}
+                    className={clsx(
+                      preset.iconContainer.className,
+                      pt?.iconContainer?.({ context, props })?.className,
+                    )}
+                  >
                     <Icon
                       className="cursor-pointer"
                       name="x"
@@ -71,7 +97,13 @@ export const Dialog = memo((props: DialogProps) => {
             </div>
           </RUIDialog.Title>
           <Slot name="content" slots={slots}>
-            <div className={clsx(preset.content.className, contentClass)}>
+            <div
+              className={clsx(
+                preset.content.className,
+                contentClass,
+                pt?.content?.className,
+              )}
+            >
               {children}
             </div>
           </Slot>
