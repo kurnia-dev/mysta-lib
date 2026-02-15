@@ -1,0 +1,71 @@
+import clsx from 'clsx';
+import { useState } from 'react';
+
+import { useComponentPreset } from 'lib/hooks';
+
+import { Icon } from '../icon/Icon';
+
+import { FloatingActionButtonProps } from './FloatingActionButton.d';
+
+export const FloatingActionButton = (
+  props: FloatingActionButtonProps,
+): JSX.Element => {
+  const {
+    icon,
+    label,
+    onClick,
+    position = 'bottom-right',
+    size = 'md',
+    severity = 'primary',
+    extendedLabel,
+    disabled = false,
+    className,
+    pt,
+  } = props;
+
+  const [isExtended, setIsExtended] = useState(false);
+
+  const preset =
+    useComponentPreset('FloatingActionButton', {
+      props: { position, size, severity },
+      context: { disabled, isExtended },
+    }) ?? {};
+
+  return (
+    <button
+      aria-label={label}
+      className={clsx(
+        preset.root?.className,
+        className,
+        pt?.root?.({ props: { position, size, severity } })?.className,
+      )}
+      disabled={disabled}
+      type="button"
+      onBlur={() => setIsExtended(false)}
+      onClick={onClick}
+      onFocus={() => extendedLabel && setIsExtended(true)}
+      onMouseEnter={() => extendedLabel && setIsExtended(true)}
+      onMouseLeave={() => setIsExtended(false)}
+    >
+      <Icon
+        className={clsx(
+          preset.icon?.className,
+          pt?.icon?.({ props: { position, size, severity } })?.className,
+        )}
+        name={icon}
+      />
+      {extendedLabel && isExtended && (
+        <span
+          className={clsx(
+            preset.label?.className,
+            pt?.label?.({ props: { position, size, severity } })?.className,
+          )}
+        >
+          {extendedLabel}
+        </span>
+      )}
+    </button>
+  );
+};
+
+FloatingActionButton.displayName = 'FloatingActionButton';
