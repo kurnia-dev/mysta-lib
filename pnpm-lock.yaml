@@ -149,7 +149,11 @@ importers:
 
   packages/mysta-lib: {}
 
-  presets: {}
+  presets:
+    dependencies:
+      '@mystaline/mysta-lib':
+        specifier: 1.0.0-alpha.36
+        version: 1.0.0-alpha.36
 
 packages:
 
@@ -454,6 +458,9 @@ packages:
     resolution: {integrity: sha512-c4oadd7tRPlsGXzDBa3IN9TYrczjmaU3iDameuGe+oF/kkODsVoEkTwcLBSb9tLxhQHEInHWrBVv7zc47NvdcA==}
     peerDependencies:
       eslint: ^8.0.0
+
+  '@mystaline/mysta-lib@1.0.0-alpha.36':
+    resolution: {integrity: sha512-e+o0fZud3k3ac0p6asg10ztVq1RY/mc4Vv5bzuiD6sCyvGX3XNVDL/6E8C7ccwCG6Ah3ysPbzFo5heJhEG3ljw==}
 
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
@@ -2375,6 +2382,7 @@ packages:
 
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   globals@14.0.0:
@@ -3898,6 +3906,8 @@ snapshots:
   '@mystaline/eslint-plugin-mysta-code-standard@1.0.10(eslint@9.31.0(jiti@1.21.7))':
     dependencies:
       eslint: 9.31.0(jiti@1.21.7)
+
+  '@mystaline/mysta-lib@1.0.0-alpha.36': {}
 
   '@napi-rs/wasm-runtime@0.2.12':
     dependencies:
