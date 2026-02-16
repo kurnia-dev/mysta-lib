@@ -89,12 +89,16 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
   ) ?? { ref: undefined };
 
   const {
-    setValue,
+    setValue: _setValue,
     watchedValue,
     trigger,
     formState: { errors = {} },
   } = registeredMethods ??
   (fallBackMethods as unknown as UseValidatorReturn<Record<string, T>>);
+  const setValue = _setValue as (
+    name: Path<Record<string, T>>,
+    value: FieldPathValue<T>,
+  ) => void;
 
   useEffect(() => {
     // eslint-disable-next-line eqeqeq
