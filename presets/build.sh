@@ -33,3 +33,11 @@ for preset in "${presetNames[@]}"; do
 
   cd ../
 done
+
+# Replace internal 'lib/' alias with public package import in all JS and D.TS files
+echo "Replacing aliases in dist..."
+# Special handling for utils (bundled into root)
+find dist -type f \( -name "*.js" -o -name "*.d.ts" \) -exec sed -i "s|'lib/utils'|'@mystaline/mysta-lib'|g; s|\"lib/utils\"|\"@mystaline/mysta-lib\"|g" {} +
+# Fallback for remaining deep imports (types etc)
+find dist -type f \( -name "*.js" -o -name "*.d.ts" \) -exec sed -i "s|'lib/|'@mystaline/mysta-lib/|g; s|\"lib/|\"@mystaline/mysta-lib/|g" {} +
+echo "Replacements complete."

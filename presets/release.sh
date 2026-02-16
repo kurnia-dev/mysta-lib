@@ -1,7 +1,13 @@
 cp package.json dist
 cd dist
 
-npm link
-npm publish --access public
+
+TAG=$1
+
+if [ -z "$TAG" ]; then
+  npm publish --access public
+else
+  npm publish --access public --tag $TAG
+fi
 
 cd ../
