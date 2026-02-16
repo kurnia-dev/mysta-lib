@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 
 import {
+  Button,
   Checkbox,
   Form,
-  InputEmail,
-  InputNumber,
-  InputPassword,
+  Icon,
   InputText,
   RadioButton,
   ToggleSwitch,
 } from 'lib/components';
 import { FormHandle } from 'lib/components/form/Form.d';
+import { useToast } from 'lib/context/ToastContext';
 
 import DocTitle from '../DocTitle';
 
@@ -36,9 +36,13 @@ type FormValues = {
 
 const FormDocs: React.FC = () => {
   const formRef = useRef<FormHandle<FormValues>>(null);
+  const { showToast } = useToast();
 
   useEffect(() => {
     console.log('FormDocs mounted!');
+  }, []);
+
+  useEffect(() => {
     console.log(
       '🚀 ~ useEffect ~ formRef.current?.errors:',
       formRef.current?.errors,
@@ -54,11 +58,32 @@ const FormDocs: React.FC = () => {
     workType: 'On-Site',
     presets: [{ a: 'a', aa: 'aa' }],
     isApproved: false,
+    firstName: 'aws',
+    nickName: 'aws',
+    email: 'aws@aws.aws',
+    password: 'aWs123!@#',
+    collaboration: null,
+    termsAndCondition: false,
+  };
+
+  const openToast = () => {
+    showToast({
+      message: 'Tesssss',
+      severity: 'success',
+      icon: 'check-4',
+      action: {
+        label: 'Undo',
+        command: async () => {
+          console.log('Undo');
+        },
+      },
+    });
   };
 
   return (
-    <div className="p-16 bg-white rounded-[40px] flex-col justify-start items-start gap-4 inline-flex">
+    <div className="p-16 bg-white rounded-[40px] flex-col justify-start items-start gap-4 inline-flex w">
       <DocTitle name="Form" />
+      <Button onClick={openToast} />
 
       <Form
         buttonsConfig={[
@@ -67,12 +92,30 @@ const FormDocs: React.FC = () => {
           { type: 'submit', label: 'Submit' },
           { type: 'back', label: 'Cancel' },
         ]}
+        columnPerRow={3}
         defaultValues={initialValue}
+        pt={{
+          button: {
+            root: () => ({ className: '!h-9' }),
+          },
+        }}
         ref={formRef}
         onError={(e) => console.log(e)}
         onSubmit={(e) => console.log(e)}
       >
-        <InputText required fieldName="firstName" label="First Name" />
+        {null}
+        <Icon name="github" />
+        <InputText
+          required
+          fieldName="firstName"
+          label="First Name"
+          pt={{
+            input: () => ({ className: 'h-[30px] !rounded-lg' }),
+            fieldWrapper: {
+              field: () => ({ className: 'h-[32px] !rounded-lg' }),
+            },
+          }}
+        />
         <InputText fieldName="lastName" label="Last Name" />
         <InputText
           preventInputOnError
@@ -81,7 +124,7 @@ const FormDocs: React.FC = () => {
           label="Nick Name"
           maxLength={5}
         />
-        <InputText
+        {/* <InputText
           disabled
           fieldName="employeeType"
           info="Form pendaftaran intern"
@@ -113,8 +156,8 @@ const FormDocs: React.FC = () => {
             'uppercase',
             'special-character',
           ]}
-        />
-        <Checkbox
+        /> */}
+        {/* <Checkbox
           disabled
           fieldName="permanentEmployee"
           label="Permanent Employee"
@@ -127,7 +170,7 @@ const FormDocs: React.FC = () => {
           label="Intern Employee"
           mode="binary"
           onChange={(e) => console.log(e)}
-        />
+        /> */}
         <Checkbox
           required
           fieldName="termsAndConditions"
@@ -208,6 +251,43 @@ const FormDocs: React.FC = () => {
           label="Approve"
           mode="tristate"
         />
+        {/* <Dropdown
+          fieldName="dropdown1"
+          info="Ini dropdown string"
+          label="Tes Dropdown String"
+          options={[
+            { label: '1', value: 'satu' },
+            { label: '2', value: 'dua' },
+            { label: '3', value: 'tiga' },
+            { label: '4', value: 'empat' },
+          ]}
+          placeholder="Pilih value string"
+        />
+        <Dropdown
+          fieldName="dropdown2"
+          info="Ini dropdown number"
+          label="Tes Dropdown number"
+          options={[
+            { label: '1', value: 1 },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+            { label: '4', value: 4 },
+          ]}
+          placeholder="Pilih value number"
+        />
+        <Dropdown
+          required
+          fieldName="dropdown3"
+          info="Ini dropdown object"
+          label="Tes Dropdown object"
+          options={[
+            { label: 'A', value: { _id: 'AAAAA1', name: 'A1' } },
+            { label: 'B', value: { _id: 'AAAAA2', name: 'A2' } },
+            { label: 'C', value: { _id: 'AAAAA3', name: 'A3' } },
+            { label: 'D', value: { _id: 'AAAAA4', name: 'A4' } },
+          ]}
+          placeholder="Pilih value object"
+        /> */}
       </Form>
     </div>
   );

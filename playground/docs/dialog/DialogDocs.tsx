@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, Dialog, RadioButton, ToggleSwitch } from 'lib/components';
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  RadioButton,
+  ToggleSwitch,
+} from 'lib/components';
 import { DialogProps } from 'lib/components/dialog/Dialog.d';
 
 import DocTitle from '../DocTitle';
@@ -142,7 +148,7 @@ const DialogDocs: React.FC = () => {
               setCloseOnEscape(e);
             }}
           />
-          <ToggleSwitch
+          <Checkbox
             label="Use Close Icon"
             value={useCloseIcon}
             onChange={(e) => {
