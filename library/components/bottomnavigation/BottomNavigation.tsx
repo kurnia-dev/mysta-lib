@@ -21,6 +21,7 @@ export const BottomNavigation = (props: BottomNavigationProps): JSX.Element => {
         pt?.root?.({ props })?.className,
       )}
       role="navigation"
+      style={pt?.root?.({ props })?.style}
     >
       {items.map((item) => {
         const isActive = activePath === item.path;
@@ -36,6 +37,10 @@ export const BottomNavigation = (props: BottomNavigationProps): JSX.Element => {
               isActive && pt?.activeItem?.({ props })?.className,
             )}
             key={item.id}
+            style={{
+              ...pt?.item?.({ props })?.style,
+              ...(isActive ? pt?.activeItem?.({ props })?.style : {}),
+            }}
             type="button"
             onClick={() => onNavigate(item.path)}
           >
@@ -46,6 +51,7 @@ export const BottomNavigation = (props: BottomNavigationProps): JSX.Element => {
                   pt?.icon?.({ props })?.className,
                 )}
                 name={item.icon}
+                style={pt?.icon?.({ props })?.style}
               />
               {item.badge && item.badge > 0 && (
                 <span
@@ -54,6 +60,7 @@ export const BottomNavigation = (props: BottomNavigationProps): JSX.Element => {
                     preset.badge?.className,
                     pt?.badge?.({ props })?.className,
                   )}
+                  style={pt?.badge?.({ props })?.style}
                 >
                   {item.badge > 99 ? '99+' : item.badge}
                 </span>
@@ -64,6 +71,7 @@ export const BottomNavigation = (props: BottomNavigationProps): JSX.Element => {
                 preset.label?.className,
                 pt?.label?.({ props })?.className,
               )}
+              style={pt?.label?.({ props })?.style}
             >
               {item.label}
             </span>

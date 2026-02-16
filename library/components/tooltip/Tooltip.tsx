@@ -24,6 +24,7 @@ export const Tooltip = (props: TooltipProps) => {
           <div
             {...preset.content}
             className={clsx(preset.content.className, pt?.content?.className)}
+            style={pt?.content?.style}
           >
             {content}
           </div>

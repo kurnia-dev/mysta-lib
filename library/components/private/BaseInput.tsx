@@ -191,6 +191,9 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
         disabled={disabled}
         name={typedFieldName}
         placeholder={placeholder}
+        style={{
+          ...pt?.input?.({ props: props as Partial<BaseInputProps> })?.style,
+        }}
         type={passwordVisibility && type === 'password' ? 'text' : type}
         onBlur={handleBlur}
         onChange={handleChange}
@@ -202,6 +205,9 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
           {...preset.eyetoggle}
           className={clsx(preset.eyetoggle.className, pt?.eyetoggle?.className)}
           name={passwordVisibility ? 'eye-off' : 'eye-on'}
+          style={{
+            ...pt?.eyetoggle?.style,
+          }}
           onClick={() => setPasswordVisibility(!passwordVisibility)}
         />
       )}

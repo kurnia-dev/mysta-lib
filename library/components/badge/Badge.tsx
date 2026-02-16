@@ -47,6 +47,7 @@ export const Badge = (props: BadgeProps): JSX.Element => {
             pt?.icon?.({ props })?.className,
           )}
           name={iconName}
+          style={pt?.icon?.({ props })?.style}
         />
       </div>
     );
@@ -60,6 +61,7 @@ export const Badge = (props: BadgeProps): JSX.Element => {
           preset.label.className,
           pt?.label?.({ props })?.className,
         )}
+        style={pt?.label?.({ props })?.style}
       >
         {label}
       </span>
@@ -75,6 +77,7 @@ export const Badge = (props: BadgeProps): JSX.Element => {
         className,
         pt?.root?.({ props })?.className,
       )}
+      style={pt?.root?.({ props })?.style}
     >
       {createLabel()}
       {icon && createIcon()}

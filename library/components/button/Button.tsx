@@ -55,6 +55,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
             pt?.icon?.({ context, props })?.className,
           )}
           name={icon}
+          style={pt?.icon?.({ context, props })?.style}
         />
       );
     return (
@@ -63,6 +64,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
           preset.loadingIcon?.className,
           pt?.loadingIcon?.({ context, props })?.className,
         )}
+        style={pt?.loadingIcon?.({ context, props })?.style}
       />
     );
   }, [
@@ -83,6 +85,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
           preset.label.className,
           pt?.label?.({ context, props })?.className,
         )}
+        style={pt?.label?.({ context, props })?.style}
       >
         {label}
       </span>
@@ -98,6 +101,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
         className,
         pt?.root?.({ context, props })?.className,
       )}
+      style={pt?.root?.({ context, props })?.style}
       type={type}
       onClick={onClick}
     >

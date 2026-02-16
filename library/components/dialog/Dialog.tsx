@@ -54,6 +54,7 @@ export const Dialog = memo((props: DialogProps) => {
             preset.overlay.className,
             pt?.overlay?.({ props, context })?.className,
           )}
+          style={pt?.overlay?.({ props, context })?.style}
         />
         <RUIDialog.Content
           className={clsx(
@@ -61,6 +62,7 @@ export const Dialog = memo((props: DialogProps) => {
             containerClass,
             pt?.container?.({ context, props })?.className,
           )}
+          style={pt?.container?.({ context, props })?.style}
           onEscapeKeyDown={(e) => {
             if (!closeOnEscape) e.preventDefault();
           }}
@@ -75,6 +77,7 @@ export const Dialog = memo((props: DialogProps) => {
                 headerClass,
                 pt?.header?.className,
               )}
+              style={pt?.header?.style}
             >
               <Slot name="header" slots={slots}>
                 <span>{header}</span>
@@ -85,6 +88,7 @@ export const Dialog = memo((props: DialogProps) => {
                       preset.iconContainer.className,
                       pt?.iconContainer?.({ context, props })?.className,
                     )}
+                    style={pt?.iconContainer?.({ context, props })?.style}
                   >
                     <Icon
                       className="cursor-pointer"
@@ -103,6 +107,7 @@ export const Dialog = memo((props: DialogProps) => {
                 contentClass,
                 pt?.content?.className,
               )}
+              style={pt?.content?.style}
             >
               {children}
             </div>

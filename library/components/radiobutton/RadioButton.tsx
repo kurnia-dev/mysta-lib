@@ -148,6 +148,7 @@ export const RadioButton = (props: RadioButtonProps) => {
           preset.box.className,
           pt?.box?.({ context, props })?.className,
         )}
+        style={pt?.box?.({ context, props })?.style}
       />
       {isChecked && (
         <div
@@ -156,6 +157,7 @@ export const RadioButton = (props: RadioButtonProps) => {
             preset.innerBox.className,
             pt?.innerBox?.({ context, props })?.className,
           )}
+          style={pt?.innerBox?.({ context, props })?.style}
         />
       )}
       <input
@@ -166,6 +168,7 @@ export const RadioButton = (props: RadioButtonProps) => {
         )}
         disabled={disabled}
         name={fieldName}
+        style={pt?.input?.({ context, props })?.style}
         type="radio"
         onChange={() => {}}
       />

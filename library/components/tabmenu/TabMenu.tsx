@@ -13,7 +13,7 @@ interface InternalTabMenuItem extends TabMenuItem {
 }
 
 export const TabMenu = memo((props: TabMenuProps) => {
-  const { activeIndex, menus, type = 'pill' } = props;
+  const { activeIndex, menus, pt, type = 'pill' } = props;
 
   const preset =
     useComponentPreset('TabMenu', {
@@ -28,7 +28,12 @@ export const TabMenu = memo((props: TabMenuProps) => {
   }, [menus]);
 
   return (
-    <div role="tablist" {...preset.root}>
+    <div
+      role="tablist"
+      {...preset.root}
+      className={clsx(preset.root.className, pt?.root?.({ props })?.className)}
+      style={pt?.root?.({ props })?.style}
+    >
       {internalMenus.map((each, index) => {
         const isActive = activeIndex.get() === index;
         return (
@@ -38,9 +43,19 @@ export const TabMenu = memo((props: TabMenuProps) => {
             className={clsx(
               preset.item.className,
               isActive ? preset.active.className : preset.inactive.className,
+              pt?.item?.({ props })?.className,
+              isActive
+                ? pt?.active?.({ props })?.className
+                : pt?.inactive?.({ props })?.className,
             )}
             key={each.id}
             role="tab"
+            style={{
+              ...pt?.item?.({ props })?.style,
+              ...(isActive
+                ? pt?.active?.({ props })?.style
+                : pt?.inactive?.({ props })?.style),
+            }}
             tabIndex={isActive ? 0 : -1}
             onClick={() => {
               if (index !== activeIndex.get()) activeIndex.set(index);
@@ -53,7 +68,14 @@ export const TabMenu = memo((props: TabMenuProps) => {
             }}
           >
             {each.icon && type !== 'pill' && (
-              <Icon className={preset.icon.className} name={each.icon} />
+              <Icon
+                className={clsx(
+                  preset.icon.className,
+                  pt?.icon?.({ props })?.className,
+                )}
+                name={each.icon}
+                style={pt?.icon?.({ props })?.style}
+              />
             )}
             {each.label}
           </a>

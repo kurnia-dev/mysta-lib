@@ -37,6 +37,7 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
         className,
         pt?.root?.({ props: { severity, size } })?.className,
       )}
+      style={pt?.root?.({ props: { severity, size } })?.style}
       type={clickable ? 'button' : undefined}
       onClick={clickable ? onClick : undefined}
     >
@@ -45,12 +46,14 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
           preset.header?.className,
           pt?.header?.({ props: { severity, size } })?.className,
         )}
+        style={pt?.header?.({ props: { severity, size } })?.style}
       >
         <span
           className={clsx(
             preset.label?.className,
             pt?.label?.({ props: { severity, size } })?.className,
           )}
+          style={pt?.label?.({ props: { severity, size } })?.style}
         >
           {label}
         </span>
@@ -61,6 +64,7 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
               pt?.icon?.({ props: { severity, size } })?.className,
             )}
             name={icon}
+            style={pt?.icon?.({ props: { severity, size } })?.style}
           />
         )}
       </div>
@@ -70,6 +74,7 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
           preset.value?.className,
           pt?.value?.({ props: { severity, size } })?.className,
         )}
+        style={pt?.value?.({ props: { severity, size } })?.style}
       >
         {value}
       </div>
@@ -82,6 +87,7 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
                 preset.trend?.className,
                 pt?.trend?.({ props: { severity, size } })?.className,
               )}
+              style={pt?.trend?.({ props: { severity, size } })?.style}
             >
               {trendUp ? '↑' : '↓'} {trend}
             </span>
@@ -92,6 +98,7 @@ export const StatCard = (props: StatCardProps): JSX.Element => {
                 preset.subtitle?.className,
                 pt?.subtitle?.({ props: { severity, size } })?.className,
               )}
+              style={pt?.subtitle?.({ props: { severity, size } })?.style}
             >
               {subtitle}
             </span>

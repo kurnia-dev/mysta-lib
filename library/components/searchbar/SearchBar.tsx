@@ -60,6 +60,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
         className,
         pt?.root?.({ props: { size } })?.className,
       )}
+      style={pt?.root?.({ props: { size } })?.style}
     >
       {/* Search Input Container */}
       <div
@@ -67,6 +68,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
           preset.container?.className,
           pt?.container?.({ props: { size } })?.className,
         )}
+        style={pt?.container?.({ props: { size } })?.style}
       >
         {/* Search Icon */}
         <Icon
@@ -75,6 +77,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
             pt?.searchIcon?.({ props: { size } })?.className,
           )}
           name="search"
+          style={pt?.searchIcon?.({ props: { size } })?.style}
         />
 
         {/* Input */}
@@ -86,6 +89,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
           disabled={disabled}
           placeholder={placeholder}
           ref={inputRef}
+          style={pt?.input?.({ props: { size } })?.style}
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -100,6 +104,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
               pt?.clearButton?.({ props: { size } })?.className,
             )}
             disabled={disabled}
+            style={pt?.clearButton?.({ props: { size } })?.style}
             type="button"
             onClick={handleClear}
           >
@@ -109,6 +114,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
                 pt?.clearIcon?.({ props: { size } })?.className,
               )}
               name="x"
+              style={pt?.clearIcon?.({ props: { size } })?.style}
             />
           </button>
         )}
@@ -122,6 +128,7 @@ export const SearchBar = (props: SearchBarProps): JSX.Element => {
             pt?.cancelButton?.({ props: { size } })?.className,
           )}
           disabled={disabled}
+          style={pt?.cancelButton?.({ props: { size } })?.style}
           type="button"
           onClick={handleCancel}
         >

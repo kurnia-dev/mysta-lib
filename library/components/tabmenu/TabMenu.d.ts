@@ -22,6 +22,7 @@ export interface TabMenuItem {
 export interface TabMenuProps {
   activeIndex: ModelValue;
   menus?: TabMenuItem[];
+  pt?: TabMenuPresetOptions;
   type?: 'pill' | 'box' | 'thin-underline' | 'bold-underline' | 'segmented';
 }
 

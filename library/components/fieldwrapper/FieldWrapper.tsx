@@ -38,10 +38,14 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
             pt?.labelContainer?.({ context, props })?.className,
           )}
           htmlFor={fieldName}
+          style={{
+            ...pt?.labelContainer?.({ context, props })?.style,
+          }}
         >
           <span
             {...preset.label}
             className={clsx(preset.label.className, pt?.label?.className)}
+            style={pt?.label?.style}
           >
             {label}
           </span>
@@ -52,6 +56,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
                 preset.required.className,
                 pt?.required?.className,
               )}
+              style={pt?.required?.style}
             >
               *
             </span>
@@ -61,6 +66,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
               {...preset.info}
               className={clsx(preset.info.className, pt?.info?.className)}
               name="info"
+              style={pt?.info?.style}
               tooltip={info}
             />
           )}
@@ -88,6 +94,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
         preset.root.className,
         pt?.root?.({ context, props })?.className,
       )}
+      style={pt?.root?.({ context, props })?.style}
     >
       {!context?.containerless && createLabel()}
       <div
@@ -97,6 +104,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
           className,
           pt?.field?.({ context, props })?.className,
         ])}
+        style={pt?.field?.({ context, props })?.style}
       >
         {children}
         {context?.containerless && createLabel()}
@@ -108,8 +116,9 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
             preset.errorMessage.className,
             pt?.errorMessage?.className,
           )}
+          style={pt?.errorMessage?.style}
         >
-          {errors[fieldName]?.message}
+          {errors[fieldName]?.message as string}
         </small>
       )}
     </div>

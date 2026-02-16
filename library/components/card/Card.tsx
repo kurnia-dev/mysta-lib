@@ -100,12 +100,14 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
       draggable={draggable}
       id={id}
       ref={innerRef}
+      style={pt?.root?.({ props })?.style}
     >
       <Slot name="header" slots={slots}>
         {(header || slots?.header) && (
           <div
             {...preset.header}
-            className={clsx(preset.header, pt?.header?.className)}
+            className={clsx(preset.header.className, pt?.header?.className)}
+            style={pt?.header?.style}
           >
             {header}
           </div>
@@ -115,18 +117,20 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         <Separator
           {...preset.separator}
           className={clsx(
-            preset.separator,
+            preset.separator.className,
             pt?.separator?.({ props })?.className,
           )}
           decorative={decorative}
           orientation={orientation}
+          style={pt?.separator?.({ props })?.style}
         />
       )}
       <Slot name="content" slots={slots}>
         {(content || slots?.content) && (
           <div
             {...preset.content}
-            className={clsx(preset.content, pt?.content?.className)}
+            className={clsx(preset.content.className, pt?.content?.className)}
+            style={pt?.content?.style}
           >
             {content}
           </div>
@@ -136,7 +140,8 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         {(footer || slots?.footer) && (
           <div
             {...preset.footer}
-            className={clsx(preset.footer, pt?.footer?.className)}
+            className={clsx(preset.footer.className, pt?.footer?.className)}
+            style={pt?.footer?.style}
           >
             {footer}
           </div>

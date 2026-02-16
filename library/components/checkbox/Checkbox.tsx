@@ -155,10 +155,17 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
       pt?.icon?.({ props })?.className,
     );
 
+    const style = pt?.icon?.({ props })?.style;
+    const commonProps = {
+      ...preset.icon,
+      className,
+      style,
+    };
+
     if (isChecked === true) {
-      return <Icon {...preset.icon} className={className} name="check-4" />;
+      return <Icon {...commonProps} name="check-4" />;
     } else if (isChecked === false && mode === 'tristate') {
-      return <Icon {...preset.icon} className={className} name="minus-4" />;
+      return <Icon {...commonProps} name="minus-4" />;
     }
 
     return null;
@@ -191,6 +198,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
           preset.box.className,
           pt?.box?.({ context, props })?.className,
         )}
+        style={pt?.box?.({ context, props })?.style}
       >
         {createIconBox()}
       </div>
@@ -202,6 +210,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
         )}
         disabled={disabled}
         name={fieldName}
+        style={pt?.input?.({ context, props })?.style}
         type="checkbox"
       />
     </FieldWrapper>

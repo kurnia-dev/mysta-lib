@@ -128,6 +128,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
           preset.iconContainer.className,
           pt?.iconContainer?.({ context, props })?.className,
         )}
+        style={pt?.iconContainer?.({ context, props })?.style}
       >
         <Icon
           name="circle-fill"
@@ -136,6 +137,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
             preset.icon.className,
             pt?.icon?.({ context, props })?.className,
           )}
+          style={pt?.icon?.({ context, props })?.style}
         />
       </div>
     );
@@ -166,6 +168,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
           preset.box.className,
           pt?.box?.({ context, props })?.className,
         )}
+        style={pt?.box?.({ context, props })?.style}
       >
         {createToggleSwitch()}
       </div>
@@ -177,6 +180,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
         )}
         disabled={disabled}
         name={fieldName}
+        style={pt?.input?.({ context, props })?.style}
         type="checkbox"
         onChange={() => {}}
       />

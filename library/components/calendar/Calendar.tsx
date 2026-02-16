@@ -133,6 +133,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
         className,
         pt?.root?.({ props: { disabled } })?.className,
       )}
+      style={pt?.root?.({ props: { disabled } })?.style}
     >
       {/* Header */}
       {showNavigation && (
@@ -141,6 +142,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
             preset.header?.className,
             pt?.header?.({ props: { disabled } })?.className,
           )}
+          style={pt?.header?.({ props: { disabled } })?.style}
         >
           <button
             aria-label="Previous month"
@@ -149,6 +151,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
               pt?.navButton?.({ props: { disabled } })?.className,
             )}
             disabled={disabled}
+            style={pt?.navButton?.({ props: { disabled } })?.style}
             type="button"
             onClick={handlePrevMonth}
           >
@@ -160,6 +163,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
               preset.title?.className,
               pt?.title?.({ props: { disabled } })?.className,
             )}
+            style={pt?.title?.({ props: { disabled } })?.style}
           >
             {viewDate.toLocaleString('default', {
               month: 'long',
@@ -188,12 +192,14 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
           preset.table?.className,
           pt?.table?.({ props: { disabled } })?.className,
         )}
+        style={pt?.table?.({ props: { disabled } })?.style}
       >
         <thead
           className={clsx(
             preset.thead?.className,
             pt?.thead?.({ props: { disabled } })?.className,
           )}
+          style={pt?.thead?.({ props: { disabled } })?.style}
         >
           <tr>
             {weekDays.map((day) => (
@@ -203,6 +209,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
                   pt?.headCell?.({ props: { disabled } })?.className,
                 )}
                 key={day}
+                style={pt?.headCell?.({ props: { disabled } })?.style}
               >
                 {day}
               </th>
@@ -214,6 +221,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
             preset.tbody?.className,
             pt?.tbody?.({ props: { disabled } })?.className,
           )}
+          style={pt?.tbody?.({ props: { disabled } })?.style}
         >
           {Array.from({ length: 6 }).map((_, rowIndex) => (
             <tr
@@ -222,6 +230,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
                 pt?.row?.({ props: { disabled } })?.className,
               )}
               key={rowIndex}
+              style={pt?.row?.({ props: { disabled } })?.style}
             >
               {calendarDays
                 .slice(rowIndex * 7, (rowIndex + 1) * 7)
@@ -237,6 +246,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
                         pt?.cell?.({ props: { disabled } })?.className,
                       )}
                       key={colIndex}
+                      style={pt?.cell?.({ props: { disabled } })?.style}
                     >
                       <button
                         className={clsx(
@@ -248,6 +258,7 @@ export const Calendar = (props: CalendarProps): JSX.Element => {
                         data-selected={selected}
                         data-today={today}
                         disabled={disabledDay}
+                        style={pt?.day?.({ props: { disabled } })?.style}
                         type="button"
                         onClick={() => handleDayClick(dayObj.date)}
                       >

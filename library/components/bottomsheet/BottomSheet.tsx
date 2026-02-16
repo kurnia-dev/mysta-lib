@@ -60,6 +60,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
         className,
         pt?.root?.({ props: { size } })?.className,
       )}
+      style={pt?.root?.({ props: { size } })?.style}
     >
       {/* Backdrop */}
       <div
@@ -68,6 +69,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
           pt?.backdrop?.({ props: { size } })?.className,
         )}
         role="button"
+        style={pt?.backdrop?.({ props: { size } })?.style}
         tabIndex={0}
         onClick={() => dismissable && onHide()}
         onKeyDown={() => {}}
@@ -82,6 +84,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
         )}
         ref={sheetRef}
         role="dialog"
+        style={pt?.container?.({ props: { size } })?.style}
       >
         {/* Handle */}
         {showHandle && (
@@ -90,6 +93,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
               preset.handle?.className,
               pt?.handle?.({ props: { size } })?.className,
             )}
+            style={pt?.handle?.({ props: { size } })?.style}
           />
         )}
 
@@ -100,6 +104,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
               preset.header?.className,
               pt?.header?.({ props: { size } })?.className,
             )}
+            style={pt?.header?.({ props: { size } })?.style}
           >
             {header}
           </div>
@@ -111,6 +116,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
             preset.content?.className,
             pt?.content?.({ props: { size } })?.className,
           )}
+          style={pt?.content?.({ props: { size } })?.style}
         >
           {children}
         </div>
@@ -122,6 +128,7 @@ export const BottomSheet = (props: BottomSheetProps): JSX.Element | null => {
               preset.footer?.className,
               pt?.footer?.({ props: { size } })?.className,
             )}
+            style={pt?.footer?.({ props: { size } })?.style}
           >
             {footer}
           </div>

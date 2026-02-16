@@ -140,10 +140,6 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     [setValue, fieldName, trigger, mode, onChange],
   );
 
-  useEffect(() => {
-    console.log('🚀 ~ preset.content:', preset.content);
-  }, [preset.content]);
-
   return (
     <FieldWrapper
       {...{
@@ -172,6 +168,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
           {...preset.trigger}
           className={clsx(preset.trigger.className, pt?.trigger?.className)}
           name={fieldName}
+          style={pt?.trigger?.style}
           onClick={() => {
             if (open) {
               setIsClosing(true);
@@ -192,6 +189,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
             {...preset.icon}
             asChild
             className={clsx(preset.icon.className, pt?.icon?.className)}
+            style={pt?.icon?.style}
           >
             <Icon name="chevron-down" />
           </Select.Icon>
@@ -206,6 +204,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
             position="popper"
             ref={ref}
             sideOffset={4}
+            style={pt?.content?.({ context, props })?.style}
           >
             <Select.ScrollUpButton asChild>
               <Icon className="w-full" name="chevron-up" />

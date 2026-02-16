@@ -85,6 +85,7 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
         className,
         pt?.root?.({ props: {} })?.className,
       )}
+      style={pt?.root?.({ props: {} })?.style}
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchMove}
       onTouchStart={handleTouchStart}
@@ -97,6 +98,7 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
             pt?.indicator?.({ props: {} })?.className,
           )}
           style={{
+            ...pt?.indicator?.({ props: {} })?.style,
             opacity: isRefreshing ? 1 : indicatorOpacity,
             transform: `translateY(${
               isRefreshing ? 0 : pullDistance - threshold
@@ -109,6 +111,7 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
               pt?.spinner?.({ props: {} })?.className,
               isRefreshing && 'animate-spin',
             )}
+            style={pt?.spinner?.({ props: {} })?.style}
           />
         </div>
       )}
@@ -121,6 +124,7 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
         )}
         ref={contentRef}
         style={{
+          ...pt?.content?.({ props: {} })?.style,
           transform: isPulling ? `translateY(${pullDistance}px)` : undefined,
           transition: isPulling ? 'none' : 'transform 0.3s ease',
         }}

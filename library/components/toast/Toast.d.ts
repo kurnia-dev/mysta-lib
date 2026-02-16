@@ -29,6 +29,8 @@ export interface ToastData {
     label: string;
     command: () => void | Promise<void>;
   };
+
+  pt?: ToastPresetOptions;
 }
 
 export interface ToastContextType {

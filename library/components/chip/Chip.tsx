@@ -45,6 +45,7 @@ export const Chip = (props: ChipProps): JSX.Element => {
         pt?.root?.({ props: { severity, variant, size } })?.className,
       )}
       disabled={disabled}
+      style={pt?.root?.({ props: { severity, variant, size } })?.style}
       type={clickable ? 'button' : undefined}
       onClick={clickable && !disabled ? onClick : undefined}
     >
@@ -56,6 +57,7 @@ export const Chip = (props: ChipProps): JSX.Element => {
             pt?.icon?.({ props: { severity, variant, size } })?.className,
           )}
           name={icon}
+          style={pt?.icon?.({ props: { severity, variant, size } })?.style}
         />
       )}
 
@@ -65,6 +67,7 @@ export const Chip = (props: ChipProps): JSX.Element => {
           preset.label?.className,
           pt?.label?.({ props: { severity, variant, size } })?.className,
         )}
+        style={pt?.label?.({ props: { severity, variant, size } })?.style}
       >
         {label}
       </span>
@@ -79,6 +82,9 @@ export const Chip = (props: ChipProps): JSX.Element => {
               ?.className,
           )}
           disabled={disabled}
+          style={
+            pt?.removeButton?.({ props: { severity, variant, size } })?.style
+          }
           type="button"
           onClick={handleRemove}
         >
@@ -89,6 +95,9 @@ export const Chip = (props: ChipProps): JSX.Element => {
                 ?.className,
             )}
             name="x"
+            style={
+              pt?.removeIcon?.({ props: { severity, variant, size } })?.style
+            }
           />
         </button>
       )}

@@ -34,6 +34,7 @@ export const SkeletonLoader = memo(
             className,
             pt?.root?.({ props })?.className,
           )}
+          style={pt?.root?.({ props })?.style}
         />
       ),
       [width, height, rounded, animated, preset.root, className, props, pt],

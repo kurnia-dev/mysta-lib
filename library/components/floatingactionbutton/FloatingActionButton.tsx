@@ -40,6 +40,7 @@ export const FloatingActionButton = (
         pt?.root?.({ props: { position, size, severity } })?.className,
       )}
       disabled={disabled}
+      style={pt?.root?.({ props: { position, size, severity } })?.style}
       type="button"
       onBlur={() => setIsExtended(false)}
       onClick={onClick}
@@ -53,6 +54,7 @@ export const FloatingActionButton = (
           pt?.icon?.({ props: { position, size, severity } })?.className,
         )}
         name={icon}
+        style={pt?.icon?.({ props: { position, size, severity } })?.style}
       />
       {extendedLabel && isExtended && (
         <span
@@ -60,6 +62,7 @@ export const FloatingActionButton = (
             preset.label?.className,
             pt?.label?.({ props: { position, size, severity } })?.className,
           )}
+          style={pt?.label?.({ props: { position, size, severity } })?.style}
         >
           {extendedLabel}
         </span>

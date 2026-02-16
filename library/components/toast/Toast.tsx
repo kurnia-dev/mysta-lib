@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Toast as RUIToast } from 'radix-ui';
 import { forwardRef, useState } from 'react';
 
@@ -12,7 +13,7 @@ const ToastBase = (
   props: ToastProps,
   ref: React.ForwardedRef<HTMLLIElement>,
 ) => {
-  const { action, icon, message, severity, onClose } = props;
+  const { action, icon, message, severity, onClose, pt } = props;
   const [open, setOpen] = useState<boolean>(true);
 
   const preset =
@@ -22,7 +23,8 @@ const ToastBase = (
 
   return (
     <RUIToast.Root
-      className={preset.root.className}
+      className={clsx(preset.root.className, pt?.root?.({ props })?.className)}
+      style={pt?.root?.({ props })?.style}
       {...{
         open,
         onOpenChange: (e) => {
@@ -33,7 +35,13 @@ const ToastBase = (
       duration={10000}
       ref={ref}
     >
-      <RUIToast.Description className={preset.description.className}>
+      <RUIToast.Description
+        className={clsx(
+          preset.description.className,
+          pt?.description?.className,
+        )}
+        style={pt?.description?.style}
+      >
         <div className="flex gap-1 items-center">
           {icon && <Icon className="text-white" name={icon} />}
           {message}
