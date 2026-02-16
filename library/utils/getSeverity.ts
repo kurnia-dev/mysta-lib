@@ -6,6 +6,9 @@ export type Severities =
   | 'warning'
   | 'info';
 
+type SeverityKey = `${string}-${Severities}`;
+type SeverityValue = `${string}-${Severities}-${string}`;
+
 const severityBaseMap: Record<Severities, string> = {
   primary: 'text-white bg-primary-500 hover:bg-primary-600',
   secondary: 'text-white bg-secondary-500 hover:bg-secondary-600',
@@ -15,60 +18,87 @@ const severityBaseMap: Record<Severities, string> = {
   info: 'text-white bg-info-500 hover:bg-info-600',
 };
 
-const outlinedMap: Record<Severities, string> = {
-  primary: 'text-primary-500 ring-primary-500 hover:bg-primary-50',
-  secondary: 'text-secondary-500 ring-secondary-500 hover:bg-secondary-50',
-  danger: 'text-danger-500 ring-danger-500 hover:bg-danger-50',
-  success: 'text-success-500 ring-success-500 hover:bg-success-50',
-  warning: 'text-warning-500 ring-warning-500 hover:bg-warning-50',
-  info: 'text-info-500 ring-info-500 hover:bg-info-50',
+const createUtilityMap = (
+  prefix: string,
+): Record<SeverityKey, SeverityValue> => {
+  return {
+    'medium-primary': ` ${prefix}-primary-500`,
+    'light-primary': ` ${prefix}-primary-100`,
+    'dark-primary': ` ${prefix}-primary-800`,
+    'medium-secondary': ` ${prefix}-secondary-500`,
+    'light-secondary': ` ${prefix}-secondary-100`,
+    'dark-secondary': ` ${prefix}-secondary-800`,
+    'medium-danger': ` ${prefix}-danger-500`,
+    'light-danger': ` ${prefix}-danger-100`,
+    'dark-danger': ` ${prefix}-danger-800`,
+    'medium-success': ` ${prefix}-success-500`,
+    'light-success': ` ${prefix}-success-100`,
+    'dark-success': ` ${prefix}-success-800`,
+    'medium-warning': ` ${prefix}-warning-500`,
+    'light-warning': ` ${prefix}-warning-100`,
+    'dark-warning': ` ${prefix}-warning-800`,
+    'medium-info': ` ${prefix}-info-500`,
+    'light-info': ` ${prefix}-info-100`,
+    'dark-info': ` ${prefix}-info-800`,
+  };
 };
 
-const textMap: Record<Severities, string> = {
-  primary: 'text-primary-500 ring-transparent hover:bg-primary-50',
-  secondary: 'text-secondary-500 ring-transparent hover:bg-secondary-50',
-  danger: 'text-danger-500 ring-transparent hover:bg-danger-50',
-  success: 'text-success-500 ring-transparent hover:bg-success-50',
-  warning: 'text-warning-500 ring-transparent hover:bg-warning-50',
-  info: 'text-info-500 ring-transparent hover:bg-info-50',
-};
+const hoverTextMap: Record<SeverityKey, SeverityValue> =
+  createUtilityMap('hover:text');
 
-const colorMap: Record<Severities, string> = {
-  primary: '!text-primary-500 hover:!text-white',
-  secondary: '!text-secondary-500 hover:!text-white',
-  danger: '!text-danger-500 hover:!text-white',
-  success: '!text-success-500 hover:!text-white',
-  warning: '!text-warning-500 hover:!text-white',
-  info: '!text-info-500 hover:!text-white',
-};
+const hoverBackgroundMap: Record<SeverityKey, SeverityValue> =
+  createUtilityMap('hover:bg');
 
-const backgroundMap: Record<Severities, string> = {
-  primary: '!bg-primary-500 hover:!bg-white',
-  secondary: '!bg-secondary-500 hover:!bg-white',
-  danger: '!bg-danger-500 hover:!bg-white',
-  success: '!bg-success-500 hover:!bg-white',
-  warning: '!bg-warning-500 hover:!bg-white',
-  info: '!bg-info-500 hover:!bg-white',
-};
+const textMap: Record<SeverityKey, SeverityValue> = createUtilityMap('text');
+
+const backgroundMap: Record<SeverityKey, SeverityValue> =
+  createUtilityMap('bg');
+
+const outlineMap: Record<SeverityKey, SeverityValue> =
+  createUtilityMap('outline');
+
+const ringMap: Record<SeverityKey, SeverityValue> = createUtilityMap('ring');
 
 interface GetSeverityOptions {
-  outlined?: boolean;
-  text?: boolean;
-  color?: boolean;
-  background?: boolean;
+  outline?: 'medium' | 'dark' | 'light';
+  ring?: 'medium' | 'dark' | 'light';
+  text?: 'medium' | 'dark' | 'light';
+  color?: 'medium' | 'dark' | 'light';
+  background?: 'medium' | 'dark' | 'light';
+
+  hoverText?: 'medium' | 'dark' | 'light';
+  hoverBackground?: 'medium' | 'dark' | 'light';
+
+  transparent?: boolean;
 }
 
 const getSeverity = (
   severity: Severities = 'primary',
   options?: GetSeverityOptions,
 ): string => {
-  const { outlined, text, color, background } = options ?? {};
+  const {
+    outline,
+    text,
+    ring,
+    background,
+    transparent,
+    hoverBackground,
+    hoverText,
+  } = options ?? {};
+  if (!options) return severityBaseMap[severity];
+  if (transparent) return '';
 
-  if (text) return textMap[severity];
-  if (outlined) return outlinedMap[severity];
-  if (color) return colorMap[severity];
-  if (background) return backgroundMap[severity];
-  return severityBaseMap[severity];
+  let severityValue = '';
+
+  if (text) severityValue += textMap[`${text}-${severity}`];
+  if (outline) severityValue += outlineMap[`${outline}-${severity}`];
+  if (ring) severityValue += ringMap[`${ring}-${severity}`];
+  if (background) severityValue += backgroundMap[`${background}-${severity}`];
+  if (hoverBackground)
+    severityValue += hoverBackgroundMap[`${hoverBackground}-${severity}`];
+  if (hoverText) severityValue += hoverTextMap[`${hoverText}-${severity}`];
+
+  return severityValue.trim();
 };
 
 export default getSeverity;
