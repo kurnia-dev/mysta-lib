@@ -1,6 +1,6 @@
 {
   "name": "@mystaline/mysta-presets",
-  "version": "1.0.0-alpha.24",
+  "version": "1.0.0-alpha.25",
   "author": "Mystaline",
   "description": "ReactJS Component Library Presets",
   "main": "index.js",
@@ -12,5 +12,8 @@
     "dev": "sh dev.sh",
     "build": "sh build.sh",
     "release": "sh release.sh"
+  },
+  "dependencies": {
+    "@mystaline/mysta-lib": "^1.0.0-alpha.33"
   }
 }
