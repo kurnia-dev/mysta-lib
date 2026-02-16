@@ -1,5 +1,6 @@
 #!/bin/bash
 
+RELEASE_TAG="alpha"
 source scripts/build.sh
 
 # Set the version for the filtered workspace

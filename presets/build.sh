@@ -6,6 +6,19 @@ rm -rf dist
 # # Create type declaration
 tsc ./index.ts --declaration --allowJs --outDir dist
 
+# Update @mystaline/mysta-lib dependency based on tag
+TAG=${1:-latest}
+echo "Checking for latest @mystaline/mysta-lib version (tag: $TAG)..."
+LATEST_LIB_VERSION=$(npm view @mystaline/mysta-lib@$TAG version)
+
+if [ -n "$LATEST_LIB_VERSION" ]; then
+  echo "Updating @mystaline/mysta-lib to $LATEST_LIB_VERSION"
+  # Update package.json dependency. Uses strict matching for the dependency line.
+  sed -i "s|\"@mystaline/mysta-lib\": \".*\"|\"@mystaline/mysta-lib\": \"$LATEST_LIB_VERSION\"|" package.json
+else
+  echo "Warning: Could not fetch version for @mystaline/mysta-lib@$TAG. Using existing version."
+fi
+
 # Preset names array
 presetNames=(
   "kitsune" "yurei" "raijin" "inari" "yuki" "sakuragi"

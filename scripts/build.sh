@@ -12,4 +12,4 @@ echo $WORKSPACE
 if [[ "$WORKSPACE" != *"presets"* ]]; then
     pnpm build:commons
 fi
-pnpm --filter $WORKSPACE build
+pnpm --filter $WORKSPACE build -- $RELEASE_TAG
