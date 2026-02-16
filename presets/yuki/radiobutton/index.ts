@@ -1,26 +1,6 @@
 import { RadioButtonPresetOptions } from 'lib/components/radiobutton/RadioButton.d';
 
 const preset: RadioButtonPresetOptions = {
-  labelContainer: {
-    className: 'text-sm flex gap-1 items-center',
-  },
-  label: {
-    className: 'text-secondary-500',
-  },
-  required: {
-    className: 'text-danger-500',
-  },
-  info: {
-    className: 'text-xs',
-  },
-  icon: ({ context }) => ({
-    className: [
-      '!w-4 !h-4',
-
-      { '!text-secondary-300': context?.disabled },
-      { 'text-white': !context?.disabled },
-    ],
-  }),
   input: ({ context }) => ({
     className: [
       'absolute',

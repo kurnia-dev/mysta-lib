@@ -13,6 +13,8 @@ const preset: DialogPresetOptions = {
       'flex flex-col gap-3',
       'animate-dialog',
 
+      'transition-all duration-300', // For dialog size
+
       {
         'max-w-xs': props.size === 'xs',
         'max-w-sm': props.size === 'sm',

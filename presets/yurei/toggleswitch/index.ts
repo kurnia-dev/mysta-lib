@@ -1,18 +1,6 @@
 import { ToggleSwitchPresetOptions } from 'lib/components/toggleswitch/ToggleSwitch.d';
 
 const preset: ToggleSwitchPresetOptions = {
-  labelContainer: {
-    className: 'text-sm flex gap-1 items-center',
-  },
-  label: {
-    className: 'text-secondary-500',
-  },
-  required: {
-    className: 'text-danger-500',
-  },
-  info: {
-    className: 'text-xs',
-  },
   iconContainer: ({ context }) => ({
     className: [
       'overflow-hidden !w-3.5 !h-3.5',

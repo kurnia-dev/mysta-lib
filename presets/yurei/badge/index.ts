@@ -1,57 +1,113 @@
-export default {
-  root: ({ props }): Record<'className', (string | object)[]> => ({
-    className: [
-      // Alignment
-      'inline-flex items-center',
+import { BadgePresetOptions } from 'lib/components/badge/Badge.d';
+import { getSeverity } from 'lib/utils';
 
-      // Size
-      'p-1',
+const preset: BadgePresetOptions = {
+  root: ({ props }) => {
+    const filledClass = getSeverity(props.severity, { background: 'medium' });
+    const outlinedClass = getSeverity(props.severity, {
+      ring: 'medium',
+      background: 'light',
+      text: 'medium',
+    });
+    return {
+      className: [
+        'relative',
 
-      // Shape
-      'rounded-lg	',
+        'rounded-lg md:w-auto text-xs',
 
-      // Color
-      {
-        'text-general-400 bg-general-100': props.disabled,
-        'text-success-500 bg-success-100':
-          !props.disabled && props.severity === 'success',
-        'text-primary-500 bg-primary-50':
-          !props.disabled &&
-          (props.severity === null || props.severity === 'primary'),
-        'text-grayscale-800 bg-grayscale-200':
-          !props.disabled && props.severity === 'dark',
-        'text-warning-600 bg-warning-100':
-          !props.disabled && props.severity === 'warning',
-        'text-danger-600 bg-danger-100':
-          !props.disabled && props.severity === 'danger',
-      },
-    ],
-  }),
-  input: ({ props, context }): Record<'className', (string | object)[]> => ({
-    className: [
-      'text-nowrap whitespace-nowrap font-semibold text-[9px] leading-3 tracking-[0.02em]',
-      {
-        'caret-primary-700': props.editable,
-        'cursor-default': !!context.badgeTooltip,
-      },
-    ],
-  }),
-  removebutton: ({ props }): Record<'className', (string | object)[]> => ({
-    className: [
-      '!p-0 !w-[10px] !h-[10px] ml-1',
-      {
-        'text-primary-500':
-          !props.disabled &&
-          (!props.badgeSeverity || props.badgeSeverity === 'primary'),
-        'text-success-500':
-          !props.disabled && props.badgeSeverity === 'success',
-        'text-danger-600': !props.disabled && props.badgeSeverity === 'danger',
-        'text-warning-600':
-          !props.disabled && props.badgeSeverity === 'warning',
-        'text-grayscale-800 hover:bg-grayscale-300':
-          !props.disabled && props.badgeSeverity === 'dark',
-        'text-general-400': props.disabled,
-      },
-    ],
-  }),
+        // Alignments
+        'items-center inline-flex gap-1 text-center align-bottom justify-center w-max',
+        // {
+        //   'flex-col':
+        //     (props.iconPos === 'top' || props.iconPos === 'bottom') &&
+        //     props.label,
+        // },
+
+        {
+          'flex-row-reverse': props.iconPos === 'left',
+        },
+
+        // Sizes & Spacing
+        'leading-none font-medium rounded',
+
+        // --- Severity Badge States ---
+        'focus:outline-none focus:outline-offset-0',
+
+        // Transitions
+        'transition duration-200 ease-in-out',
+
+        // Misc
+        'cursor-auto overflow-hidden select-text',
+
+        { 'ring-2': props.type === 'outlined' },
+
+        // Badge
+        '[&>[data-pc-name=badge]]:min-w-4 [&>[data-pc-name=badge]]:h-4 [&>[data-pc-name=badge]]:leading-4',
+
+        {
+          '!bg-secondary-800': props.type === 'dot',
+          [filledClass]: props.type === 'filled',
+          [outlinedClass]: props.type === 'outlined',
+          '': props.type === 'outlined',
+        },
+
+        { 'px-2 py-1 gap-1': ['filled', 'outlined'].includes(props.type) },
+        { 'px-2 py-2 gap-2': props.type === 'dot' },
+        'flex items-center',
+        'rounded-md',
+
+        { 'flex-row-reverse': props.iconPos === 'left' },
+      ],
+    };
+  },
+  label: ({ props }) => {
+    const outlinedColor = getSeverity(props.severity, {
+      outline: 'medium',
+      text: 'medium',
+      background: 'light',
+    });
+    return {
+      className: [
+        'duration-200',
+        'font-medium text-xs',
+        'leading-4 tracking-[0.02em]',
+        { 'text-white': ['dot', 'filled'].includes(props.type) },
+        { [outlinedColor]: props.type === 'outlined' },
+      ],
+    };
+  },
+  iconContainer: ({ props }) => {
+    const bgColor = getSeverity(props.severity, {
+      hoverBackground: 'dark',
+    });
+    return {
+      className: ['!rounded-full', { [bgColor]: props.type === 'outlined' }],
+    };
+  },
+  icon: ({ props }) => {
+    const iconColor = getSeverity(props.severity, {
+      text: 'dark',
+      hoverText: 'light',
+    });
+    const dotColor = getSeverity(props.severity, {
+      text: 'medium',
+      hoverText: 'dark',
+    });
+    return {
+      className: [
+        'shrink-0 cursor-default rounded-full',
+        {
+          [iconColor]: ['filled', 'outlined'].includes(props.type),
+          [dotColor]: props.type === 'dot',
+        },
+        // { 'brightness-75': props.type === 'filled' },
+        {
+          // 'hover:!brightness-200': ['filled', 'outlined'].includes(props.type),
+        },
+        { '!w-2 !h-2': props.type === 'dot' },
+      ],
+    };
+  },
 };
+
+export default preset;

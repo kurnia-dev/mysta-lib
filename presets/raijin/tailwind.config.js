@@ -16,5 +16,12 @@ export default {
       },
     },
   },
+  safelist: [
+    {
+      pattern:
+        /(bg|text|ring|outline)-(primary|secondary|danger|success|warning|info)-(100|500|800|900)/,
+      variants: ['hover'],
+    },
+  ],
   plugins: [],
 };

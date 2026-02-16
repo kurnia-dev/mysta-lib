@@ -31,11 +31,9 @@ const preset: ButtonPresetOptions = {
       },
     };
 
-    const severityType = props.text
-      ? 'text'
-      : props.outlined
-        ? 'outlined'
-        : 'base';
+    const isOutlined = props.outlined ? 'outlined' : 'base';
+
+    const severityType = props.text ? 'text' : isOutlined;
 
     const severityClass = severityMap[severityType][props.severity];
 
@@ -117,7 +115,7 @@ const preset: ButtonPresetOptions = {
   }),
   icon: () => ({
     className: [
-      'shrink-0',
+      'shrink-0 text-white',
       // { '!h-3 !w-3': props.size === 'small' }
     ],
   }),

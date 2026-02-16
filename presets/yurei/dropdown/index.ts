@@ -7,9 +7,16 @@ const preset: DropdownPresetOptions = {
   icon: {
     className: 'ml-auto',
   },
-  content: {
-    className:
-      'overflow-hidden !min-w-[210px] rounded-md bg-white shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]',
+  content: ({ context }) => {
+    return {
+      className: [
+        'transition-all duration-300 overflow-hidden !min-w-[210px] rounded-md bg-white shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]',
+        '!hidden',
+        '!bg-danger-500',
+
+        { 'is-closed': !context.open, 'is-open': context.open },
+      ],
+    };
   },
 };
 

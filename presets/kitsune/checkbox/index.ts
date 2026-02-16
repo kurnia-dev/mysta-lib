@@ -1,18 +1,6 @@
 import { CheckboxPresetOptions } from 'lib/components/checkbox/Checkbox.d';
 
 const preset: CheckboxPresetOptions = {
-  labelContainer: {
-    className: 'text-sm flex gap-1 items-center',
-  },
-  label: {
-    className: 'text-secondary-500',
-  },
-  required: {
-    className: 'text-danger-500',
-  },
-  info: {
-    className: 'text-xs',
-  },
   icon: ({ context }) => ({
     className: [
       '!w-4 !h-4',

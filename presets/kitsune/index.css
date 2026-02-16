@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@200..800&display=swap');
 
 @import './icons.css';
 
@@ -6,12 +6,12 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   scrollbar-width: thin;
 }
 
-.font-manrope {
-  font-family: 'Manrope', sans-serif !important;
+.font-titillium {
+  font-family: 'Titillium Web', sans-serif !important;
 }
 
 h1,
