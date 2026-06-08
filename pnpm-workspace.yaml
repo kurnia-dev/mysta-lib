@@ -2,3 +2,7 @@ packages:
   - 'library'
   - 'presets'
   - 'packages/mysta-lib'
+allowBuilds:
+  '@swc/core': true
+  esbuild: true
+  unrs-resolver: true
