@@ -25,7 +25,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
 
   const preset =
     useComponentPreset('FieldWrapper', {
-      context,
+      context: context ?? {},
     }) ?? {};
 
   const createLabel = () => {
@@ -35,11 +35,11 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
           {...preset.labelContainer}
           className={clsx(
             preset.labelContainer.className,
-            pt?.labelContainer?.({ context, props })?.className,
+            pt?.labelContainer?.({ context: context ?? {}, props })?.className,
           )}
           htmlFor={fieldName}
           style={{
-            ...pt?.labelContainer?.({ context, props })?.style,
+            ...pt?.labelContainer?.({ context: context ?? {}, props })?.style,
           }}
         >
           <span
@@ -78,7 +78,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
   const handleKeydown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      onClick();
+      onClick?.();
     }
   };
 
@@ -92,9 +92,9 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
       {...interactiveProps}
       className={clsx(
         preset.root.className,
-        pt?.root?.({ context, props })?.className,
+        pt?.root?.({ context: context ?? {}, props })?.className,
       )}
-      style={pt?.root?.({ context, props })?.style}
+      style={pt?.root?.({ context: context ?? {}, props })?.style}
     >
       {!context?.containerless && createLabel()}
       <div
@@ -102,14 +102,14 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
         className={clsx([
           preset.field?.className,
           className,
-          pt?.field?.({ context, props })?.className,
+          pt?.field?.({ context: context ?? {}, props })?.className,
         ])}
-        style={pt?.field?.({ context, props })?.style}
+        style={pt?.field?.({ context: context ?? {}, props })?.style}
       >
         {children}
         {context?.containerless && createLabel()}
       </div>
-      {typeof errors[fieldName]?.message === 'string' && (
+      {fieldName && typeof errors[fieldName as string]?.message === 'string' && (
         <small
           {...preset.errorMessage}
           className={clsx(
@@ -118,7 +118,7 @@ export const FieldWrapper = (props: FieldWrapperProps) => {
           )}
           style={pt?.errorMessage?.style}
         >
-          {errors[fieldName]?.message as string}
+          {errors[fieldName as string]?.message as string}
         </small>
       )}
     </div>

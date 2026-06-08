@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from 'lib/hooks/useComponentPreset';
 
 export interface SkeletonLoaderProps
@@ -37,7 +38,7 @@ export interface SkeletonLoaderProps
 }
 
 export interface SkeletonLoaderPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'SkeletonLoader'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'SkeletonLoader'>>;
 }
 
 /**

@@ -6,7 +6,9 @@ export interface ModelValue<T = any> {
   set: (newValue: T) => void;
 }
 
-export const useModelValue = <T>(defaultValue: T = null): ModelValue<T> => {
+export const useModelValue = <T>(
+  defaultValue: T = null as T,
+): ModelValue<T> => {
   const [modelValue, setModelValue] = useState<T>(defaultValue);
 
   const get = () => modelValue;

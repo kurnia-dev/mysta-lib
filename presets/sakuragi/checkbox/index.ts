@@ -24,8 +24,9 @@ const preset: CheckboxPresetOptions = {
     return {
       className: [
         '!w-4 !h-4 flex items-center justify-center',
-        'border-2 rounded-[4px]',
+        'border-2 rounded-md',
         'border-secondary-500 ',
+        'transition-transform active:scale-90',
 
         { 'bg-white': !context.checked && !context.partialChecked },
         { 'bg-primary-500': context.checked || context.partialChecked },

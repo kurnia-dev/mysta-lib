@@ -62,7 +62,9 @@ const preset: CalendarPresetOptions = {
 
       // Interactive
       'hover:bg-secondary-100',
-      'transition-all duration-200',
+      'hover:scale-105',
+      'active:scale-95',
+      'transition-all duration-200 [cubic-bezier(0.34,1.56,0.64,1)]',
 
       // States via data attributes
 

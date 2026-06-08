@@ -40,7 +40,7 @@ const preset: BottomSheetPresetOptions = {
 
         // Animation
         context.visible ? 'animate-slideUp' : 'animate-slideDown',
-        'transition-transform duration-300 ease-out',
+        'transition-transform duration-300 [cubic-bezier(0.34,1.56,0.64,1)]',
       ],
     };
   },

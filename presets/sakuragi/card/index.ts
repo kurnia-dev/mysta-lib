@@ -3,11 +3,18 @@ import { CardPresetOptions } from 'lib/components/card/Card.d';
 const preset: CardPresetOptions = {
   root: ({ props }) => ({
     className: [
-      'px-2 py-2 flex flex-col gap-3 bg-secondary-200 group-hover:bg-secondary-300/80 text-white text-xs rounded-md relative',
+      'px-2 py-2 flex flex-col gap-3 bg-secondary-200 group-hover:bg-secondary-300/80 text-white text-xs rounded-2xl relative',
 
       'border border-secondary-800',
 
-      'text-secondary-800 group-hover:scale-105 transition-all duration-300 ease-in-out',
+      'shadow-sm',
+
+      'text-secondary-800 transition-all duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+
+      {
+        'group-hover:-translate-y-0.5 group-hover:shadow-lg': props.clickable,
+        'group-hover:scale-105': !props.clickable,
+      },
 
       {
         '!bg-secondary-200 group-hover:!bg-secondary-300/80':

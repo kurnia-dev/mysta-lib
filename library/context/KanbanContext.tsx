@@ -10,7 +10,7 @@ import {
 const KanbanContext = createContext<KanbanContextType | null>(null);
 
 export const KanbanProvider = ({ children, onUpdate }: KanbanProviderProps) => {
-  const [dragItem, setDragItem] = useState<DragItem>(null);
+  const [dragItem, setDragItem] = useState<DragItem | null>(null);
   const [cardElements, setCardElements] = useState<SimplifiedCardProps[]>([]);
 
   const controller = useMemo(

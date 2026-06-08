@@ -71,12 +71,12 @@ const DialogFormContainer = <T extends Record<string, any>>(
     resetOnSubmit,
     buttonsConfig,
 
-    slots: { footer: slots?.['formFooter'] },
+    slots: slots?.['formFooter'] ? { footer: slots['formFooter']! } : undefined,
   };
 
   const handleSubmit: FormProps<T>['onSubmit'] = (e) => {
-    onSubmit(e);
-    if (closeOnSubmit) onVisibleChange(false);
+    onSubmit?.(e);
+    if (closeOnSubmit) onVisibleChange?.(false);
   };
 
   return (

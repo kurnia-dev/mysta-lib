@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface BottomSheetProps {
@@ -63,11 +64,11 @@ export interface BottomSheetContext {
 }
 
 export interface BottomSheetPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  backdrop?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  container?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  handle?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  header?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  content?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
-  footer?: PresetMethodAttributes<PresetOptions<'BottomSheet'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  backdrop?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  container?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  handle?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  header?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  content?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
+  footer?: PresetMethodAttributes<ResolvedPresetOptions<'BottomSheet'>>;
 }

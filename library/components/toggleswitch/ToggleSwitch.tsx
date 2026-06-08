@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
 
@@ -27,17 +28,17 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     pt,
   } = props;
 
-  const [localValue, setLocalValue] = useState({});
+  const [localValue, setLocalValue] = useState<Record<string, boolean | null>>({});
 
   const fallBackMethods = useMemo(() => {
     return {
-      watchedValue: localValue[fieldName],
+      watchedValue: (localValue as Record<string, boolean | null>)[fieldName],
       setValue: (name: string, value: boolean | null) => {
         setLocalValue({ [name]: value });
       },
-      formState: { errors: {} },
+      formState: { errors: {} as Record<string, { message?: string }> },
       trigger: (name: string) => {
-        const validity = customValidation?.(localValue[name]);
+        const validity = (customValidation as ((val: boolean | null) => boolean) | undefined)?.((localValue as Record<string, boolean | null>)[name]);
         return validity === true;
       },
     };
@@ -57,7 +58,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
               return 'This field is required';
             }
 
-            return callMultiTypeFn(mode, customValidation, val);
+            return callMultiTypeFn(mode, customValidation as unknown as ((val: boolean | null) => boolean) | undefined, val);
           },
         }),
         [customValidation, mode, required],
@@ -68,7 +69,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
   const {
     setValue,
     watchedValue,
-    formState: { errors = {} },
+    formState: { errors = {} as FieldErrors<Record<string, boolean | null>> },
   } = registeredMethods ?? fallBackMethods;
 
   const isChecked = watchedValue;
@@ -117,7 +118,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     }
 
     setValue(fieldName, newValue);
-    onChange(newValue);
+    (onChange as (value: boolean | null) => void)(newValue);
   }, [setValue, onChange, watchedValue, fieldName, mode]);
 
   const createToggleSwitch = () => {

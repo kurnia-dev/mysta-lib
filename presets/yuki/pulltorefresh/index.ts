@@ -22,7 +22,7 @@ const preset: PullToRefreshPresetOptions = {
       'shadow-md',
 
       // Transitions
-      'transition-all duration-300 ease-out',
+      'transition-all duration-300 [cubic-bezier(0.34,1.56,0.64,1)]',
     ],
   }),
   spinner: () => ({

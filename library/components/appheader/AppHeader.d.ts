@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Icons } from '../icon/Icon.d';
 
@@ -68,12 +69,12 @@ export interface AppHeaderContext {
 }
 
 export interface AppHeaderPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  backButton?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  titleContainer?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  title?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  subtitle?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  actions?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  actionButton?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
-  badge?: PresetMethodAttributes<PresetOptions<'AppHeader'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  backButton?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  titleContainer?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  title?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  subtitle?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  actions?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  actionButton?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
+  badge?: PresetMethodAttributes<ResolvedPresetOptions<'AppHeader'>>;
 }

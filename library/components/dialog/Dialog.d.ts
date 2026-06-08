@@ -4,6 +4,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface DialogProps {
@@ -23,6 +24,8 @@ export interface DialogProps {
   header: string;
 
   modal?: boolean;
+
+  fullHeight?: boolean;
 
   slots?: Partial<Record<keyof DialogSlots, JSX.Element>>;
 
@@ -57,14 +60,15 @@ export interface DialogSlots {
 
 export interface DialogContext {
   open?: boolean;
+  fullHeight: boolean;
 }
 
 export interface DialogPresetOptions {
-  overlay?: PresetMethodAttributes<PresetOptions<'Dialog'>>;
-  iconContainer?: PresetMethodAttributes<PresetOptions<'Dialog'>>;
-  container?: PresetMethodAttributes<PresetOptions<'Dialog'>>;
-  header?: PresetAttributes;
-  content?: PresetAttributes;
+  overlay?: PresetMethodAttributes<ResolvedPresetOptions<'Dialog'>>;
+  iconContainer?: PresetMethodAttributes<ResolvedPresetOptions<'Dialog'>>;
+  container?: PresetMethodAttributes<ResolvedPresetOptions<'Dialog'>>;
+  header?: PresetMethodAttributes<ResolvedPresetOptions<'Dialog'>>;
+  content?: PresetMethodAttributes<ResolvedPresetOptions<'Dialog'>>;
 }
 
 export declare const Dialog: (props: DialogProps) => JSX.Element;

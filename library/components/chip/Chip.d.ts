@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -63,6 +64,11 @@ export interface ChipProps {
   disabled?: boolean;
 
   /**
+   * Optional href — renders the chip as an `<a>` element when provided
+   */
+  href?: string;
+
+  /**
    * Optional className for custom styling
    */
   className?: string;
@@ -80,9 +86,9 @@ export interface ChipContext {
 }
 
 export interface ChipPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Chip'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'Chip'>>;
-  label?: PresetMethodAttributes<PresetOptions<'Chip'>>;
-  removeButton?: PresetMethodAttributes<PresetOptions<'Chip'>>;
-  removeIcon?: PresetMethodAttributes<PresetOptions<'Chip'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Chip'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'Chip'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'Chip'>>;
+  removeButton?: PresetMethodAttributes<ResolvedPresetOptions<'Chip'>>;
+  removeIcon?: PresetMethodAttributes<ResolvedPresetOptions<'Chip'>>;
 }

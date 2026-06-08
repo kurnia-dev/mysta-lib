@@ -19,9 +19,9 @@ export const Popover = (props: PopoverProps) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (visibleProps !== null) setVisible(visibleProps);
-    if (defaultVisibility !== null) setVisible(defaultVisibility);
-    if (alwaysRender) setVisible(alwaysRender);
+    if (visibleProps !== null && visibleProps !== undefined) setVisible(visibleProps as boolean);
+    if (defaultVisibility !== null && defaultVisibility !== undefined) setVisible(defaultVisibility as boolean);
+    if (alwaysRender !== undefined) setVisible(alwaysRender as boolean);
   }, [visibleProps, setVisible, defaultVisibility, alwaysRender]);
 
   const handleMouseInOut = useCallback(

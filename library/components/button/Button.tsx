@@ -11,6 +11,7 @@ import { ButtonProps } from './Button.d';
 export const Button = (props: ButtonProps): JSX.Element => {
   const {
     icon,
+    iconPos = 'left',
     label,
     severity = 'primary',
     onClick = () => {},
@@ -18,6 +19,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     height = 26,
     loading = false,
     outlined = false,
+    raised = false,
     text = false,
     width = 'max-content',
     type = 'button',
@@ -39,6 +41,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
         width,
         label,
         outlined,
+        raised,
         text,
         severity,
       },
@@ -55,7 +58,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
             pt?.icon?.({ context, props })?.className,
           )}
           name={icon}
-          style={pt?.icon?.({ context, props })?.style}
+          style={{ ...(preset.icon?.style ?? {}), ...(pt?.icon?.({ context, props })?.style ?? {}) }}
         />
       );
     return (
@@ -82,10 +85,10 @@ export const Button = (props: ButtonProps): JSX.Element => {
       <span
         {...preset.label}
         className={clsx(
-          preset.label.className,
+          preset.label?.className,
           pt?.label?.({ context, props })?.className,
         )}
-        style={pt?.label?.({ context, props })?.style}
+        style={{ ...(preset.label?.style ?? {}), ...(pt?.label?.({ context, props })?.style ?? {}) }}
       >
         {label}
       </span>
@@ -97,11 +100,12 @@ export const Button = (props: ButtonProps): JSX.Element => {
     <button
       {...preset.root}
       className={clsx(
-        preset.root.className,
+        preset.root?.className,
         className,
+        { 'flex-row-reverse': iconPos === 'right' },
         pt?.root?.({ context, props })?.className,
       )}
-      style={pt?.root?.({ context, props })?.style}
+      style={{ ...(preset.root?.style ?? {}), ...(pt?.root?.({ context, props })?.style ?? {}) }}
       type={type}
       onClick={onClick}
     >

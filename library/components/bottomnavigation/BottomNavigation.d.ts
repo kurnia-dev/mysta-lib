@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Icons } from '../icon/Icon.d';
 
@@ -59,10 +60,10 @@ export interface BottomNavigationProps {
 }
 
 export interface BottomNavigationPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
-  item?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
-  activeItem?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
-  label?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
-  badge?: PresetMethodAttributes<PresetOptions<'BottomNavigation'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
+  item?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
+  activeItem?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
+  badge?: PresetMethodAttributes<ResolvedPresetOptions<'BottomNavigation'>>;
 }

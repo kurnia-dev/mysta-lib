@@ -30,6 +30,8 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
       context: { clickable, selected, disabled },
     }) ?? {};
 
+  const context = { clickable: !!clickable, selected: !!selected, disabled: !!disabled };
+
   const Component = clickable ? 'button' : 'div';
 
   return (
@@ -38,10 +40,10 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
         className={clsx(
           preset.root?.className,
           className,
-          pt?.root?.({ props: { severity, divider } })?.className,
+          pt?.root?.({ context, props: { severity, divider } })?.className,
         )}
         disabled={disabled}
-        style={pt?.root?.({ props: { severity, divider } })?.style}
+        style={pt?.root?.({ context, props: { severity, divider } })?.style}
         type={clickable ? 'button' : undefined}
         onClick={clickable && !disabled ? onClick : undefined}
       >
@@ -50,28 +52,28 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
           <div
             className={clsx(
               preset.leading?.className,
-              pt?.leading?.({ props: { severity, divider } })?.className,
+              pt?.leading?.({ context, props: { severity, divider } })?.className,
             )}
-            style={pt?.leading?.({ props: { severity, divider } })?.style}
+            style={pt?.leading?.({ context, props: { severity, divider } })?.style}
           >
             {avatar ? (
               <img
                 alt=""
                 className={clsx(
                   preset.avatar?.className,
-                  pt?.avatar?.({ props: { severity, divider } })?.className,
+                  pt?.avatar?.({ context, props: { severity, divider } })?.className,
                 )}
                 src={avatar}
-                style={pt?.avatar?.({ props: { severity, divider } })?.style}
+                style={pt?.avatar?.({ context, props: { severity, divider } })?.style}
               />
             ) : icon ? (
               <Icon
                 className={clsx(
                   preset.icon?.className,
-                  pt?.icon?.({ props: { severity, divider } })?.className,
+                  pt?.icon?.({ context, props: { severity, divider } })?.className,
                 )}
                 name={icon}
-                style={pt?.icon?.({ props: { severity, divider } })?.style}
+                style={pt?.icon?.({ context, props: { severity, divider } })?.style}
               />
             ) : null}
           </div>
@@ -81,16 +83,16 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
         <div
           className={clsx(
             preset.content?.className,
-            pt?.content?.({ props: { severity, divider } })?.className,
+            pt?.content?.({ context, props: { severity, divider } })?.className,
           )}
-          style={pt?.content?.({ props: { severity, divider } })?.style}
+          style={pt?.content?.({ context, props: { severity, divider } })?.style}
         >
           <div
             className={clsx(
               preset.primary?.className,
-              pt?.primary?.({ props: { severity, divider } })?.className,
+              pt?.primary?.({ context, props: { severity, divider } })?.className,
             )}
-            style={pt?.primary?.({ props: { severity, divider } })?.style}
+            style={pt?.primary?.({ context, props: { severity, divider } })?.style}
           >
             {primary}
           </div>
@@ -98,9 +100,9 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
             <div
               className={clsx(
                 preset.secondary?.className,
-                pt?.secondary?.({ props: { severity, divider } })?.className,
+                pt?.secondary?.({ context, props: { severity, divider } })?.className,
               )}
-              style={pt?.secondary?.({ props: { severity, divider } })?.style}
+              style={pt?.secondary?.({ context, props: { severity, divider } })?.style}
             >
               {secondary}
             </div>
@@ -112,21 +114,21 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
           <div
             className={clsx(
               preset.trailing?.className,
-              pt?.trailing?.({ props: { severity, divider } })?.className,
+              pt?.trailing?.({ context, props: { severity, divider } })?.className,
             )}
-            style={pt?.trailing?.({ props: { severity, divider } })?.style}
+            style={pt?.trailing?.({ context, props: { severity, divider } })?.style}
           >
             {trailing ||
               (trailingIcon && (
                 <Icon
                   className={clsx(
                     preset.trailingIcon?.className,
-                    pt?.trailingIcon?.({ props: { severity, divider } })
+                    pt?.trailingIcon?.({ context, props: { severity, divider } })
                       ?.className,
                   )}
                   name={trailingIcon}
                   style={
-                    pt?.trailingIcon?.({ props: { severity, divider } })?.style
+                    pt?.trailingIcon?.({ context, props: { severity, divider } })?.style
                   }
                 />
               ))}
@@ -139,9 +141,9 @@ export const ListItem = (props: ListItemProps): JSX.Element => {
         <div
           className={clsx(
             preset.divider?.className,
-            pt?.divider?.({ props: { severity, divider } })?.className,
+            pt?.divider?.({ context, props: { severity, divider } })?.className,
           )}
-          style={pt?.divider?.({ props: { severity, divider } })?.style}
+          style={pt?.divider?.({ context, props: { severity, divider } })?.style}
         />
       )}
     </>

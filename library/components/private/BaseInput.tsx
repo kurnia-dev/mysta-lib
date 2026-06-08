@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Path } from 'react-hook-form';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
-import { UseValidatorReturn } from 'lib/hooks/useValidator';
+import { UseValidatorReturn, ValidatorRules } from 'lib/hooks/useValidator';
 import { FieldPathValue } from 'lib/types/internalFields.type';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
@@ -45,19 +45,19 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
     return fieldName as Path<Record<string, T>>;
   }, [fieldName]);
 
-  const [localValue, setLocalValue] = useState({});
-  const [localErrors, setLocalErrors] = useState({});
+  const [localValue, setLocalValue] = useState<Record<string, T>>({});
+  const [localErrors, setLocalErrors] = useState<Record<string, { message?: string }>>({});
   const [passwordVisibility, setPasswordVisibility] = useState(false);
 
   const fallBackMethods = useMemo(() => {
     return {
-      watchedValue: localValue[fieldName],
+      watchedValue: (localValue as Record<string, T>)[fieldName],
       setValue: (name: string, value: T) => {
         setLocalValue({ [name]: value });
       },
       formState: { errors: localErrors },
       trigger: (name: string) => {
-        const validity = customValidation?.(localValue[name]);
+        const validity = customValidation?.((localValue as Record<string, T>)[name]);
         return validity === true;
       },
     };
@@ -82,7 +82,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
       minLength,
       pattern,
       validate: customValidation,
-      customMessage,
+      customMessage: customMessage as unknown as ValidatorRules['customMessage'],
       passwordRequirements,
     },
     typedFieldName,
@@ -118,7 +118,7 @@ export const BaseInput = <T = string,>(props: BaseInputProps<T>) => {
           setValue(typedFieldName, currentValue as FieldPathValue<T>);
           return;
         } else if (!registeredMethods) {
-          setLocalErrors({ [typedFieldName]: value });
+          setLocalErrors({ [typedFieldName]: { message: String(value) } });
         }
       }
 

@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -67,7 +68,7 @@ export interface FloatingActionButtonContext {
 }
 
 export interface FloatingActionButtonPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'FloatingActionButton'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'FloatingActionButton'>>;
-  label?: PresetMethodAttributes<PresetOptions<'FloatingActionButton'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'FloatingActionButton'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'FloatingActionButton'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'FloatingActionButton'>>;
 }

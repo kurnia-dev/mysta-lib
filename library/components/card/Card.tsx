@@ -85,7 +85,7 @@ const BaseCard = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
   }, [clickable, handleDragStart, handleDrop, restProps]);
 
   useImperativeHandle(ref, () => {
-    return innerRef.current;
+    return innerRef.current!;
   }, []);
   return (
     <div
@@ -166,7 +166,7 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
       return (
         <div className="flex gap-1 items-center translate-x-8 translate-y-1 !w-0 group-hover:!w-full group-hover:translate-x-2.5 group-hover:translate-y-1 transition-all duration-300 ease-in-out">
           {mode === 'kanban' &&
-            (restProps as CardKanbanProps).menus.map((each) => {
+            (restProps as CardKanbanProps).menus?.map((each) => {
               const stableIconId = uuidv4();
               return (
                 <Icon
@@ -175,7 +175,7 @@ export const Card: React.FC<CardProps> = forwardRef<HTMLDivElement, CardProps>(
                   name={each.icon}
                   severity={each.severity}
                   onClick={(e) => {
-                    each.command({
+                    each.command?.({
                       originalEvent: e,
                       cardId: id,
                       groupId: (restProps as CardKanbanProps).groupId,

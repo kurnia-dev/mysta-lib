@@ -31,16 +31,18 @@ export const FloatingActionButton = (
       context: { disabled, isExtended },
     }) ?? {};
 
+  const context = { disabled: !!disabled, isExtended };
+
   return (
     <button
       aria-label={label}
       className={clsx(
         preset.root?.className,
         className,
-        pt?.root?.({ props: { position, size, severity } })?.className,
+        pt?.root?.({ context, props: { position, size, severity } })?.className,
       )}
       disabled={disabled}
-      style={pt?.root?.({ props: { position, size, severity } })?.style}
+      style={pt?.root?.({ context, props: { position, size, severity } })?.style}
       type="button"
       onBlur={() => setIsExtended(false)}
       onClick={onClick}
@@ -51,18 +53,18 @@ export const FloatingActionButton = (
       <Icon
         className={clsx(
           preset.icon?.className,
-          pt?.icon?.({ props: { position, size, severity } })?.className,
+          pt?.icon?.({ context, props: { position, size, severity } })?.className,
         )}
         name={icon}
-        style={pt?.icon?.({ props: { position, size, severity } })?.style}
+        style={pt?.icon?.({ context, props: { position, size, severity } })?.style}
       />
       {extendedLabel && isExtended && (
         <span
           className={clsx(
             preset.label?.className,
-            pt?.label?.({ props: { position, size, severity } })?.className,
+            pt?.label?.({ context, props: { position, size, severity } })?.className,
           )}
-          style={pt?.label?.({ props: { position, size, severity } })?.style}
+          style={pt?.label?.({ context, props: { position, size, severity } })?.style}
         >
           {extendedLabel}
         </span>

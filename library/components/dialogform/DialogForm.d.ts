@@ -8,7 +8,7 @@ export interface DialogFormProps<T extends Record<string, any>>
   extends Omit<DialogProps, 'slots' | 'pt'>,
     Omit<FormProps<T>, 'slots' | 'pt'> {
   closeOnSubmit?: boolean;
-  slots?: Record<keyof DialogFormSlots, JSX.Element>;
+  slots?: Partial<Record<keyof DialogFormSlots, JSX.Element>>;
   pt?: {
     dialog?: DialogPresetOptions;
     form?: FormPresetOptions;

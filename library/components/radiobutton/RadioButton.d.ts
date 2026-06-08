@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
@@ -92,9 +93,9 @@ export interface RadioButtonPassThroughOptions
 }
 
 export interface RadioButtonPresetOptions {
-  input?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
-  box?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
-  innerBox?: PresetMethodAttributes<PresetOptions<'RadioButton'>>;
+  input?: PresetMethodAttributes<ResolvedPresetOptions<'RadioButton'>>;
+  box?: PresetMethodAttributes<ResolvedPresetOptions<'RadioButton'>>;
+  innerBox?: PresetMethodAttributes<ResolvedPresetOptions<'RadioButton'>>;
 }
 
 /**

@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -89,14 +90,14 @@ export interface ListItemContext {
 }
 
 export interface ListItemPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  leading?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  avatar?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  content?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  primary?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  secondary?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  trailing?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  trailingIcon?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
-  divider?: PresetMethodAttributes<PresetOptions<'ListItem'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  leading?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  avatar?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  content?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  primary?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  secondary?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  trailing?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  trailingIcon?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
+  divider?: PresetMethodAttributes<ResolvedPresetOptions<'ListItem'>>;
 }
