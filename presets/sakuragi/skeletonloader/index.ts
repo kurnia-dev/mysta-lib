@@ -2,7 +2,7 @@ import { SkeletonLoaderPresetOptions } from 'lib/components/skeletonloader/Skele
 
 const preset: SkeletonLoaderPresetOptions = {
   root: () => ({
-    className: ['bg-secondary-200', 'relative overflow-hidden'],
+    className: ['bg-secondary-200', 'relative overflow-hidden', 'rounded-xl'],
   }),
 };
 

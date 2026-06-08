@@ -17,7 +17,9 @@ const preset: ListItemPresetOptions = {
       context.clickable && 'cursor-pointer',
       context.clickable && 'hover:bg-secondary-50',
       context.clickable && 'active:bg-secondary-100',
-      context.clickable && 'transition-colors duration-150',
+      context.clickable && 'transition-all duration-150 [cubic-bezier(0.34,1.56,0.64,1)]',
+      context.clickable && 'hover:scale-[1.01] active:scale-[0.99]',
+      context.clickable && 'rounded-xl',
 
       // Selected state
       context.selected && 'bg-primary-50',

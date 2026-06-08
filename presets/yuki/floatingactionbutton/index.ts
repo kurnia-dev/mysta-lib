@@ -54,9 +54,10 @@ const preset: FloatingActionButtonPresetOptions = {
         !context.disabled && 'cursor-pointer',
         !context.disabled && 'hover:scale-110',
         !context.disabled && 'active:scale-95',
+        !context.disabled && 'hover:shadow-xl',
 
         // Transitions
-        'transition-all duration-200',
+        'transition-all duration-200 [cubic-bezier(0.34,1.56,0.64,1)]',
 
         // Focus
         'focus:outline-none focus:ring-4 focus:ring-primary-500/30',

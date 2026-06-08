@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import { DialogPresetOptions } from 'lib/components/dialog/Dialog.d';
 
 const preset: DialogPresetOptions = {
@@ -7,13 +9,15 @@ const preset: DialogPresetOptions = {
   iconContainer: () => ({
     className: ['hover:bg-secondary-100 rounded-full p-1'],
   }),
-  container: ({ props }) => ({
-    className: [
-      'fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-xl w-full',
+  container: ({ props, context }) => ({
+    className: clsx(
+      'fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-2xl shadow-xl w-full',
       'flex flex-col gap-3',
       'animate-dialog',
 
-      'transition-all duration-300', // For dialog size
+      'transition-all duration-300 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]', // For dialog size
+
+      context?.fullHeight && 'h-screen rounded-none',
 
       {
         'max-w-xs': props.size === 'xs',
@@ -29,10 +33,10 @@ const preset: DialogPresetOptions = {
         'max-w-7xl': props.size === '7xl',
         'max-w-full': props.size === 'full',
       },
-    ],
+    ),
   }),
-  header: { className: 'flex justify-between items-center' },
-  content: { className: 'flex flex-col gap-2' },
+  header: () => ({ className: 'flex justify-between items-center' }),
+  content: () => ({ className: 'flex flex-col gap-2' }),
 };
 
 export default preset;

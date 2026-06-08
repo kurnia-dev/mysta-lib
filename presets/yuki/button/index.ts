@@ -33,7 +33,12 @@ const preset: ButtonPresetOptions = {
 
     const isOutlined = props.outlined ? 'outlined' : 'base';
 
-    const severityType = props.text ? 'text' : isOutlined;
+    // icon-only (no label) → ghost/text style by default unless explicitly outlined/raised
+    const iconOnly = !props.label;
+    const severityType =
+      props.text || (iconOnly && !props.outlined && !props.raised)
+        ? 'text'
+        : isOutlined;
 
     const severityClass = severityMap[severityType][props.severity];
 
@@ -41,7 +46,7 @@ const preset: ButtonPresetOptions = {
       className: [
         'relative',
 
-        'rounded-lg md:w-auto text-xs',
+        'rounded-full md:w-auto text-xs',
         severityClass,
 
         // Alignments
@@ -58,12 +63,9 @@ const preset: ButtonPresetOptions = {
         // },
 
         // Sizes & Spacing
-        'leading-none font-medium rounded',
+        'leading-none font-medium',
         {
           '!text-xs py-[5px] px-4 gap-1': !!props.label,
-        },
-        {
-          '!w-[26px]': !props.label,
         },
 
         // Ring
@@ -71,6 +73,13 @@ const preset: ButtonPresetOptions = {
 
         // Shapes
         { 'shadow-lg': props.raised },
+        {
+          'shadow-sm':
+            !props.raised && !props.outlined && !props.text,
+        },
+
+        // Scale interactions
+        'hover:scale-[1.02] active:scale-[0.97]',
 
         // --- Severity Button States ---
         'focus:outline-none focus:outline-offset-0',
@@ -86,7 +95,7 @@ const preset: ButtonPresetOptions = {
         },
 
         // Transitions
-        'transition duration-200 ease-in-out',
+        'transition-all duration-200 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
 
         // Misc
         'cursor-pointer overflow-hidden select-none',
@@ -97,8 +106,14 @@ const preset: ButtonPresetOptions = {
       style: {
         height:
           typeof props.height === 'number' ? `${props.height}px` : props.height,
-        width:
-          typeof props.width === 'number' ? `${props.width}px` : props.width,
+        // icon-only: width = height to keep it square; labeled: use width prop
+        width: !props.label
+          ? (typeof props.height === 'number' ? `${props.height}px` : props.height)
+          : (typeof props.width === 'number' ? `${props.width}px` : props.width),
+        // icon-only: scale font-size so the icon tracks height (~46% ratio matches text-xs at 26px)
+        fontSize: !props.label && typeof props.height === 'number'
+          ? `${Math.round(props.height * 0.46)}px`
+          : undefined,
       },
     };
   },
@@ -113,10 +128,11 @@ const preset: ButtonPresetOptions = {
       { 'flex-1': props.label !== null, 'invisible w-0': props.label == null },
     ],
   }),
-  icon: () => ({
+  icon: ({ props }) => ({
     className: [
-      'shrink-0 text-white',
-      // { '!h-3 !w-3': props.size === 'small' }
+      'shrink-0',
+      // filled button → white icon; ghost/text/icon-only → inherit severity color from root
+      { 'text-white': !!props.label && !props.text && !props.outlined },
     ],
   }),
   loadingIcon: () => ({

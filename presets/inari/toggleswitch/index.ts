@@ -4,7 +4,7 @@ const preset: ToggleSwitchPresetOptions = {
   iconContainer: ({ context }) => ({
     className: [
       'overflow-hidden !w-3.5 !h-3.5',
-      'transition-transform duration-300 ease-in-out',
+      'transition-transform duration-300 [cubic-bezier(0.34,1.56,0.64,1)]',
       'flex justify-center items-center !border !border-secondary-500 rounded-full',
 
       { 'translate-x-0': !context.checked && !context.partialChecked },
@@ -34,7 +34,7 @@ const preset: ToggleSwitchPresetOptions = {
   }),
   box: ({ context }) => ({
     className: [
-      'transition-colors duration-300 ease-in-out',
+      'transition-colors duration-300 [cubic-bezier(0.34,1.56,0.64,1)]',
       '!w-[30px] !h-4 flex items-center justify-start',
       'border-2 rounded-[8px]',
       'border-secondary-500',

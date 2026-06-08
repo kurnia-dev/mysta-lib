@@ -6,7 +6,7 @@ const preset: BaseInputPresetOptions = {
   },
   input: ({ props }) => ({
     className: [
-      `text-slate flex justify-between items-center px-4 rounded-sm py-1 min-w-full border-0 md:w-auto text-sm`,
+      `text-slate flex justify-between items-center px-4 rounded-xl py-1 min-w-full border-0 md:w-auto text-sm`,
 
       'focus:!outline-primary-500',
 

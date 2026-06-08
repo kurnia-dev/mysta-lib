@@ -57,8 +57,8 @@ const preset: ChipPresetOptions = {
 
         // Interactive
         context.clickable && 'cursor-pointer',
-        context.clickable && 'transition-colors duration-150',
-        context.clickable && 'active:scale-95',
+        context.clickable && 'transition-all duration-150 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+        context.clickable && 'hover:scale-105 active:scale-95',
 
         // Disabled
         context.disabled &&

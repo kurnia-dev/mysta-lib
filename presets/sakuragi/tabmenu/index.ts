@@ -5,22 +5,22 @@ import {
 import { ClassValue } from 'lib/hooks/useComponentPreset';
 
 const commonClasses: ClassValue =
-  'transition-all duration-200 ease-in-out cursor-pointer';
+  'transition-all duration-200 [cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]';
 
 const pillClasses: ClassValue =
   'text-white text-sm font-light rounded-2xl py-1 px-3.5';
 
 const boldUnderlineClasses: ClassValue =
-  'text-sm font-semibold rounded-ss-md rounded-se-md flex items-center gap-1 text-secondary-200 border-b-[6px] border-b-secondary-100 pb-3 pt-1 px-2';
+  'text-sm font-semibold rounded-ss-xl rounded-se-xl flex items-center gap-1 text-secondary-200 border-b-[6px] border-b-secondary-100 pb-3 pt-1 px-2';
 
 const thinUnderlineClasses: ClassValue =
   'relative flex items-center gap-1 text-sm font-semibold border-b-[3px] pb-3 pt-1 px-2';
 
 const boxClasses: ClassValue =
-  'text-sm font-medium flex flex-col items-center gap-1 text-secondary-500 p-2.5 m-1 rounded-md';
+  'text-sm font-medium flex flex-col items-center gap-1 text-secondary-500 p-2.5 m-1 rounded-xl';
 
 const segmentedClasses: ClassValue =
-  'text-sm first:rounded-s-md flex items-center gap-1 last:rounded-e-md py-1 px-3';
+  'text-sm first:rounded-s-xl flex items-center gap-1 last:rounded-e-xl py-1 px-3';
 
 const itemClasses = (type: TabMenuProps['type']): ClassValue => {
   let classes = commonClasses;

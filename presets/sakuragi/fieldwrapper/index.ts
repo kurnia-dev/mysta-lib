@@ -29,7 +29,7 @@ const preset: FieldWrapperPresetOptions = {
       // Position
       'relative',
 
-      { 'min-w-full border': !context?.containerless && !context?.borderless },
+      { 'min-w-full border rounded-xl': !context?.containerless && !context?.borderless },
 
       { 'border-secondary-500': !context?.invalid },
       { 'border-danger-500': context?.invalid },

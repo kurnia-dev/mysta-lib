@@ -32,11 +32,13 @@ const preset: StatCardPresetOptions = {
         severityMap[props.severity || 'neutral'],
         'shadow-sm',
 
+        // Always-on hover lift
+        'hover:-translate-y-1 hover:shadow-lg',
+        'transition-all duration-200 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]',
+
         // Interactive
         context.clickable && 'cursor-pointer',
-        context.clickable && 'hover:shadow-md',
         context.clickable && 'active:scale-[0.98]',
-        context.clickable && 'transition-all duration-200',
 
         // Focus
         context.clickable &&

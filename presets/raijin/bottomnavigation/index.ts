@@ -25,7 +25,7 @@ const preset: BottomNavigationPresetOptions = {
 
       // Base styling
       'text-secondary-500',
-      'transition-all duration-200',
+      'transition-all duration-200 [cubic-bezier(0.34,1.56,0.64,1)]',
       'cursor-pointer',
 
       // Remove default button styles
@@ -41,7 +41,7 @@ const preset: BottomNavigationPresetOptions = {
     className: ['text-primary-600', 'font-semibold'],
   }),
   icon: () => ({
-    className: ['text-2xl', 'transition-transform duration-200'],
+    className: ['text-2xl', 'transition-transform duration-200 [cubic-bezier(0.34,1.56,0.64,1)]', 'hover:scale-105 active:scale-95'],
   }),
   label: () => ({
     className: ['text-[10px]', 'font-medium', 'leading-none'],
