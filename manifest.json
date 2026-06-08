@@ -10,7 +10,14 @@
   "importMode": "verbatim",
   "craft": {
     "applies": [],
-    "suggested": ["color"],
+    "suggested": [
+      "color"
+    ],
     "exemptions": []
+  },
+  "devServer": {
+    "url": "http://localhost:5173/mysta-lib",
+    "port": 5173,
+    "base": "/mysta-lib"
   }
 }
