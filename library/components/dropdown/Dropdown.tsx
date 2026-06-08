@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Select } from 'radix-ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
 import { PresetReturn } from 'lib/hooks/useComponentPreset';
@@ -41,7 +42,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
 
   const fallBackMethods = useMemo(() => {
     return {
-      watchedValue: localValue[fieldName],
+      watchedValue: (localValue as Record<string, OptionValue | OptionValue[]>)[fieldName],
       setValue: (name: string, value: OptionValue | OptionValue[]) => {
         setLocalValue((prev) => {
           if (mode === 'multi') {
@@ -56,12 +57,12 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
           return { [name]: value as OptionValue };
         });
       },
-      formState: { errors: {} },
+      formState: { errors: {} as FieldErrors<Record<string, OptionValue | OptionValue[]>> },
       trigger: (name: string) => {
         const validity = callMultiTypeFn(
           mode,
-          customValidation,
-          localValue[name],
+          customValidation as unknown as ((val: OptionValue | OptionValue[]) => boolean) | undefined,
+          (localValue as Record<string, OptionValue | OptionValue[]>)[name],
         );
         return validity === true;
       },
@@ -83,7 +84,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
             return 'This field is required';
           }
 
-          return callMultiTypeFn(mode, customValidation, val);
+          return callMultiTypeFn(mode, customValidation as unknown as ((val: OptionValue | OptionValue[]) => boolean) | undefined, val as OptionValue | OptionValue[]);
         },
       }),
       [customValidation, mode, required],
@@ -95,7 +96,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     setValue,
     watchedValue,
     trigger,
-    formState: { errors = {} },
+    formState: { errors = {} as FieldErrors<Record<string, OptionValue | OptionValue[]>> },
   } = registeredMethods ?? fallBackMethods;
 
   const context = useMemo(() => ({ open: !isClosing }), [isClosing]);
@@ -115,13 +116,13 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
     })();
 
     if (!watchedValue) {
-      setValue(fieldName, value ?? defaultValue);
+      setValue(fieldName, (value ?? defaultValue ?? '') as OptionValue | OptionValue[]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, watchedValue]);
 
   const normalizedOptions = useMemo(() => {
-    return options.map((each) => {
+    return (options ?? []).map((each) => {
       return {
         ...each,
         value: JSON.stringify(each.value),
@@ -134,7 +135,7 @@ export const Dropdown = (props: DropdownProps): JSX.Element => {
       const parsedValue = JSON.parse(val);
 
       setValue(fieldName, parsedValue);
-      callMultiTypeFn(mode, onChange, parsedValue);
+      callMultiTypeFn(mode, onChange as unknown as ((val: OptionValue | OptionValue[]) => void) | undefined, parsedValue);
       await trigger(fieldName);
     },
     [setValue, fieldName, trigger, mode, onChange],

@@ -32,12 +32,14 @@ export const Badge = (props: BadgeProps): JSX.Element => {
       },
     }) ?? {};
 
-  const iconName = useMemo<Icons>(() => {
+  const iconName = useMemo<Icons | undefined>(() => {
     if (type === 'dot') return 'circle-fill';
     return icon;
   }, [type, icon]);
 
   const createIcon = useCallback(() => {
+    if (!iconName) return null;
+
     return (
       <div {...preset.iconContainer}>
         <Icon
@@ -80,7 +82,7 @@ export const Badge = (props: BadgeProps): JSX.Element => {
       style={pt?.root?.({ props })?.style}
     >
       {createLabel()}
-      {icon && createIcon()}
+      {createIcon()}
     </div>
   );
 };

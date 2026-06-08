@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface SearchBarProps {
@@ -78,11 +79,11 @@ export interface SearchBarContext {
 }
 
 export interface SearchBarPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  container?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  searchIcon?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  input?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  clearButton?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  clearIcon?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
-  cancelButton?: PresetMethodAttributes<PresetOptions<'SearchBar'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  container?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  searchIcon?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  input?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  clearButton?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  clearIcon?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
+  cancelButton?: PresetMethodAttributes<ResolvedPresetOptions<'SearchBar'>>;
 }

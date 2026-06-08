@@ -4,6 +4,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
@@ -101,7 +102,7 @@ export interface DropdownPassThroughOptions extends DropdownPresetOptions {
 export interface DropdownPresetOptions {
   trigger?: PresetAttributes;
   icon?: PresetAttributes;
-  content?: PresetMethodAttributes<PresetOptions<'Dropdown'>>;
+  content?: PresetMethodAttributes<ResolvedPresetOptions<'Dropdown'>>;
 }
 
 /**

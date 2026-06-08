@@ -19,6 +19,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from 'lib/hooks/useComponentPreset';
 
 import { Severities } from '../../utils';
@@ -120,7 +121,7 @@ export interface FormPassThroughOptions extends FormPresetOptions {
 
 export interface FormPresetOptions {
   root?: PresetAttributes;
-  wrapper?: PresetMethodAttributes<PresetOptions<'Form'>>;
+  wrapper?: PresetMethodAttributes<ResolvedPresetOptions<'Form'>>;
   footer?: PresetAttributes;
 }
 

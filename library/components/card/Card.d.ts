@@ -4,6 +4,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -128,8 +129,8 @@ export interface CardSeparatorProps {
 }
 
 export interface CardPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Card'>>;
-  separator?: PresetMethodAttributes<PresetOptions<'Card'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Card'>>;
+  separator?: PresetMethodAttributes<ResolvedPresetOptions<'Card'>>;
   header?: PresetAttributes;
   content?: PresetAttributes;
   footer?: PresetAttributes;

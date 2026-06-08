@@ -83,9 +83,9 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
       className={clsx(
         preset.root?.className,
         className,
-        pt?.root?.({ props: {} })?.className,
+        pt?.root?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.className,
       )}
-      style={pt?.root?.({ props: {} })?.style}
+      style={pt?.root?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.style}
       onTouchEnd={handleTouchEnd}
       onTouchMove={handleTouchMove}
       onTouchStart={handleTouchStart}
@@ -95,10 +95,10 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
         <div
           className={clsx(
             preset.indicator?.className,
-            pt?.indicator?.({ props: {} })?.className,
+            pt?.indicator?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.className,
           )}
           style={{
-            ...pt?.indicator?.({ props: {} })?.style,
+            ...pt?.indicator?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.style,
             opacity: isRefreshing ? 1 : indicatorOpacity,
             transform: `translateY(${
               isRefreshing ? 0 : pullDistance - threshold
@@ -108,10 +108,10 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
           <BiLoaderAlt
             className={clsx(
               preset.spinner?.className,
-              pt?.spinner?.({ props: {} })?.className,
+              pt?.spinner?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.className,
               isRefreshing && 'animate-spin',
             )}
-            style={pt?.spinner?.({ props: {} })?.style}
+            style={pt?.spinner?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.style}
           />
         </div>
       )}
@@ -120,11 +120,11 @@ export const PullToRefresh = (props: PullToRefreshProps): JSX.Element => {
       <div
         className={clsx(
           preset.content?.className,
-          pt?.content?.({ props: {} })?.className,
+          pt?.content?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.className,
         )}
         ref={contentRef}
         style={{
-          ...pt?.content?.({ props: {} })?.style,
+          ...pt?.content?.({ context: { isPulling, isRefreshing, pullDistance, threshold }, props: {} })?.style,
           transform: isPulling ? `translateY(${pullDistance}px)` : undefined,
           transition: isPulling ? 'none' : 'transform 0.3s ease',
         }}

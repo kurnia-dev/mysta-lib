@@ -9,8 +9,8 @@ export interface DragItem {
 }
 
 export interface KanbanContextType {
-  dragItem: DragItem;
-  setDragItem: Dispatch<SetStateAction<DragItem>>;
+  dragItem: DragItem | null;
+  setDragItem: Dispatch<SetStateAction<DragItem | null>>;
   cardElements: SimplifiedCardProps[];
   setCardElements: Dispatch<SetStateAction<SimplifiedCardProps[]>>;
   onUpdate?: (value: DragItem) => void;

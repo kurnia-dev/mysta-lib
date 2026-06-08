@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -76,11 +77,11 @@ export interface StatCardContext {
 }
 
 export interface StatCardPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  header?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  label?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  value?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  trend?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
-  subtitle?: PresetMethodAttributes<PresetOptions<'StatCard'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  header?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  value?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  trend?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
+  subtitle?: PresetMethodAttributes<ResolvedPresetOptions<'StatCard'>>;
 }

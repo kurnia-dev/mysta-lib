@@ -6,7 +6,7 @@ import {
 
 export const useEffectiveRegister = <
   T extends FieldValues,
->(): UseFormReturn<T | null> => {
+>(): UseFormReturn<T> | null => {
   try {
     return useFormContext<T>();
   } catch {

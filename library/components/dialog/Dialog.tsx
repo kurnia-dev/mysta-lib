@@ -29,15 +29,17 @@ export const Dialog = memo((props: DialogProps) => {
 
     slots,
 
+    fullHeight = false,
+
     pt,
   } = props;
 
-  const context = useMemo(() => ({ open: visible }), [visible]);
+  const context = useMemo(() => ({ open: visible, fullHeight }), [visible, fullHeight]);
 
   const preset =
     useComponentPreset('Dialog', {
       props: { size },
-      context: { open: visible },
+      context,
     }) ?? {};
 
   return (
@@ -51,14 +53,14 @@ export const Dialog = memo((props: DialogProps) => {
         <RUIDialog.Overlay
           {...preset.overlay}
           className={clsx(
-            preset.overlay.className,
+            preset.overlay?.className,
             pt?.overlay?.({ props, context })?.className,
           )}
           style={pt?.overlay?.({ props, context })?.style}
         />
         <RUIDialog.Content
           className={clsx(
-            preset.container.className,
+            preset.container?.className,
             containerClass,
             pt?.container?.({ context, props })?.className,
           )}
@@ -73,11 +75,11 @@ export const Dialog = memo((props: DialogProps) => {
           <RUIDialog.Title asChild>
             <div
               className={clsx(
-                preset.header.className,
+                preset.header?.className,
                 headerClass,
-                pt?.header?.className,
+                pt?.header?.({ context, props })?.className,
               )}
-              style={pt?.header?.style}
+              style={pt?.header?.({ context, props })?.style}
             >
               <Slot name="header" slots={slots}>
                 <span>{header}</span>
@@ -85,7 +87,7 @@ export const Dialog = memo((props: DialogProps) => {
                   <div
                     {...preset.iconContainer}
                     className={clsx(
-                      preset.iconContainer.className,
+                      preset.iconContainer?.className,
                       pt?.iconContainer?.({ context, props })?.className,
                     )}
                     style={pt?.iconContainer?.({ context, props })?.style}
@@ -93,7 +95,7 @@ export const Dialog = memo((props: DialogProps) => {
                     <Icon
                       className="cursor-pointer"
                       name="x"
-                      onClick={() => onVisibleChange(false)}
+                      onClick={() => onVisibleChange?.(false)}
                     />
                   </div>
                 )}
@@ -103,11 +105,11 @@ export const Dialog = memo((props: DialogProps) => {
           <Slot name="content" slots={slots}>
             <div
               className={clsx(
-                preset.content.className,
+                preset.content?.className,
                 contentClass,
-                pt?.content?.className,
+                pt?.content?.({ context, props })?.className,
               )}
-              style={pt?.content?.style}
+              style={pt?.content?.({ context, props })?.style}
             >
               {children}
             </div>

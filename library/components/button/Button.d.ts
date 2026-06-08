@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -92,6 +93,12 @@ export interface ButtonProps
   icon?: Icons;
 
   /**
+   * Position of the icon relative to the label.
+   * @default 'left'
+   */
+  iconPos?: 'left' | 'right';
+
+  /**
    * Text label to display inside the button.
    * Can be used alongside or instead of the icon.
    *
@@ -125,11 +132,11 @@ export interface ButtonContext {
 }
 
 export interface ButtonPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Button'>>;
-  label?: PresetMethodAttributes<PresetOptions<'Button'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'Button'>>;
-  loadingIcon?: PresetMethodAttributes<PresetOptions<'Button'>>;
-  badge?: PresetMethodAttributes<PresetOptions<'Button'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Button'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'Button'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'Button'>>;
+  loadingIcon?: PresetMethodAttributes<ResolvedPresetOptions<'Button'>>;
+  badge?: PresetMethodAttributes<ResolvedPresetOptions<'Button'>>;
 }
 
 /**

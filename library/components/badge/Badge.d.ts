@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';
@@ -52,10 +53,10 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface BadgePresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Badge'>>;
-  label?: PresetMethodAttributes<PresetOptions<'Badge'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'Badge'>>;
-  iconContainer?: PresetMethodAttributes<PresetOptions<'Badge'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Badge'>>;
+  label?: PresetMethodAttributes<ResolvedPresetOptions<'Badge'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'Badge'>>;
+  iconContainer?: PresetMethodAttributes<ResolvedPresetOptions<'Badge'>>;
 }
 
 /**

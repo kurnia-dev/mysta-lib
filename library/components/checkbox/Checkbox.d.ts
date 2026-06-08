@@ -3,8 +3,10 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
+import { Mode, ModeValue } from './helper/callMultiTypeFn.helper';
 
 export type ValueModeType = (string | number | Record<string, unknown>)[];
 
@@ -40,7 +42,7 @@ export interface BaseCheckboxProps {
 
 export interface ValueCheckboxProps
   extends BaseCheckboxProps,
-    FieldValidation<ValueModeType>,
+    FieldValidation<'value'>,
     CheckboxEvent<ValueModeType> {
   /** The value for this checkbox, switch mode to value to use this props */
   optionValue?: string | number | Record<string, unknown>;
@@ -52,7 +54,7 @@ export interface ValueCheckboxProps
 
 export interface BinaryCheckboxProps
   extends BaseCheckboxProps,
-    FieldValidation<boolean>,
+    FieldValidation<'binary'>,
     CheckboxEvent<boolean> {
   mode?: 'binary';
 
@@ -61,7 +63,7 @@ export interface BinaryCheckboxProps
 
 export interface TristateCheckboxProps
   extends BaseCheckboxProps,
-    FieldValidation<boolean | null>,
+    FieldValidation<'tristate'>,
     CheckboxEvent<boolean | null> {
   mode: 'tristate';
 
@@ -78,12 +80,12 @@ export type CheckboxProps =
  *
  * @description Defines various validation rules for the  field, including required fields, min/max length, and custom validation.
  */
-export interface FieldValidation<T> {
+export interface FieldValidation<T extends Mode> {
   /** Whether the input is required */
   required?: boolean;
 
   /** Custom validation function to validate the input value */
-  customValidation?: (e: T) => boolean;
+  customValidation?: (e: ModeValue<T>) => boolean;
 
   customMessage?: string;
 }
@@ -99,16 +101,16 @@ export interface CheckboxEvent<T> {
 }
 
 export interface CheckboxContext {
-  checked?: boolean;
+  checked?: CheckboxValue;
   disabled?: boolean;
   partialChecked?: boolean;
   tristate?: boolean;
 }
 
 export interface CheckboxPresetOptions {
-  icon?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
-  input?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
-  box?: PresetMethodAttributes<PresetOptions<'Checkbox'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'Checkbox'>>;
+  input?: PresetMethodAttributes<ResolvedPresetOptions<'Checkbox'>>;
+  box?: PresetMethodAttributes<ResolvedPresetOptions<'Checkbox'>>;
   fieldWrapper?: FieldWrapperPresetOptions;
 }
 

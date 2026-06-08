@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface PullToRefreshProps {
@@ -45,8 +46,8 @@ export interface PullToRefreshContext {
 }
 
 export interface PullToRefreshPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'PullToRefresh'>>;
-  indicator?: PresetMethodAttributes<PresetOptions<'PullToRefresh'>>;
-  spinner?: PresetMethodAttributes<PresetOptions<'PullToRefresh'>>;
-  content?: PresetMethodAttributes<PresetOptions<'PullToRefresh'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'PullToRefresh'>>;
+  indicator?: PresetMethodAttributes<ResolvedPresetOptions<'PullToRefresh'>>;
+  spinner?: PresetMethodAttributes<ResolvedPresetOptions<'PullToRefresh'>>;
+  content?: PresetMethodAttributes<ResolvedPresetOptions<'PullToRefresh'>>;
 }

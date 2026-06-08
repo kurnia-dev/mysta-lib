@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from 'lib/hooks/useComponentPreset';
 import { ModelValue } from 'lib/hooks/useModelValue';
 
@@ -27,11 +28,11 @@ export interface TabMenuProps {
 }
 
 export interface TabMenuPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'TabMenu'>>;
-  active?: PresetMethodAttributes<PresetOptions<'TabMenu'>>;
-  inactive?: PresetMethodAttributes<PresetOptions<'TabMenu'>>;
-  item?: PresetMethodAttributes<PresetOptions<'TabMenu'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'TabMenu'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'TabMenu'>>;
+  active?: PresetMethodAttributes<ResolvedPresetOptions<'TabMenu'>>;
+  inactive?: PresetMethodAttributes<ResolvedPresetOptions<'TabMenu'>>;
+  item?: PresetMethodAttributes<ResolvedPresetOptions<'TabMenu'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'TabMenu'>>;
 }
 
 /**

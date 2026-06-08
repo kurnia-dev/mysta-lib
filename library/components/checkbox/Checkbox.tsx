@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { isEqual } from 'lodash';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
 
@@ -28,7 +29,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
     pt,
   } = props;
 
-  const [localValue, setLocalValue] = useState({});
+  const [localValue, setLocalValue] = useState<Record<string, CheckboxValue>>({});
 
   const optionValue =
     mode === 'value' ? (props as ValueCheckboxProps).optionValue : undefined;
@@ -49,7 +50,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
             ) {
               return 'This field is required';
             }
-            return callMultiTypeFn(mode, customValidation, val);
+            return callMultiTypeFn(mode, customValidation as unknown as ((val: CheckboxValue) => boolean) | undefined, val);
           },
         }),
         [customValidation, mode, isValueMode, required],
@@ -63,10 +64,10 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
     },
     watchedValue = localValue[fieldName],
     trigger = (name: string) => {
-      const validity = customValidation?.(localValue[name]);
+      const validity = (customValidation as unknown as ((val: CheckboxValue) => boolean) | undefined)?.((localValue as Record<string, CheckboxValue>)[name]);
       return validity === true;
     },
-    formState: { errors = {} } = {},
+    formState: { errors = {} as FieldErrors<Record<string, CheckboxValue>> } = {},
   } = registeredMethods ?? {};
 
   const isChecked = useMemo(() => {
@@ -136,7 +137,7 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
     }
 
     setValue(fieldName, newValue);
-    callMultiTypeFn(mode, onChange, newValue);
+    callMultiTypeFn(mode, onChange as unknown as ((val: CheckboxValue) => void) | undefined, newValue);
     await trigger(fieldName);
   }, [
     setValue,
@@ -152,10 +153,10 @@ export const Checkbox = memo((props: CheckboxProps): JSX.Element => {
   const createIconBox = useCallback(() => {
     const className = clsx(
       preset.icon.className,
-      pt?.icon?.({ props })?.className,
+      pt?.icon?.({ context, props })?.className,
     );
 
-    const style = pt?.icon?.({ props })?.style;
+    const style = pt?.icon?.({ context, props })?.style;
     const commonProps = {
       ...preset.icon,
       className,

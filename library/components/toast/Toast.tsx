@@ -29,7 +29,7 @@ const ToastBase = (
         open,
         onOpenChange: (e) => {
           setOpen(false);
-          if (!open) onClose(e);
+          if (!open) onClose?.(e);
         },
       }}
       duration={10000}
@@ -47,7 +47,7 @@ const ToastBase = (
           {message}
         </div>
       </RUIToast.Description>
-      <RUIToast.Action asChild altText={action.label}>
+      <RUIToast.Action asChild altText={action?.label ?? 'close'}>
         <div className="flex gap-1 items-center">
           {action && (
             <Button
@@ -68,8 +68,6 @@ const ToastBase = (
   );
 };
 
-export const Toast: React.FC<ToastProps> = forwardRef<HTMLElement, ToastProps>(
-  ToastBase,
-);
+export const Toast = forwardRef<HTMLLIElement, ToastProps>(ToastBase);
 
 Toast.displayName = 'Toast';

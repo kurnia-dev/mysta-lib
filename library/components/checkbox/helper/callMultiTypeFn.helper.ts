@@ -1,17 +1,17 @@
 import { CheckboxProps, ValueModeType } from '../Checkbox.d';
 
-type Mode = CheckboxProps['mode'];
+export type Mode = CheckboxProps['mode'];
 
-type ModeValueStruct = {
-  value: ValueModeType;
-  binary: boolean;
-  tristate: boolean | null;
-};
+export type ModeValue<M extends Mode> = M extends 'value'
+  ? ValueModeType
+  : M extends 'tristate'
+    ? boolean | null
+    : boolean;
 
 const callMultiTypeFn = <M extends Mode, R = boolean>(
   _: M,
-  fn: ((val: ModeValueStruct[M]) => R) | undefined,
-  value: ModeValueStruct[M],
+  fn: ((val: ModeValue<M>) => R) | undefined,
+  value: ModeValue<M>,
 ): R => {
   return fn?.(value) as R;
 };

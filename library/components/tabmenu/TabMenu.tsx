@@ -21,7 +21,7 @@ export const TabMenu = memo((props: TabMenuProps) => {
     }) ?? {};
 
   const internalMenus = useMemo(() => {
-    return menus.map((m: InternalTabMenuItem) => ({
+    return (menus ?? []).map((m: InternalTabMenuItem) => ({
       ...m,
       id: m.id || nanoid(10),
     }));

@@ -5,6 +5,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
@@ -119,7 +120,7 @@ export interface BaseInputPassThroughOptions extends BaseInputPresetOptions {
 
 export interface BaseInputPresetOptions {
   eyetoggle?: PresetAttributes;
-  input?: PresetMethodAttributes<PresetOptions<'BaseInput'>>;
+  input?: PresetMethodAttributes<ResolvedPresetOptions<'BaseInput'>>;
 }
 
 /**

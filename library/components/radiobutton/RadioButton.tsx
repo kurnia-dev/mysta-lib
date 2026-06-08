@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 import { useComponentPreset, useValidator } from 'lib/hooks';
 
@@ -26,20 +27,20 @@ export const RadioButton = (props: RadioButtonProps) => {
     pt,
   } = props;
 
-  const [localValue, setLocalValue] = useState({});
+  const [localValue, setLocalValue] = useState<Record<string, string | boolean | null>>({});
 
   const fallBackMethods = useMemo(() => {
     return {
-      watchedValue: localValue[fieldName],
+      watchedValue: (localValue as Record<string, string | boolean | null>)[fieldName] ?? undefined,
       setValue: (name: string, value: boolean | null) => {
         setLocalValue({ [name]: value });
       },
-      formState: { errors: {} },
+      formState: { errors: {} as Record<string, { message?: string }> },
       trigger: (name: string) => {
         const validity = callMultiTypeFn(
           typeof optionValue,
-          customValidation,
-          localValue[name],
+          customValidation as unknown as ((val: RadioButtonProps['optionValue']) => boolean) | undefined,
+          (localValue as Record<string, string | boolean | null>)[name] ?? undefined,
         );
         return validity === true;
       },
@@ -56,7 +57,7 @@ export const RadioButton = (props: RadioButtonProps) => {
               return 'This field is required';
             }
 
-            return callMultiTypeFn(typeof optionValue, customValidation, val);
+            return callMultiTypeFn(typeof optionValue, customValidation as unknown as ((val: RadioButtonProps['optionValue']) => boolean) | undefined, val ?? undefined);
           },
         }),
         [customValidation, optionValue, required],
@@ -67,12 +68,12 @@ export const RadioButton = (props: RadioButtonProps) => {
   const {
     setValue,
     watchedValue,
-    formState: { errors = {} },
+    formState: { errors = {} as FieldErrors<Record<string, string | boolean | null>> },
   } = registeredMethods ?? fallBackMethods;
 
   const isChecked = watchedValue === optionValue;
 
-  const context = useMemo(
+  const fieldWrapperContext = useMemo(
     () => ({
       invalid: !!errors[fieldName],
       disabled,
@@ -81,13 +82,18 @@ export const RadioButton = (props: RadioButtonProps) => {
     [disabled, errors, fieldName],
   );
 
+  const presetContext = useMemo(
+    () => ({
+      checked: isChecked,
+      disabled,
+    }),
+    [disabled, isChecked],
+  );
+
   const preset =
     useComponentPreset('RadioButton', {
       props: { label },
-      context: {
-        checked: isChecked,
-        disabled,
-      },
+      context: presetContext,
     }) ?? {};
 
   useEffect(() => {
@@ -139,36 +145,36 @@ export const RadioButton = (props: RadioButtonProps) => {
         pt: pt?.fieldWrapper,
       }}
       className="flex items-center gap-1"
-      context={context}
+      context={fieldWrapperContext}
       onClick={handleChange}
     >
       <div
         {...preset.box}
         className={clsx(
           preset.box.className,
-          pt?.box?.({ context, props })?.className,
+          pt?.box?.({ context: presetContext, props })?.className,
         )}
-        style={pt?.box?.({ context, props })?.style}
+        style={pt?.box?.({ context: presetContext, props })?.style}
       />
       {isChecked && (
         <div
           {...preset.innerBox}
           className={clsx(
             preset.innerBox.className,
-            pt?.innerBox?.({ context, props })?.className,
+            pt?.innerBox?.({ context: presetContext, props })?.className,
           )}
-          style={pt?.innerBox?.({ context, props })?.style}
+          style={pt?.innerBox?.({ context: presetContext, props })?.style}
         />
       )}
       <input
         {...preset.input}
         className={clsx(
           preset.input.className,
-          pt?.input?.({ context, props })?.className,
+          pt?.input?.({ context: presetContext, props })?.className,
         )}
         disabled={disabled}
         name={fieldName}
-        style={pt?.input?.({ context, props })?.style}
+        style={pt?.input?.({ context: presetContext, props })?.style}
         type="radio"
         onChange={() => {}}
       />

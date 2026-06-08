@@ -19,10 +19,12 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
     pt,
   } = props;
 
+  const context = { hasSubtitle: !!subtitle, hasActions: actions.length > 0 };
+
   const preset =
     useComponentPreset('AppHeader', {
       props: { transparent },
-      context: { hasSubtitle: !!subtitle, hasActions: actions.length > 0 },
+      context,
     }) ?? {};
 
   return (
@@ -30,9 +32,9 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
       className={clsx(
         preset.root?.className,
         className,
-        pt?.root?.({ props: { transparent } })?.className,
+        pt?.root?.({ context, props: { transparent } })?.className,
       )}
-      style={pt?.root?.({ props: { transparent } })?.style}
+      style={pt?.root?.({ context, props: { transparent } })?.style}
     >
       {/* Back Button */}
       {showBackButton && (
@@ -40,9 +42,9 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
           aria-label="Go back"
           className={clsx(
             preset.backButton?.className,
-            pt?.backButton?.({ props: { transparent } })?.className,
+            pt?.backButton?.({ context, props: { transparent } })?.className,
           )}
-          style={pt?.backButton?.({ props: { transparent } })?.style}
+          style={pt?.backButton?.({ context, props: { transparent } })?.style}
           type="button"
           onClick={onBack}
         >
@@ -54,18 +56,18 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
       <div
         className={clsx(
           preset.titleContainer?.className,
-          pt?.titleContainer?.({ props: { transparent } })?.className,
+          pt?.titleContainer?.({ context, props: { transparent } })?.className,
         )}
-        style={pt?.titleContainer?.({ props: { transparent } })?.style}
+        style={pt?.titleContainer?.({ context, props: { transparent } })?.style}
       >
         {children || (
           <>
             <h1
               className={clsx(
                 preset.title?.className,
-                pt?.title?.({ props: { transparent } })?.className,
+                pt?.title?.({ context, props: { transparent } })?.className,
               )}
-              style={pt?.title?.({ props: { transparent } })?.style}
+              style={pt?.title?.({ context, props: { transparent } })?.style}
             >
               {title}
             </h1>
@@ -73,9 +75,9 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
               <p
                 className={clsx(
                   preset.subtitle?.className,
-                  pt?.subtitle?.({ props: { transparent } })?.className,
+                  pt?.subtitle?.({ context, props: { transparent } })?.className,
                 )}
-                style={pt?.subtitle?.({ props: { transparent } })?.style}
+                style={pt?.subtitle?.({ context, props: { transparent } })?.style}
               >
                 {subtitle}
               </p>
@@ -89,19 +91,19 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
         <div
           className={clsx(
             preset.actions?.className,
-            pt?.actions?.({ props: { transparent } })?.className,
+            pt?.actions?.({ context, props: { transparent } })?.className,
           )}
-          style={pt?.actions?.({ props: { transparent } })?.style}
+          style={pt?.actions?.({ context, props: { transparent } })?.style}
         >
           {actions.map((action) => (
             <button
               aria-label={action.label}
               className={clsx(
                 preset.actionButton?.className,
-                pt?.actionButton?.({ props: { transparent } })?.className,
+                pt?.actionButton?.({ context, props: { transparent } })?.className,
               )}
               key={action.id}
-              style={pt?.actionButton?.({ props: { transparent } })?.style}
+              style={pt?.actionButton?.({ context, props: { transparent } })?.style}
               type="button"
               onClick={action.onClick}
             >
@@ -111,9 +113,9 @@ export const AppHeader = (props: AppHeaderProps): JSX.Element => {
                   <span
                     className={clsx(
                       preset.badge?.className,
-                      pt?.badge?.({ props: { transparent } })?.className,
+                      pt?.badge?.({ context, props: { transparent } })?.className,
                     )}
-                    style={pt?.badge?.({ props: { transparent } })?.style}
+                    style={pt?.badge?.({ context, props: { transparent } })?.style}
                   >
                     {action.badge > 99 ? '99+' : action.badge}
                   </span>

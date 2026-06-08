@@ -4,6 +4,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from 'lib/hooks/useComponentPreset';
 
 import { Severities } from '../../utils';
@@ -42,7 +43,7 @@ export interface ToastProviderProps {
 }
 
 export interface ToastPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Toast'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Toast'>>;
   description?: PresetAttributes;
 }
 

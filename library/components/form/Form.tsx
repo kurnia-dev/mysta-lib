@@ -45,7 +45,7 @@ const FormContent = <T extends Record<string, any>>(
     pt,
   } = props;
 
-  const preset = useComponentPreset('Form', { props }) ?? {};
+  const preset = useComponentPreset('Form', { props: props as unknown as Partial<FormProps<Record<string, any>>> }) ?? {};
 
   const methods = useForm<T>({
     defaultValues: defaultValues as DefaultValues<T>,
@@ -64,7 +64,7 @@ const FormContent = <T extends Record<string, any>>(
   } = methods;
 
   const handleFormSubmit = (values: T) => {
-    onSubmit(values);
+    onSubmit?.(values);
     if (resetOnSubmit) reset();
   };
 
@@ -149,11 +149,11 @@ const FormContent = <T extends Record<string, any>>(
         <div
           className={clsx(
             preset.wrapper.className,
-            pt?.wrapper?.({ props })?.className,
+            pt?.wrapper?.({ props: props as unknown as Partial<FormProps<Record<string, any>>> })?.className,
           )}
           style={{
             ...preset.wrapper.style,
-            ...(pt?.wrapper?.({ props })?.style ?? {}),
+            ...(pt?.wrapper?.({ props: props as unknown as Partial<FormProps<Record<string, any>>> })?.style ?? {}),
           }}
         >
           {createChildren()}

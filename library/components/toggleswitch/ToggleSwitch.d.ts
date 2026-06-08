@@ -3,6 +3,7 @@ import { FC } from 'react';
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 import { FieldWrapperPresetOptions } from '../fieldwrapper/FieldWrapper.d';
 
@@ -78,7 +79,7 @@ export interface ToggleSwitchEvent<T = boolean | null> {
 }
 
 export interface ToggleSwitchContext {
-  checked?: boolean;
+  checked?: boolean | null;
   disabled?: boolean;
   partialChecked?: boolean;
   tristate?: boolean;
@@ -90,10 +91,10 @@ export interface ToggleSwitchPassThroughOptions
 }
 
 export interface ToggleSwitchPresetOptions {
-  iconContainer?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  icon?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  input?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
-  box?: PresetMethodAttributes<PresetOptions<'ToggleSwitch'>>;
+  iconContainer?: PresetMethodAttributes<ResolvedPresetOptions<'ToggleSwitch'>>;
+  icon?: PresetMethodAttributes<ResolvedPresetOptions<'ToggleSwitch'>>;
+  input?: PresetMethodAttributes<ResolvedPresetOptions<'ToggleSwitch'>>;
+  box?: PresetMethodAttributes<ResolvedPresetOptions<'ToggleSwitch'>>;
 }
 
 /**

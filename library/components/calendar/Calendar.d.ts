@@ -1,6 +1,7 @@
 import {
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface CalendarProps {
@@ -54,15 +55,15 @@ export interface CalendarProps {
 }
 
 export interface CalendarPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  header?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  navButton?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  title?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  table?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  thead?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  tbody?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  row?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  headCell?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  cell?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
-  day?: PresetMethodAttributes<PresetOptions<'Calendar'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  header?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  navButton?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  title?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  table?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  thead?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  tbody?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  row?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  headCell?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  cell?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
+  day?: PresetMethodAttributes<ResolvedPresetOptions<'Calendar'>>;
 }

@@ -8,6 +8,7 @@ import {
   PresetAttributes,
   PresetMethodAttributes,
   PresetOptions,
+  ResolvedPresetOptions,
 } from '../../hooks/useComponentPreset';
 
 export interface FieldWrapperProps extends FieldWrapperEvent {
@@ -64,13 +65,13 @@ export interface FieldWrapperContext {
 }
 
 export interface FieldWrapperPresetOptions {
-  root?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
-  labelContainer?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  root?: PresetMethodAttributes<ResolvedPresetOptions<'FieldWrapper'>>;
+  labelContainer?: PresetMethodAttributes<ResolvedPresetOptions<'FieldWrapper'>>;
   label?: PresetAttributes;
   required?: PresetAttributes;
   info?: PresetAttributes;
   errorMessage?: PresetAttributes;
-  field?: PresetMethodAttributes<PresetOptions<'FieldWrapper'>>;
+  field?: PresetMethodAttributes<ResolvedPresetOptions<'FieldWrapper'>>;
 }
 
 /**

@@ -27,7 +27,7 @@ export type ValidatorRules = {
   validate?:
     | ((value: any) => boolean | string)
     | Record<string, (value: any) => boolean | string>;
-  customMessage?: Record<keyof RegisterOptions, string>;
+  customMessage?: Record<keyof Omit<ValidatorRules, 'cusstomMessage'>, string>;
   passwordRequirements?: BaseInputProps['passwordRequirements'];
 };
 
@@ -36,7 +36,7 @@ export type ControllerConfig = {
   defaultValue?: any;
 };
 
-export type UseValidatorReturn<T> = Omit<
+export type UseValidatorReturn<T extends FieldValues> = Omit<
   UseFormReturn<T>,
   'register' | 'watch'
 > & {
@@ -51,7 +51,7 @@ export const useValidator = <T extends FieldValues>(
 } => {
   const methods =
     useEffectiveRegister<T>() ??
-    ({ register: undefined } as UseFormReturn<T | null>);
+    ({ register: undefined } as unknown as UseFormReturn<T>);
 
   const { register, watch, ...rest } = methods;
 
@@ -77,7 +77,7 @@ export const useValidator = <T extends FieldValues>(
   }, []);
 
   const hasValidator = useCallback(
-    (key: keyof RegisterOptions): boolean => {
+    (key: keyof ValidatorRules): boolean => {
       return Boolean(!!config[key] || !!config.customMessage?.[key]);
     },
     [config],
@@ -149,10 +149,14 @@ export const useValidator = <T extends FieldValues>(
     return baseValidators;
   }, [config, register, hasValidator, passwordValidations]);
 
-  if (!validators) return;
+  if (!validators) {
+    return {} as UseFormRegisterReturn<typeof fieldName> & {
+      methods: UseValidatorReturn<T>;
+    };
+  }
 
   return {
     ...register(fieldName as Path<T>, validators),
-    methods: { ...rest, watchedValue: watch<Path<T>>(fieldName as Path<T>) },
+    methods: { ...rest, watchedValue: watch(fieldName as Path<T>) },
   };
 };

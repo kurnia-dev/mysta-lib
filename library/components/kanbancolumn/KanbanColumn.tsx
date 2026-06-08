@@ -23,34 +23,38 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
   const { dragItem, setDragItem, cardElements, setCardElements, onUpdate } =
     useKanban();
 
+  // Narrow groupId: all hooks above run unconditionally; guard here is safe.
+  const resolvedGroupId = groupId as string;
+
   const cards = useMemo(
     () =>
       data.map((each) => {
         return {
           ...each,
           id: each.id ?? uuidv4(),
-          groupId,
+          groupId: resolvedGroupId,
         };
       }),
-    [data, groupId],
+    [data, resolvedGroupId],
   );
 
   useEffect(() => {
+    if (!groupId) return;
     if (data.length > 0) {
       const idsInNewCards = new Set(cards.map((each) => each.id));
 
       setCardElements((prev) => {
-        const filteredPrev = prev.filter((c) => !idsInNewCards.has(c.id));
+        const filteredPrev = prev.filter((c) => !idsInNewCards.has(c.id!));
         return [...filteredPrev, ...cards];
       });
     }
-  }, [cards, data.length, setCardElements]);
+  }, [groupId, cards, data.length, setCardElements]);
 
   const handleDragStart = useCallback(
     (e: KanbanDragStartEvent) => {
       const { draggedGroupId, draggedId } = e;
       onDragStart(e);
-      setDragItem({ id: draggedId, groupId: draggedGroupId });
+      setDragItem({ id: draggedId!, groupId: draggedGroupId! });
     },
     [onDragStart, setDragItem],
   );
@@ -72,45 +76,47 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
         if (destinationIdx === -1 || draggedIdx === -1) return prevCards;
         const newCards = [...prevCards];
         const [draggedItem] = newCards.splice(draggedIdx, 1);
-        newCards.splice(destinationIdx, 0, { ...draggedItem, groupId });
-        onUpdate({
-          groupId,
+        newCards.splice(destinationIdx, 0, { ...draggedItem, groupId: resolvedGroupId });
+        onUpdate?.({
+          groupId: resolvedGroupId,
           id: dragItem.id,
           index: newCards
-            .filter((each) => each.groupId === groupId)
+            .filter((each) => each.groupId === resolvedGroupId)
             .findIndex((each) => each.id === dragItem.id),
         });
         return newCards;
       });
     },
-    [dragItem, cardElements, groupId, onDrop, onUpdate, setCardElements],
+    [dragItem, cardElements, resolvedGroupId, onDrop, onUpdate, setCardElements],
   );
 
   const handleDropOnContainer = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
+      if (!dragItem) return;
       onDrop({
         originalEvent: e,
-        destinationGroupId: groupId,
+        destinationGroupId: resolvedGroupId,
         destinationId: dragItem.id,
       });
-      if (!dragItem || dragItem.groupId === groupId) return;
+      if (dragItem.groupId === resolvedGroupId) return;
       const matchedCard = cardElements.find((each) => each.id === dragItem.id);
+      if (!matchedCard) return;
 
       setCardElements((prevCards) => {
         return [
           ...prevCards.filter((each) => each.id !== matchedCard.id),
-          { ...matchedCard, groupId },
+          { ...matchedCard, groupId: resolvedGroupId },
         ];
       });
 
-      onUpdate({
-        groupId,
+      onUpdate?.({
+        groupId: resolvedGroupId,
         id: dragItem.id,
-        index: cardElements.filter((each) => each.groupId === groupId).length,
+        index: cardElements.filter((each) => each.groupId === resolvedGroupId).length,
       });
     },
-    [dragItem, cardElements, groupId, onDrop, onUpdate, setCardElements],
+    [dragItem, cardElements, resolvedGroupId, onDrop, onUpdate, setCardElements],
   );
 
   const interactableProps = useCallback(() => {
@@ -127,14 +133,14 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
 
   const createChildren = useCallback(() => {
     return cardElements
-      .filter((each) => each.groupId === groupId)
+      .filter((each) => each.groupId === resolvedGroupId)
       .map((child) => {
         return (
           <Card
             {...child}
             clickable
             draggable
-            groupId={groupId}
+            groupId={resolvedGroupId}
             id={child.id}
             key={child.id}
             mode="kanban"
@@ -143,7 +149,9 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
           />
         );
       });
-  }, [cardElements, handleDragStart, handleDropOnCard, groupId]);
+  }, [cardElements, handleDragStart, handleDropOnCard, resolvedGroupId]);
+
+  if (!groupId) return null;
 
   return (
     <div
@@ -152,7 +160,7 @@ export const KanbanColumn = (props: KanbanColumnProps) => {
         'flex flex-col h-max gap-3 m-3 p-3 border border-secondary-800 min-h-[200px] min-w-[200px]',
         className,
       )}
-      id={groupId}
+      id={resolvedGroupId}
       {...interactableProps()}
     >
       {createChildren()}

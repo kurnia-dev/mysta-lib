@@ -15,7 +15,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: resolve(__dirname, 'build-entry.ts'),
-      external: ['react'],
+      external: ['react', 'react-dom', 'framer-motion'],
       output: {
         assetFileNames: (assetInfo): string => {
           if (assetInfo.name === 'build-entry.css') return 'style.css';
@@ -23,6 +23,8 @@ export default defineConfig({
         },
         globals: {
           react: 'React',
+          'react-dom': 'ReactDOM',
+          'framer-motion': 'FramerMotion',
         },
       },
     },
@@ -32,5 +34,4 @@ export default defineConfig({
       lib: resolve(__dirname),
     },
   },
-  assetsInclude: ['**/*.lottie'],
 });
