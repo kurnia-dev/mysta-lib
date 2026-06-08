@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# Mysta Lib
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mysta Lib is a React-based frontend monorepo containing a flexible, themable Design System library. It utilizes Tailwind CSS, Radix UI, and Framer Motion to provide robust, accessible, and highly customizable UI components.
 
-Currently, two official plugins are available:
+## Project Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This monorepo is divided into three main parts:
+- **`library/`**: The core headless and structurally styled React components, contexts, and hooks.
+- **`presets/`**: A collection of visual themes (`kitsune`, `yurei`, `raijin`, `inari`, `yuki`, `sakuragi`) that dictate the aesthetic of the components.
+- **`playground/`**: A Vite application to develop, test, and preview the components in isolation.
 
-## Expanding the ESLint configuration
+For a detailed explanation of the design system architecture and how presets work under the hood, please refer to the [Design System Documentation](./design.md).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Development
 
-- Configure the top-level `parserOptions` property like this:
+The development server uses a dynamic script to allow you to run the playground with a specific theme preset.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Starting the Dev Server
+
+To start the development server with the default preset (`kitsune`):
+
+```bash
+pnpm dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To start the development server with a specific preset:
+
+```bash
+pnpm dev --preset <preset_name>
+```
+
+**Supported Presets:** `kitsune`, `yurei`, `raijin`, `inari`, `yuki`, `sakuragi`
+
+### Scripts
+
+- `pnpm dev`: Start the playground development server.
+- `pnpm build`: Build the entire project including presets and the playground.
+- `pnpm storybook`: Start the Storybook server for component documentation.
+- `pnpm lint`: Run ESLint across the codebase.
