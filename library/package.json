@@ -1,6 +1,6 @@
 {
   "name": "@mystaline/mysta-commons",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.37",
   "author": "Mystaline",
   "description": "ReactJS Component Library",
   "type": "module",

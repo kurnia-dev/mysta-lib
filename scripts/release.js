@@ -1,49 +1,96 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const workspace = process.argv[2];
-const releaseType = process.argv[3]; // "stable" or "alpha"
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-if (!workspace || !releaseType) {
-  console.log("Usage: node release.js <workspace> <stable|alpha>");
+const input = process.argv[2]; // "stable", "alpha", or a specific version string (e.g. "1.0.0-alpha.38")
+
+if (!input) {
+  console.log("Usage: node release.js <stable|alpha|version_string>");
   process.exit(1);
 }
 
-const tag = releaseType === 'alpha' ? 'alpha' : 'latest';
+// 1. Read current version from root package.json
+const rootPkgPath = path.resolve(__dirname, '../package.json');
+const rootPkg = JSON.parse(fs.readFileSync(rootPkgPath, 'utf-8'));
+const currentVersion = rootPkg.version;
+console.log(`Current synchronized version: ${currentVersion}`);
 
-// Find workspace directory
-let workspaceDir;
-if (workspace.includes('commons') || workspace === 'library') {
-  workspaceDir = 'library';
-} else if (workspace.includes('lib') || workspace.includes('packages/mysta-lib')) {
-  workspaceDir = 'packages/mysta-lib';
-} else if (workspace.includes('presets') || workspace === 'presets') {
-  workspaceDir = 'presets';
+let newVersion;
+if (input === 'stable') {
+  // If current version has a prerelease tag (e.g., 1.0.0-alpha.37), promote it to stable (1.0.0)
+  // Else bump patch
+  if (currentVersion.includes('-')) {
+    newVersion = currentVersion.split('-')[0];
+  } else {
+    // simple patch bump
+    const parts = currentVersion.split('.');
+    parts[2] = String(Number(parts[2]) + 1);
+    newVersion = parts.join('.');
+  }
+} else if (input === 'alpha') {
+  // If current version has an alpha prerelease tag (e.g. 1.0.0-alpha.37), bump alpha number
+  // Else bump patch and add -alpha.0
+  if (currentVersion.includes('-alpha.')) {
+    const parts = currentVersion.split('-alpha.');
+    const alphaNum = Number(parts[1]) + 1;
+    newVersion = `${parts[0]}-alpha.${alphaNum}`;
+  } else {
+    // bump patch and add -alpha.0
+    const cleanVersion = currentVersion.split('-')[0];
+    const parts = cleanVersion.split('.');
+    parts[2] = String(Number(parts[2]) + 1);
+    newVersion = `${parts.join('.')}-alpha.0`;
+  }
 } else {
-  console.error(`Unknown workspace: ${workspace}`);
-  process.exit(1);
+  // Assume it is a specific version string
+  newVersion = input;
 }
 
-console.log(`Building workspace: ${workspaceDir}...`);
-execSync(`pnpm --filter ${workspace} build`, { stdio: 'inherit' });
+const tag = newVersion.includes('-') ? newVersion.split('-')[1].split('.')[0] : 'latest';
+console.log(`Bumping to synchronized version: ${newVersion} (NPM tag: ${tag})`);
 
-console.log(`Bumping version for ${workspaceDir}...`);
-if (releaseType === 'alpha') {
-  execSync(`pnpm --filter ${workspace} exec npm version prerelease --preid=alpha`, { stdio: 'inherit' });
-} else {
-  execSync(`pnpm --filter ${workspace} exec npm version patch`, { stdio: 'inherit' });
-}
+// 2. Bump version in root and all packages
+console.log('Bumping version in root package.json...');
+rootPkg.version = newVersion;
+fs.writeFileSync(rootPkgPath, JSON.stringify(rootPkg, null, 2) + '\n');
 
-// Read the new version
-const childPkgJson = JSON.parse(fs.readFileSync(path.join(workspaceDir, 'package.json'), 'utf-8'));
-const newVersion = childPkgJson.version;
+const workspaces = ['library', 'packages/mysta-lib', 'presets'];
+workspaces.forEach(workspace => {
+  const pkgPath = path.resolve(__dirname, '..', workspace, 'package.json');
+  if (fs.existsSync(pkgPath)) {
+    console.log(`Bumping version in ${workspace}/package.json...`);
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    pkg.version = newVersion;
+    
+    // Also bump inter-workspace dependencies if they exist
+    if (pkg.dependencies) {
+      Object.keys(pkg.dependencies).forEach(dep => {
+        if (dep.startsWith('@mystaline/')) {
+          // Keep workspace:* protocol so that pnpm resolves it during development/publish
+          pkg.dependencies[dep] = 'workspace:*';
+        }
+      });
+    }
+    
+    fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+  }
+});
 
-console.log(`Version bumped to ${newVersion}. Committing changes...`);
-execSync(`git add ${path.join(workspaceDir, 'package.json')}`, { stdio: 'inherit' });
-execSync(`git commit -m "chore(${workspace}): bump version to ${newVersion}"`, { stdio: 'inherit' });
+// 3. Build all packages recursively
+console.log('Running clean workspace build...');
+execSync('pnpm build', { stdio: 'inherit' });
 
-console.log(`Running release script for ${workspace}...`);
-execSync(`pnpm --filter ${workspace} release ${tag}`, { stdio: 'inherit' });
+// 4. Git commit
+console.log('Staging and committing version bump...');
+execSync('git add .', { stdio: 'inherit' });
+execSync(`git commit -m "chore: release v${newVersion}"`, { stdio: 'inherit' });
 
-console.log(`Release complete for ${workspace}!`);
+// 5. Publish all packages topologically
+console.log(`Publishing all packages with tag: ${tag}...`);
+execSync(`pnpm -r publish --access public --no-git-checks --tag ${tag}`, { stdio: 'inherit' });
+
+console.log(`✅ Synchronized release of v${newVersion} complete!`);
