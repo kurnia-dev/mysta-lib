@@ -8,9 +8,9 @@ import {
   InputText,
   RadioButton,
   ToggleSwitch,
-} from 'lib/components';
-import { FormHandle } from 'lib/components/form/Form.d';
-import { useToast } from 'lib/context/ToastContext';
+} from '@mystaline/mysta-commons/components';
+import { FormHandle } from '@mystaline/mysta-commons/components/form/Form.d';
+import { useToast } from '@mystaline/mysta-commons/context/ToastContext';
 
 import DocTitle from '../DocTitle';
 

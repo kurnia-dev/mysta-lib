@@ -1,4 +1,4 @@
-import { ListItemPresetOptions } from 'lib/components/listitem/ListItem.d';
+import { ListItemPresetOptions } from '@mystaline/mysta-commons/components/listitem/ListItem.d';
 
 const preset: ListItemPresetOptions = {
   root: ({ context }) => ({

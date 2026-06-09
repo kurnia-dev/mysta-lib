@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StatCard } from 'lib/components';
+import { StatCard } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

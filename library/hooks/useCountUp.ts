@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { easings } from 'lib/utils';
+import { easings } from '../utils';
 
 export interface UseCountUpOptions {
   from?: number;

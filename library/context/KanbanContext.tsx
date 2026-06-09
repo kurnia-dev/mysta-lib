@@ -1,11 +1,11 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 
-import { SimplifiedCardProps } from 'lib/components/kanbancolumn/KanbanColumn.d';
+import { SimplifiedCardProps } from '../components/kanbancolumn/KanbanColumn.d';
 import {
   DragItem,
   KanbanContextType,
   KanbanProviderProps,
-} from 'lib/types/kanban.type';
+} from '../types/kanban.type';
 
 const KanbanContext = createContext<KanbanContextType | null>(null);
 

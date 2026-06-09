@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FloatingActionButton } from 'lib/components';
+import { FloatingActionButton } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

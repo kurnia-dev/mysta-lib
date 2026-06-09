@@ -6,8 +6,8 @@ import {
   Dialog,
   RadioButton,
   ToggleSwitch,
-} from 'lib/components';
-import { DialogProps } from 'lib/components/dialog/Dialog.d';
+} from '@mystaline/mysta-commons/components';
+import { DialogProps } from '@mystaline/mysta-commons/components/dialog/Dialog.d';
 
 import DocTitle from '../DocTitle';
 

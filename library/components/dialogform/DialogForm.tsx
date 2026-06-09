@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { forwardRef, Ref } from 'react';
 
-import { Dialog, Form } from 'lib/components';
+import { Dialog, Form } from '../../components';
 
 import { DialogProps } from '../dialog/Dialog.d';
 import { FormHandle, FormProps } from '../form/Form.d';

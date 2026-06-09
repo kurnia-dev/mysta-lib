@@ -1,4 +1,4 @@
-import { ChipPresetOptions } from 'lib/components/chip/Chip.d';
+import { ChipPresetOptions } from '@mystaline/mysta-commons/components/chip/Chip.d';
 
 const preset: ChipPresetOptions = {
   root: ({ props, context }) => {

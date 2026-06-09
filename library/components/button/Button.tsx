@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useCallback, useMemo } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Icon } from '../icon/Icon';
 

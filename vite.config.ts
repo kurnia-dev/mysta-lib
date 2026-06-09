@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      lib: resolve(__dirname, 'library'),
+      '@mystaline/mysta-commons': resolve(__dirname, 'library'),
+      '@mystaline/mysta-lib': resolve(__dirname, 'packages/mysta-lib'),
       packages: resolve(__dirname, 'packages'),
     },
   },

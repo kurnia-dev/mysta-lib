@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { DialogPresetOptions } from 'lib/components/dialog/Dialog.d';
+import { DialogPresetOptions } from '@mystaline/mysta-commons/components/dialog/Dialog.d';
 
 const preset: DialogPresetOptions = {
   overlay: () => ({

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Icon } from '../icon/Icon';
 import { Popover } from '../popover/Popover';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { BottomNavigation } from 'lib/components';
+import { BottomNavigation } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

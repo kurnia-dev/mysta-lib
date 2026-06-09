@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode, useRef } from 'react';
 
-import { useClickOutside, useComponentPreset, useEscapeKey, useScrollLock } from 'lib/hooks';
+import { useClickOutside, useComponentPreset, useEscapeKey, useScrollLock } from '../../hooks';
 
 export interface SlideoverProps {
   open: boolean;

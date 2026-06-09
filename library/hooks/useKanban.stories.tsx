@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import { KanbanBoard } from 'lib/components/kanbanboard/KanbanBoard';
-import { KanbanColumn } from 'lib/components/kanbancolumn/KanbanColumn';
-import { KanbanProvider, useKanban } from 'lib/context';
-import type { DragItem } from 'lib/types/kanban.type';
-import type { SimplifiedCardProps } from 'lib/components/kanbancolumn/KanbanColumn.d';
+import { KanbanBoard } from '../components/kanbanboard/KanbanBoard';
+import { KanbanColumn } from '../components/kanbancolumn/KanbanColumn';
+import { KanbanProvider, useKanban } from '../context';
+import type { DragItem } from '../types/kanban.type';
+import type { SimplifiedCardProps } from '../components/kanbancolumn/KanbanColumn.d';
 
 const meta: Meta = {
   title: 'Hooks/useKanban',

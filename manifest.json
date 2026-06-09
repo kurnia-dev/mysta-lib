@@ -22,12 +22,12 @@
   },
   "npmPackages": [
     {
-      "name": "@wangs-ui/react-core",
-      "buildCommand": "pnpm build"
+      "name": "@mystaline/mysta-lib",
+      "buildCommand": "pnpm build:lib"
     },
     {
-      "name": "@wangs-ui/react-presets",
-      "buildCommand": "pnpm build"
+      "name": "@mystaline/mysta-presets",
+      "buildCommand": "pnpm build:presets"
     }
   ]
 }

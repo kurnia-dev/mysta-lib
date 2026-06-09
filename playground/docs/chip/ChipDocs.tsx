@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Chip } from 'lib/components';
-import { Severities } from 'lib/utils';
+import { Chip } from '@mystaline/mysta-commons/components';
+import { Severities } from '@mystaline/mysta-commons/utils';
 
 import DocTitle from '../DocTitle';
 

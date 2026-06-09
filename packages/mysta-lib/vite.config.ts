@@ -55,11 +55,7 @@ export default defineConfig({
       overlay: false,
     },
   },
-  resolve: {
-    alias: {
-      lib: resolve(__dirname, '../../library'),
-    },
-  },
+
   optimizeDeps: {
     include: ['radix-ui'],
   },

@@ -1,5 +1,5 @@
-import { ToastPresetOptions } from 'lib/components/toast/Toast.d';
-import { getSeverity } from 'lib/utils';
+import { ToastPresetOptions } from '@mystaline/mysta-commons/components/toast/Toast.d';
+import { getSeverity } from '@mystaline/mysta-commons/utils';
 
 const preset: ToastPresetOptions = {
   root: ({ props }) => {

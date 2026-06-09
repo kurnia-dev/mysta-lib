@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
-import { getSeverity } from 'lib/utils';
+import { getSeverity } from '../../utils';
 
 import { Tooltip } from '../tooltip/Tooltip';
 

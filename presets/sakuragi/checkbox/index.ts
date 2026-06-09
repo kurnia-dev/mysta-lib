@@ -1,4 +1,4 @@
-import { CheckboxPresetOptions } from 'lib/components/checkbox/Checkbox.d';
+import { CheckboxPresetOptions } from '@mystaline/mysta-commons/components/checkbox/Checkbox.d';
 
 const preset: CheckboxPresetOptions = {
   icon: ({ context }) => ({
@@ -29,7 +29,7 @@ const preset: CheckboxPresetOptions = {
         'transition-transform active:scale-90',
 
         { 'bg-white': !context.checked && !context.partialChecked },
-        { 'bg-primary-500': context.checked || context.partialChecked },
+        { 'bg-primary-500': !!(context.checked || context.partialChecked) },
 
         {
           '!bg-secondary-100': context?.disabled,

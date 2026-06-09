@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Icon } from '../icon/Icon';
 

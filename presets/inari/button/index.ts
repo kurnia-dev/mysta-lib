@@ -1,4 +1,4 @@
-import { ButtonPresetOptions } from 'lib/components/button/Button.d';
+import { ButtonPresetOptions } from '@mystaline/mysta-commons/components/button/Button.d';
 
 /* eslint-disable eqeqeq */
 const preset: ButtonPresetOptions = {

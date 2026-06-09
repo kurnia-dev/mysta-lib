@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Path } from 'react-hook-form';
 
-import { useComponentPreset, useValidator } from 'lib/hooks';
-import { UseValidatorReturn, ValidatorRules } from 'lib/hooks/useValidator';
-import { FieldPathValue } from 'lib/types/internalFields.type';
+import { useComponentPreset, useValidator } from '../../hooks';
+import { UseValidatorReturn, ValidatorRules } from '../../hooks/useValidator';
+import { FieldPathValue } from '../../types/internalFields.type';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useDebounce } from 'lib/hooks';
+import { useDebounce } from '../../hooks';
 
 import { Table } from '../table/Table';
 import { SearchBar } from './SearchBar';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Icon } from 'lib/components';
-import { IconProps } from 'lib/components/icon/Icon.d';
+import { Icon } from '@mystaline/mysta-commons/components';
+import { IconProps } from '@mystaline/mysta-commons/components/icon/Icon.d';
 
 import DocTitle from '../DocTitle';
 

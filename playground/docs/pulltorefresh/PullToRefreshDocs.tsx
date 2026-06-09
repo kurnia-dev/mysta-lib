@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ListItem, PullToRefresh } from 'lib/components';
+import { ListItem, PullToRefresh } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

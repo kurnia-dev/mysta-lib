@@ -9,12 +9,12 @@ import {
   useState,
 } from 'react';
 
-import { Toast } from 'lib/components/toast/Toast';
+import { Toast } from '../components/toast/Toast';
 import {
   ToastData,
   ToastProps,
   ToastProviderProps,
-} from 'lib/components/toast/Toast.d';
+} from '../components/toast/Toast.d';
 
 const ToastContext = createContext<{
   showToast: (data: ToastData) => void;

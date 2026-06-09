@@ -1,4 +1,4 @@
-import { DropdownPresetOptions } from 'lib/components/dropdown/Dropdown.d';
+import { DropdownPresetOptions } from '@mystaline/mysta-commons/components/dropdown/Dropdown.d';
 
 const preset: DropdownPresetOptions = {
   trigger: {

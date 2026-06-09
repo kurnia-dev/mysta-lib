@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { BottomSheetProps } from './BottomSheet.d';
 

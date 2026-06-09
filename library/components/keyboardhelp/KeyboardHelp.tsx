@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { useComponentPreset, useEscapeKey, useScrollLock } from 'lib/hooks';
+import { useComponentPreset, useEscapeKey, useScrollLock } from '../../hooks';
 
 export interface ShortcutItem {
   key: string | string[];

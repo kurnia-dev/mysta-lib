@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useToast } from 'lib/context/ToastContext';
-import type { ToastData } from 'lib/components/toast/Toast.d';
+import { useToast } from '../context/ToastContext';
+import type { ToastData } from '../components/toast/Toast.d';
 
 const meta: Meta = {
   title: 'Hooks/useToast',

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { useComponentPreset, useEscapeKey, useScrollLock } from 'lib/hooks';
+import { useComponentPreset, useEscapeKey, useScrollLock } from '../../hooks';
 
 export interface CommandItem {
   id: string;

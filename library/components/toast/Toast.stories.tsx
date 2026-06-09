@@ -2,7 +2,7 @@ import { Toast as RUIToast } from 'radix-ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Button } from '../button/Button';
-import { useToast } from 'lib/context/ToastContext';
+import { useToast } from '../../context/ToastContext';
 
 import { Toast } from './Toast';
 
@@ -23,7 +23,7 @@ const meta: Meta<typeof Toast> = {
 2. **\`useToast\` hook** (recommended for most flows) — call \`showToast({ message, severity })\` from anywhere in a component tree that is wrapped in \`MystaLibProvider\` (which Storybook preview already injects). This is the pattern to use in real application code.
 
 \`\`\`tsx
-import { useToast } from 'lib/context/ToastContext';
+import { useToast } from '../../context/ToastContext';
 
 function SaveButton() {
   const { showToast } = useToast();

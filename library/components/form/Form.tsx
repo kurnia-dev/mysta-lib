@@ -17,7 +17,7 @@ import {
   useForm,
 } from 'react-hook-form';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Button } from '../button/Button';
 import { Slot } from '../slot/Slot';

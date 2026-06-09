@@ -1,4 +1,4 @@
-import { BottomSheetPresetOptions } from 'lib/components/bottomsheet/BottomSheet.d';
+import { BottomSheetPresetOptions } from '@mystaline/mysta-commons/components/bottomsheet/BottomSheet.d';
 
 const preset: BottomSheetPresetOptions = {
   root: () => ({

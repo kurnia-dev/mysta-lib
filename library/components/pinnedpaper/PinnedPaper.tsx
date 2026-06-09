@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 
-import { useComponentPreset, useDraggable } from 'lib/hooks';
+import { useComponentPreset, useDraggable } from '../../hooks';
 
 export interface PinnedPaperProps {
   title?: string;

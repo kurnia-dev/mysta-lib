@@ -1,4 +1,4 @@
-import { useCountUp } from 'lib/hooks';
+import { useCountUp } from '../../hooks';
 
 export interface AnimatedNumberProps {
   from?: number;

@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { Dialog as RUIDialog } from 'radix-ui';
 import { memo, useMemo } from 'react';
 
-import { Icon, Slot } from 'lib/components';
-import { useComponentPreset } from 'lib/hooks';
+import { Icon, Slot } from '../../components';
+import { useComponentPreset } from '../../hooks';
 
 import { DialogProps } from './Dialog.d';
 

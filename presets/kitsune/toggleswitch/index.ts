@@ -1,4 +1,4 @@
-import { ToggleSwitchPresetOptions } from 'lib/components/toggleswitch/ToggleSwitch.d';
+import { ToggleSwitchPresetOptions } from '@mystaline/mysta-commons/components/toggleswitch/ToggleSwitch.d';
 
 const preset: ToggleSwitchPresetOptions = {
   iconContainer: ({ context }) => ({

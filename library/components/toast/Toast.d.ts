@@ -5,7 +5,7 @@ import {
   PresetMethodAttributes,
   PresetOptions,
   ResolvedPresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
 
 import { Severities } from '../../utils';
 import { Icons } from '../icon/Icon.d';

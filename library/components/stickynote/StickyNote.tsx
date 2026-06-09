@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode, useId } from 'react';
 
-import { useComponentPreset, useDraggable } from 'lib/hooks';
+import { useComponentPreset, useDraggable } from '../../hooks';
 
 export interface StickyNoteProps {
   text: string;

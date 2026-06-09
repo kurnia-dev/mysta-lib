@@ -4,11 +4,65 @@
   "author": "Mystaline",
   "description": "ReactJS Component Library",
   "type": "module",
+  "main": "./dist/mysta-commons.es.js",
+  "module": "./dist/mysta-commons.es.js",
+  "types": "./dist/types/build-entry.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/build-entry.d.ts",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./dist/style.css": "./dist/style.css",
+    "./components": {
+      "types": "./dist/types/components/index.d.ts",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./components/*": {
+      "types": "./dist/types/components/*",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./hooks": {
+      "types": "./dist/types/hooks/index.d.ts",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./hooks/*": {
+      "types": "./dist/types/hooks/*",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./utils": {
+      "types": "./dist/types/utils/index.d.ts",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./utils/*": {
+      "types": "./dist/types/utils/*",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./context": {
+      "types": "./dist/types/context/index.d.ts",
+      "import": "./dist/mysta-commons.es.js"
+    },
+    "./context/*": {
+      "types": "./dist/types/context/*",
+      "import": "./dist/mysta-commons.es.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "components": ["dist/types/components/index.d.ts"],
+      "components/*": ["dist/types/components/*"],
+      "hooks": ["dist/types/hooks/index.d.ts"],
+      "hooks/*": ["dist/types/hooks/*"],
+      "utils": ["dist/types/utils/index.d.ts"],
+      "utils/*": ["dist/types/utils/*"],
+      "context": ["dist/types/context/index.d.ts"],
+      "context/*": ["dist/types/context/*"]
+    }
+  },
   "scripts": {
-    "build": "rimraf dist && vite build --config ./vite.config.ts && sh ./scripts/postbuild.sh",
-    "release": "pnpm build && changelogen --release --major && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh",
-    "release:minor": "pnpm build && changelogen --release --minor && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh",
-    "release:patch": "pnpm build && changelogen --release --patch --push && node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh"
+    "build": "rimraf dist && vite build --config ./vite.config.ts && node ./scripts/postbuild.js",
+    "release": "pnpm build && changelogen --release --major && node ../scripts/publish.js",
+    "release:minor": "pnpm build && changelogen --release --minor && node ../scripts/publish.js",
+    "release:patch": "pnpm build && changelogen --release --patch --push && node ../scripts/publish.js"
   },
   "peerDependencies": {
     "framer-motion": ">=10.0.0"

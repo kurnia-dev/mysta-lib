@@ -10,8 +10,8 @@ import {
   InputText,
   RadioButton,
   ToggleSwitch,
-} from 'lib/components';
-import { FormHandle } from 'lib/components/form/Form.d';
+} from '@mystaline/mysta-commons/components';
+import { FormHandle } from '@mystaline/mysta-commons/components/form/Form.d';
 
 import DocTitle from '../DocTitle';
 

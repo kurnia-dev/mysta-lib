@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 export interface HPBarProps {
   value: number;

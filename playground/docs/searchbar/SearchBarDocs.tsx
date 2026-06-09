@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { SearchBar } from 'lib/components';
+import { SearchBar } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

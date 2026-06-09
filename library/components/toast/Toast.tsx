@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Toast as RUIToast } from 'radix-ui';
 import { forwardRef, useState } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Button } from '../button/Button';
 import { Icon } from '../icon/Icon';

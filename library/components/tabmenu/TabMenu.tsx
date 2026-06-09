@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { KeyboardEvent, memo, useMemo } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Icon } from '../icon/Icon';
 

@@ -9,11 +9,18 @@
     "declarationDir": "dist",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "lib/*": ["../library/*"]
-    }
+    "skipLibCheck": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
   },
-  "include": ["**/*.d.ts", "**/*.ts", "**/*.json", "**/preset/**/*.{js|ts}"],
-  "exclude": ["dist"]
+  "include": [
+    "**/*.d.ts",
+    "**/*.ts",
+    "**/*.json",
+    "**/preset/**/*.{js|ts}"
+  ],
+  "exclude": [
+    "dist"
+  ]
 }

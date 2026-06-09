@@ -1,4 +1,4 @@
-import type { ResolvedPresetOptions } from 'lib/hooks/useComponentPreset';
+import type { ResolvedPresetOptions } from '@mystaline/mysta-commons/hooks/useComponentPreset';
 
 const preset = {
   root: (options: ResolvedPresetOptions<'CopyButton'>) => ({

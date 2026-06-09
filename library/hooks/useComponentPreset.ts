@@ -5,94 +5,94 @@ import clsx from 'clsx';
 import type {
   AppHeaderContext,
   AppHeaderProps,
-} from 'lib/components/appheader/AppHeader.d';
-import type { BottomNavigationProps } from 'lib/components/bottomnavigation/BottomNavigation.d';
+} from '../components/appheader/AppHeader.d';
+import type { BottomNavigationProps } from '../components/bottomnavigation/BottomNavigation.d';
 import type {
   BottomSheetContext,
   BottomSheetProps,
-} from 'lib/components/bottomsheet/BottomSheet.d';
-import type { CalendarProps } from 'lib/components/calendar/Calendar.d';
-import type { ChipContext, ChipProps } from 'lib/components/chip/Chip.d';
+} from '../components/bottomsheet/BottomSheet.d';
+import type { CalendarProps } from '../components/calendar/Calendar.d';
+import type { ChipContext, ChipProps } from '../components/chip/Chip.d';
 import type {
   FloatingActionButtonContext,
   FloatingActionButtonProps,
-} from 'lib/components/floatingactionbutton/FloatingActionButton.d';
+} from '../components/floatingactionbutton/FloatingActionButton.d';
 import type {
   ListItemContext,
   ListItemProps,
-} from 'lib/components/listitem/ListItem.d';
+} from '../components/listitem/ListItem.d';
 import type {
   PullToRefreshContext,
   PullToRefreshProps,
-} from 'lib/components/pulltorefresh/PullToRefresh.d';
+} from '../components/pulltorefresh/PullToRefresh.d';
 import type {
   SearchBarContext,
   SearchBarProps,
-} from 'lib/components/searchbar/SearchBar.d';
+} from '../components/searchbar/SearchBar.d';
 import type {
   StatCardContext,
   StatCardProps,
-} from 'lib/components/statcard/StatCard.d';
+} from '../components/statcard/StatCard.d';
 // Phase D — previously unregistered components
-import type { StampBadgeProps } from 'lib/components/stampbadge/StampBadge';
-import type { TerminalEmbedProps } from 'lib/components/terminalembed/TerminalEmbed';
-import type { SpinnerProps } from 'lib/components/spinner/Spinner';
-import type { EmptyStateProps } from 'lib/components/emptystate/EmptyState';
-import type { ProgressBarProps } from 'lib/components/progressbar/ProgressBar';
-import type { HPBarProps } from 'lib/components/hpbar/HPBar';
-import type { MultiPhaseToastProps } from 'lib/components/multiphasetoast/MultiPhaseToast';
-import type { MobileActionBarProps } from 'lib/components/mobileactionbar/MobileActionBar';
-import type { PaginationProps } from 'lib/components/paginationbar/Pagination';
-import type { StepperProps } from 'lib/components/stepper/Stepper';
-import type { TimelineProps } from 'lib/components/timeline/Timeline';
-import type { ComparisonTableProps } from 'lib/components/comparisontable/ComparisonTable';
-import type { ThemeSwitcherProps } from 'lib/components/themeswitcher/ThemeSwitcher';
-import type { IconCardProps } from 'lib/components/iconcard/IconCard';
-import type { PricingCardProps } from 'lib/components/pricingcard/PricingCard';
-import type { NumberStepperProps } from 'lib/components/numberstepper/NumberStepper';
-import type { SliderProps } from 'lib/components/slider/Slider';
-import type { CopyButtonProps } from 'lib/components/copybutton/CopyButton';
-import type { SlideoverProps } from 'lib/components/slideover/Slideover';
-import type { KeyboardHelpProps } from 'lib/components/keyboardhelp/KeyboardHelp';
-import type { CommandPaletteProps } from 'lib/components/commandpalette/CommandPalette';
-import type { PolaroidCardProps } from 'lib/components/polaroidcard/PolaroidCard';
-import type { PinnedPaperProps } from 'lib/components/pinnedpaper/PinnedPaper';
-import type { StickyNoteProps } from 'lib/components/stickynote/StickyNote';
-import type { SeparatorProps } from 'lib/components/separator/Separator.d';
-import type { TypewriterProps } from 'lib/components/typewriter/Typewriter';
+import type { StampBadgeProps } from '../components/stampbadge/StampBadge';
+import type { TerminalEmbedProps } from '../components/terminalembed/TerminalEmbed';
+import type { SpinnerProps } from '../components/spinner/Spinner';
+import type { EmptyStateProps } from '../components/emptystate/EmptyState';
+import type { ProgressBarProps } from '../components/progressbar/ProgressBar';
+import type { HPBarProps } from '../components/hpbar/HPBar';
+import type { MultiPhaseToastProps } from '../components/multiphasetoast/MultiPhaseToast';
+import type { MobileActionBarProps } from '../components/mobileactionbar/MobileActionBar';
+import type { PaginationProps } from '../components/paginationbar/Pagination';
+import type { StepperProps } from '../components/stepper/Stepper';
+import type { TimelineProps } from '../components/timeline/Timeline';
+import type { ComparisonTableProps } from '../components/comparisontable/ComparisonTable';
+import type { ThemeSwitcherProps } from '../components/themeswitcher/ThemeSwitcher';
+import type { IconCardProps } from '../components/iconcard/IconCard';
+import type { PricingCardProps } from '../components/pricingcard/PricingCard';
+import type { NumberStepperProps } from '../components/numberstepper/NumberStepper';
+import type { SliderProps } from '../components/slider/Slider';
+import type { CopyButtonProps } from '../components/copybutton/CopyButton';
+import type { SlideoverProps } from '../components/slideover/Slideover';
+import type { KeyboardHelpProps } from '../components/keyboardhelp/KeyboardHelp';
+import type { CommandPaletteProps } from '../components/commandpalette/CommandPalette';
+import type { PolaroidCardProps } from '../components/polaroidcard/PolaroidCard';
+import type { PinnedPaperProps } from '../components/pinnedpaper/PinnedPaper';
+import type { StickyNoteProps } from '../components/stickynote/StickyNote';
+import type { SeparatorProps } from '../components/separator/Separator.d';
+import type { TypewriterProps } from '../components/typewriter/Typewriter';
 // Core Components
-import type { BadgeProps } from 'lib/components/badge/Badge.d';
-import type { ButtonContext, ButtonProps } from 'lib/components/button/Button.d';
-import type { CardProps } from 'lib/components/card/Card.d';
+import type { BadgeProps } from '../components/badge/Badge.d';
+import type { ButtonContext, ButtonProps } from '../components/button/Button.d';
+import type { CardProps } from '../components/card/Card.d';
 import type {
   CheckboxContext,
   CheckboxProps,
-} from 'lib/components/checkbox/Checkbox.d';
-import type { DialogContext, DialogProps } from 'lib/components/dialog/Dialog.d';
+} from '../components/checkbox/Checkbox.d';
+import type { DialogContext, DialogProps } from '../components/dialog/Dialog.d';
 import type {
   DropdownContext,
   DropdownProps,
-} from 'lib/components/dropdown/Dropdown.d';
+} from '../components/dropdown/Dropdown.d';
 import type {
   FieldWrapperContext,
   FieldWrapperProps,
-} from 'lib/components/fieldwrapper/FieldWrapper.d';
-import type { FormProps } from 'lib/components/form/Form.d';
-import type { BaseInputProps } from 'lib/components/private/BaseInput.d';
+} from '../components/fieldwrapper/FieldWrapper.d';
+import type { FormProps } from '../components/form/Form.d';
+import type { BaseInputProps } from '../components/private/BaseInput.d';
 import type {
   RadioButtonContext,
   RadioButtonProps,
-} from 'lib/components/radiobutton/RadioButton.d';
-import type { SkeletonLoaderProps } from 'lib/components/skeletonloader/SkeletonLoader.d';
-import type { TableProps } from 'lib/components/table/Table.d';
-import type { TabMenuProps } from 'lib/components/tabmenu/TabMenu.d';
-import type { ToastProps } from 'lib/components/toast/Toast.d';
+} from '../components/radiobutton/RadioButton.d';
+import type { SkeletonLoaderProps } from '../components/skeletonloader/SkeletonLoader.d';
+import type { TableProps } from '../components/table/Table.d';
+import type { TabMenuProps } from '../components/tabmenu/TabMenu.d';
+import type { ToastProps } from '../components/toast/Toast.d';
 import type {
   ToggleSwitchContext,
   ToggleSwitchProps,
-} from 'lib/components/toggleswitch/ToggleSwitch.d';
-import type { TooltipProps } from 'lib/components/tooltip/Tooltip.d';
-import { useMystaLib } from 'lib/context/LibContext';
+} from '../components/toggleswitch/ToggleSwitch.d';
+import type { TooltipProps } from '../components/tooltip/Tooltip.d';
+import { useMystaLib } from '../context/LibContext';
 
 export type ClassValue = string | Record<string, boolean>;
 

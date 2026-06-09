@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListItem } from 'lib/components';
+import { ListItem } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

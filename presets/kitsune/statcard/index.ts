@@ -1,4 +1,4 @@
-import { StatCardPresetOptions } from 'lib/components/statcard/StatCard.d';
+import { StatCardPresetOptions } from '@mystaline/mysta-commons/components/statcard/StatCard.d';
 
 const preset: StatCardPresetOptions = {
   root: ({ props, context }) => {

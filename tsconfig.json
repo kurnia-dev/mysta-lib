@@ -22,7 +22,10 @@
     "declarationDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "lib/*": ["library/*"],
+      "@mystaline/mysta-commons": ["library/build-entry.ts"],
+      "@mystaline/mysta-commons/*": ["library/*"],
+      "@mystaline/mysta-lib": ["packages/mysta-lib/build-entry.ts"],
+      "@mystaline/mysta-lib/*": ["packages/mysta-lib/*"],
       "packages/*": ["packages/*"]
     },
     "types": ["vite/client", "node"]

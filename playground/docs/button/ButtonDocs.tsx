@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Button } from 'lib/components';
-import { Severities } from 'lib/utils';
+import { Button } from '@mystaline/mysta-commons/components';
+import { Severities } from '@mystaline/mysta-commons/utils';
 
 import DocTitle from '../DocTitle';
 

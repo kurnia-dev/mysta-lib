@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Tooltip as RUITooltip } from 'radix-ui';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { TooltipProps } from './Tooltip.d';
 

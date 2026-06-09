@@ -1,4 +1,4 @@
-import { KanbanProvider } from 'lib/context';
+import { KanbanProvider } from '../../context';
 
 import { KanbanBoardProps } from './KanbanBoard.d';
 

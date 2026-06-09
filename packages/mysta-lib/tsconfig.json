@@ -8,13 +8,12 @@
     "declarationDir": "dist",
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "lib/*": ["../../library/*"]
-    }
   },
   "include": [
     "**/*.d.ts",
@@ -23,5 +22,7 @@
     "**/preset/**/*.js",
     "**/*.tsx"
   ],
-  "exclude": ["dist/*.js"]
+  "exclude": [
+    "dist/*.js"
+  ]
 }

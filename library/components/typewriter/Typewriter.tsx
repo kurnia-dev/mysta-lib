@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode, useEffect, useState } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 export interface TypewriterProps {
   lines: string[];

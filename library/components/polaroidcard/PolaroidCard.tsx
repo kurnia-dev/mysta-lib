@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode, useRef, useState } from 'react';
 
-import { useComponentPreset, useDraggable } from 'lib/hooks';
+import { useComponentPreset, useDraggable } from '../../hooks';
 import { StampBadge } from '../stampbadge/StampBadge';
 
 export interface PolaroidCardProps {

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { memo, useCallback } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { SkeletonLoaderProps } from './SkeletonLoader.d';
 

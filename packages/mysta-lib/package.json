@@ -4,15 +4,22 @@
   "author": "Mystaline",
   "description": "ReactJS Component Library",
   "type": "module",
+  "main": "./dist/mysta-lib.es.js",
   "module": "./dist/mysta-lib.es.js",
   "types": "./dist/main.d.ts",
   "repository": "https://github.com/mystaline/mysta-lib",
   "scripts": {
-    "build": "rimraf dist && vite build --config ./vite.config.ts && sh ./scripts/postbuild.sh",
-    "release": "node ./scripts/pre-publish.cjs && sh ./scripts/publish.sh"
+    "build": "rimraf dist && vite build --config ./vite.config.ts",
+    "release": "node ../../scripts/publish.js"
+  },
+  "dependencies": {
+    "@mystaline/mysta-commons": "workspace:*"
   },
   "exports": {
-    ".": "./dist/mysta-lib.es.js",
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/mysta-lib.es.js"
+    },
     "./colors.config.json": "./colors.config.json"
   }
 }

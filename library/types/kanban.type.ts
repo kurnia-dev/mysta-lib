@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-import { SimplifiedCardProps } from 'lib/components/kanbancolumn/KanbanColumn.d';
+import { SimplifiedCardProps } from '../components/kanbancolumn/KanbanColumn.d';
 
 export interface DragItem {
   id: string;

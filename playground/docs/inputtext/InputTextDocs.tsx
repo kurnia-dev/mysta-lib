@@ -5,7 +5,7 @@ import {
   InputNumber,
   InputPassword,
   InputText,
-} from 'lib/components';
+} from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

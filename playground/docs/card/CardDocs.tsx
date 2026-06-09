@@ -1,5 +1,5 @@
-import { Card } from 'lib/components';
-import { Severities } from 'lib/utils';
+import { Card } from '@mystaline/mysta-commons/components';
+import { Severities } from '@mystaline/mysta-commons/utils';
 
 const CardDocs: React.FC = () => {
   const SEVERITY = [

@@ -1,4 +1,4 @@
-import { AppHeaderPresetOptions } from 'lib/components/appheader/AppHeader.d';
+import { AppHeaderPresetOptions } from '@mystaline/mysta-commons/components/appheader/AppHeader.d';
 
 const preset: AppHeaderPresetOptions = {
   root: ({ props }) => ({

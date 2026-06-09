@@ -1,5 +1,5 @@
-import { Table } from 'lib/components';
-import { TableColumn } from 'lib/components/table/Table.d';
+import { Table } from '@mystaline/mysta-commons/components';
+import { TableColumn } from '@mystaline/mysta-commons/components/table/Table.d';
 
 const PlaygroundDocs: React.FC = () => {
   //   const users = [

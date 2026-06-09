@@ -4,7 +4,7 @@ import {
   PresetMethodAttributes,
   PresetOptions,
   ResolvedPresetOptions,
-} from 'lib/hooks/useComponentPreset';
+} from '../../hooks/useComponentPreset';
 
 export interface SkeletonLoaderProps
   extends React.HTMLAttributes<HTMLDivElement> {

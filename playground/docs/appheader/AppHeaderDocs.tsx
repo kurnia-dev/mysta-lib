@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AppHeader } from 'lib/components';
+import { AppHeader } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

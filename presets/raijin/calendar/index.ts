@@ -1,4 +1,4 @@
-import { CalendarPresetOptions } from 'lib/components/calendar/Calendar.d';
+import { CalendarPresetOptions } from '@mystaline/mysta-commons/components/calendar/Calendar.d';
 
 const preset: CalendarPresetOptions = {
   root: () => ({

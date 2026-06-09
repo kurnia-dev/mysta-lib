@@ -1,4 +1,4 @@
-import { RadioButtonPresetOptions } from 'lib/components/radiobutton/RadioButton.d';
+import { RadioButtonPresetOptions } from '@mystaline/mysta-commons/components/radiobutton/RadioButton.d';
 
 const preset: RadioButtonPresetOptions = {
   input: ({ context }) => ({

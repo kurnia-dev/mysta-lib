@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useCallback, useMemo } from 'react';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { Icon } from '../icon/Icon';
 import { Icons } from '../icon/Icon.d';

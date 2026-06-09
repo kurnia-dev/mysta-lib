@@ -1,5 +1,5 @@
-import { BadgePresetOptions } from 'lib/components/badge/Badge.d';
-import { getSeverity } from 'lib/utils';
+import { BadgePresetOptions } from '@mystaline/mysta-commons/components/badge/Badge.d';
+import { getSeverity } from '@mystaline/mysta-commons/utils';
 
 const preset: BadgePresetOptions = {
   root: ({ props }) => {

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useKanban } from 'lib/context';
+import { useKanban } from '../../context';
 
 import { Card } from '../card/Card';
 import { KanbanDragStartEvent, KanbanDropEvent } from '../card/Card.d';

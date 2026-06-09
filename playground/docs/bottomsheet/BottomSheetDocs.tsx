@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { BottomSheet, Button } from 'lib/components';
+import { BottomSheet, Button } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

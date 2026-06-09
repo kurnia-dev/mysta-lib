@@ -1,4 +1,4 @@
-import { FieldWrapperPresetOptions } from 'lib/components/fieldwrapper/FieldWrapper.d';
+import { FieldWrapperPresetOptions } from '@mystaline/mysta-commons/components/fieldwrapper/FieldWrapper.d';
 
 const preset: FieldWrapperPresetOptions = {
   root: ({ context }) => ({

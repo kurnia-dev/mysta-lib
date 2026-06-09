@@ -4,8 +4,8 @@ import {
   PresetMethodAttributes,
   PresetOptions,
   ResolvedPresetOptions,
-} from 'lib/hooks/useComponentPreset';
-import { ModelValue } from 'lib/hooks/useModelValue';
+} from '../../hooks/useComponentPreset';
+import { ModelValue } from '../../hooks/useModelValue';
 
 import { Icons } from '../icon/Icon.d';
 

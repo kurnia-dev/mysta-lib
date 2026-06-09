@@ -1,4 +1,4 @@
-import { FloatingActionButtonPresetOptions } from 'lib/components/floatingactionbutton/FloatingActionButton.d';
+import { FloatingActionButtonPresetOptions } from '@mystaline/mysta-commons/components/floatingactionbutton/FloatingActionButton.d';
 
 const preset: FloatingActionButtonPresetOptions = {
   root: ({ props, context }) => {

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Separator as RUISeparator } from 'radix-ui';
 
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 import { SeparatorProps } from './Separator.d';
 

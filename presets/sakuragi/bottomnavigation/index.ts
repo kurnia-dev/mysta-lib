@@ -1,4 +1,4 @@
-import { BottomNavigationPresetOptions } from 'lib/components/bottomnavigation/BottomNavigation.d';
+import { BottomNavigationPresetOptions } from '@mystaline/mysta-commons/components/bottomnavigation/BottomNavigation.d';
 
 const preset: BottomNavigationPresetOptions = {
   root: () => ({

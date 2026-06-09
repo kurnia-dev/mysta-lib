@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
-import { useComponentPreset } from 'lib/hooks';
-import { useCopyToClipboard } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
+import { useCopyToClipboard } from '../../hooks';
 
 export interface CopyButtonProps {
   text: string;

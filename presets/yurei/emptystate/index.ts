@@ -1,4 +1,4 @@
-import type { PresetOptions } from 'lib/hooks/useComponentPreset';
+import type { PresetOptions } from '@mystaline/mysta-commons/hooks/useComponentPreset';
 
 const preset = {
   root: (_options: PresetOptions<'EmptyState'>) => ({

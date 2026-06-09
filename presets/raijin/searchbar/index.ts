@@ -1,4 +1,4 @@
-import { SearchBarPresetOptions } from 'lib/components/searchbar/SearchBar.d';
+import { SearchBarPresetOptions } from '@mystaline/mysta-commons/components/searchbar/SearchBar.d';
 
 const preset: SearchBarPresetOptions = {
   root: ({ context }) => ({

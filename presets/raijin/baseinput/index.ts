@@ -1,4 +1,4 @@
-import { BaseInputPresetOptions } from 'lib/components/private/BaseInput.d';
+import { BaseInputPresetOptions } from '@mystaline/mysta-commons/components/private/BaseInput.d';
 
 const preset: BaseInputPresetOptions = {
   eyetoggle: {

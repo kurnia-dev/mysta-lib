@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { ModelValue, PresetMethodAttributes, PresetOptions, ResolvedPresetOptions } from 'lib/hooks';
-import { FetchResponse } from 'lib/types/response.type';
+import { ModelValue, PresetMethodAttributes, PresetOptions, ResolvedPresetOptions } from '../../hooks';
+import { FetchResponse } from '../../types/response.type';
 
 export type TableResponse<T> = FetchResponse<{
   data: T[];

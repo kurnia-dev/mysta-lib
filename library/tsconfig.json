@@ -10,10 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "lib/*": ["./*"]
-    },
+
     "lib": ["ESNext", "DOM"],
     "types": ["node"]
   },

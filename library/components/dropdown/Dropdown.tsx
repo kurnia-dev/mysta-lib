@@ -3,8 +3,8 @@ import { Select } from 'radix-ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
-import { useComponentPreset, useValidator } from 'lib/hooks';
-import { PresetReturn } from 'lib/hooks/useComponentPreset';
+import { useComponentPreset, useValidator } from '../../hooks';
+import { PresetReturn } from '../../hooks/useComponentPreset';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 import { Icon } from '../icon/Icon';

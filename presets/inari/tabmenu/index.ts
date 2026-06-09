@@ -1,8 +1,8 @@
 import {
   TabMenuPresetOptions,
   TabMenuProps,
-} from 'lib/components/tabmenu/TabMenu.d';
-import { ClassValue } from 'lib/hooks/useComponentPreset';
+} from '@mystaline/mysta-commons/components/tabmenu/TabMenu.d';
+import { ClassValue } from '@mystaline/mysta-commons/hooks/useComponentPreset';
 
 const commonClasses: ClassValue =
   'transition-all duration-200 [cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer hover:scale-[1.02] active:scale-[0.98]';

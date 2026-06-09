@@ -1,6 +1,6 @@
-import { TabMenu } from 'lib/components';
-import { TabMenuItem } from 'lib/components/tabmenu/TabMenu.d';
-import { useModelValue } from 'lib/hooks';
+import { TabMenu } from '@mystaline/mysta-commons/components';
+import { TabMenuItem } from '@mystaline/mysta-commons/components/tabmenu/TabMenu.d';
+import { useModelValue } from '@mystaline/mysta-commons/hooks';
 
 const KanbanDocs: React.FC = () => {
   const activeIndex1 = useModelValue<number>(0);

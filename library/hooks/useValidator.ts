@@ -9,8 +9,8 @@ import {
   UseFormReturn,
 } from 'react-hook-form';
 
-import { BaseInputProps } from 'lib/components/private/BaseInput.d';
-import { useEffectiveRegister } from 'lib/hooks';
+import { BaseInputProps } from '../components/private/BaseInput.d';
+import { useEffectiveRegister } from '../hooks';
 
 export type ValidatorOperator = 'empty' | 'exceed' | 'pattern';
 

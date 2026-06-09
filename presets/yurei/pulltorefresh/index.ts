@@ -1,4 +1,4 @@
-import { PullToRefreshPresetOptions } from 'lib/components/pulltorefresh/PullToRefresh.d';
+import { PullToRefreshPresetOptions } from '@mystaline/mysta-commons/components/pulltorefresh/PullToRefresh.d';
 
 const preset: PullToRefreshPresetOptions = {
   root: () => ({

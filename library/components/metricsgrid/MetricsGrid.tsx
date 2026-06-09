@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { useStaggerReady } from 'lib/hooks';
+import { useStaggerReady } from '../../hooks';
 
 import { StatCard } from '../statcard/StatCard';
 import { StatCardProps } from '../statcard/StatCard.d';

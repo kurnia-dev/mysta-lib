@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Calendar } from 'lib/components';
+import { Calendar } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

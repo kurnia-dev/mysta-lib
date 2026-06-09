@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useComponentPreset } from 'lib/hooks';
+import { useComponentPreset } from '../../hooks';
 
 export interface StampBadgeProps {
   /** The stamp text. Keep short — max ~8 chars. Open string: known values 'live', 'wip', 'archived' get built-in colors. */

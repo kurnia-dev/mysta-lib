@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { useModelValue } from 'lib/hooks';
+import { useModelValue } from '../../hooks';
 
 import type { TabMenuItem } from './TabMenu.d';
 import { TabMenu } from './TabMenu';

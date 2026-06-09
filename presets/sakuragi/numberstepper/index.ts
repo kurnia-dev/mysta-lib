@@ -1,4 +1,4 @@
-import type { PresetOptions } from 'lib/hooks/useComponentPreset';
+import type { PresetOptions } from '@mystaline/mysta-commons/hooks/useComponentPreset';
 
 const buttonBase = [
   'px-3 py-1.5 text-lg font-medium disabled:opacity-30',

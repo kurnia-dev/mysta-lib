@@ -3,17 +3,18 @@
   "version": "1.0.0-alpha.27",
   "author": "Mystaline",
   "description": "ReactJS Component Library Presets",
+  "type": "module",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mystaline/mysta-lib.git"
   },
   "scripts": {
-    "dev": "sh dev.sh",
-    "build": "sh build.sh",
-    "release": "sh release.sh"
+    "dev": "node dev.js",
+    "build": "rimraf dist && tsc --emitDeclarationOnly && vite build && node build-styles.js",
+    "release": "node ../scripts/publish.js"
   },
   "dependencies": {
-    "@mystaline/mysta-lib": "1.0.0-alpha.36"
+    "@mystaline/mysta-commons": "workspace:*"
   }
 }

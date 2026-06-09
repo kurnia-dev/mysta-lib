@@ -1,4 +1,4 @@
-import { FormPresetOptions } from 'lib/components/form/Form.d';
+import { FormPresetOptions } from '@mystaline/mysta-commons/components/form/Form.d';
 
 const preset: FormPresetOptions = {
   root: {

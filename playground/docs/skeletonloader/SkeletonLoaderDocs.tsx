@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { SkeletonLoader } from 'lib/components';
+import { SkeletonLoader } from '@mystaline/mysta-commons/components';
 
 import DocTitle from '../DocTitle';
 

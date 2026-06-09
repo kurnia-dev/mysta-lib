@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useToast } from 'lib/context/ToastContext';
-import { useComponentPreset } from 'lib/hooks';
+import { useToast } from '../../context/ToastContext';
+import { useComponentPreset } from '../../hooks';
 
 import { TableProps } from './Table.d';
 

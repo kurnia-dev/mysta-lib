@@ -1,4 +1,4 @@
-import { TooltipPresetOptions } from 'lib/components/tooltip/Tooltip.d';
+import { TooltipPresetOptions } from '@mystaline/mysta-commons/components/tooltip/Tooltip.d';
 
 const preset: TooltipPresetOptions = {
   content: {

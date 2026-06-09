@@ -1,4 +1,4 @@
-import { CardPresetOptions } from 'lib/components/card/Card.d';
+import { CardPresetOptions } from '@mystaline/mysta-commons/components/card/Card.d';
 
 const preset: CardPresetOptions = {
   root: ({ props }) => ({

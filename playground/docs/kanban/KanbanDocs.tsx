@@ -1,4 +1,4 @@
-import { KanbanBoard, KanbanColumn } from 'lib/components';
+import { KanbanBoard, KanbanColumn } from '@mystaline/mysta-commons/components';
 
 const KanbanDocs: React.FC = () => {
   return (

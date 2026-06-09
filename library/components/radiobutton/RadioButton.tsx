@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
-import { useComponentPreset, useValidator } from 'lib/hooks';
+import { useComponentPreset, useValidator } from '../../hooks';
 
 import { FieldWrapper } from '../fieldwrapper/FieldWrapper';
 

@@ -1,4 +1,4 @@
-import { SkeletonLoaderPresetOptions } from 'lib/components/skeletonloader/SkeletonLoader.d';
+import { SkeletonLoaderPresetOptions } from '@mystaline/mysta-commons/components/skeletonloader/SkeletonLoader.d';
 
 const preset: SkeletonLoaderPresetOptions = {
   root: () => ({
