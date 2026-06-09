@@ -19,5 +19,15 @@
     "url": "http://localhost:5173/mysta-lib",
     "port": 5173,
     "base": "/mysta-lib"
-  }
+  },
+  "npmPackages": [
+    {
+      "name": "@wangs-ui/react-core",
+      "buildCommand": "pnpm build"
+    },
+    {
+      "name": "@wangs-ui/react-presets",
+      "buildCommand": "pnpm build"
+    }
+  ]
 }
